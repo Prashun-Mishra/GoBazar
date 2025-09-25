@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Go Bazar - OTP Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2d5a27;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #2d5a27;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        button:hover {
+            background: #1e3d1a;
+        }
+        .message {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .step {
+            display: none;
+        }
+        .step.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛒 Go Bazar - OTP Login</h1>
+        
+        <!-- Step 1: Email Input -->
+        <div id="step1" class="step active">
+            <h3>Enter Your Email</h3>
+            <input type="email" id="email" placeholder="Enter your email address" required>
+            <button onclick="sendOTP()">Send OTP</button>
+        </div>
+        
+        <!-- Step 2: OTP Input -->
+        <div id="step2" class="step">
+            <h3>Enter OTP</h3>
+            <p>We've sent a 6-digit code to <span id="emailDisplay"></span></p>
+            <input type="text" id="otp" placeholder="Enter 6-digit OTP" maxlength="6" required>
+            <button onclick="verifyOTP()">Verify OTP</button>
+            <button onclick="goBack()" style="background: #6c757d;">Back</button>
+        </div>
+        
+        <!-- Step 3: Success -->
+        <div id="step3" class="step">
+            <h3>✅ Login Successful!</h3>
+            <p>Welcome, <span id="userName"></span>!</p>
+            <p><strong>Token:</strong> <span id="userToken"></span></p>
+            <button onclick="restart()">Login Again</button>
+        </div>
+        
+        <div id="message"></div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:5000/api';
+        let currentEmail = '';
+
+        function showMessage(text, type = 'success') {
+            const messageDiv = document.getElementById('message');
+            messageDiv.innerHTML = `<div class="message ${type}">${text}</div>`;
+            setTimeout(() => messageDiv.innerHTML = '', 5000);
+        }
+
+        function showStep(stepNumber) {
+            document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+            document.getElementById(`step${stepNumber}`).classList.add('active');
+        }
+
+        async function sendOTP() {
+            const email = document.getElementById('email').value;
+            if (!email) {
+                showMessage('Please enter your email address', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE}/auth/send-otp`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    currentEmail = email;
+                    document.getElementById('emailDisplay').textContent = email;
+                    showStep(2);
+                    showMessage(data.message);
+                } else {
+                    showMessage(data.message, 'error');
+                }
+            } catch (error) {
+                showMessage('Network error. Please try again.', 'error');
+            }
+        }
+
+        async function verifyOTP() {
+            const otp = document.getElementById('otp').value;
+            if (!otp || otp.length !== 6) {
+                showMessage('Please enter a 6-digit OTP', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE}/auth/verify-otp`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+                        email: currentEmail, 
+                        code: otp 
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    document.getElementById('userName').textContent = data.user.name;
+                    document.getElementById('userToken').textContent = data.token;
+                    showStep(3);
+                    showMessage(data.message);
+                } else {
+                    showMessage(data.message, 'error');
+                }
+            } catch (error) {
+                showMessage('Network error. Please try again.', 'error');
+            }
+        }
+
+        function goBack() {
+            showStep(1);
+            document.getElementById('otp').value = '';
+        }
+
+        function restart() {
+            showStep(1);
+            document.getElementById('email').value = '';
+            document.getElementById('otp').value = '';
+            currentEmail = '';
+        }
+    </script>
+</body>
+</html>

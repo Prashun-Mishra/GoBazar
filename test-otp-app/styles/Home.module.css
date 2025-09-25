@@ -1,0 +1,142 @@
+.container {
+  min-height: 100vh;
+  padding: 0 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.main {
+  padding: 2rem 3rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+}
+
+.title {
+  margin: 0 0 2rem;
+  line-height: 1.15;
+  font-size: 2rem;
+  color: #2d5a27;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form h2 {
+  margin: 0 0 1rem;
+  color: #2d5a27;
+  font-size: 1.5rem;
+}
+
+input {
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  transition: border-color 0.2s;
+  text-align: center;
+  letter-spacing: 0.5em;
+  font-family: monospace;
+  font-size: 1.2rem;
+}
+
+input:focus {
+  outline: none;
+  border-color: #2d5a27;
+}
+
+button {
+  background-color: #2d5a27;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+button:hover:not(:disabled) {
+  background-color: #1e3d1a;
+}
+
+button:disabled {
+  background-color: #a0aec0;
+  cursor: not-allowed;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.secondary {
+  background-color: #e2e8f0;
+  color: #2d3748;
+}
+
+.secondary:hover {
+  background-color: #cbd5e0;
+}
+
+.message {
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.message.error {
+  background-color: #fff5f5;
+  color: #c53030;
+  border: 1px solid #feb2b2;
+}
+
+.success {
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.success h2 {
+  color: #2d5a27;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.success p {
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+  .main {
+    padding: 1.5rem;
+    margin: 0 1rem;
+  }
+  
+  .title {
+    font-size: 1.5rem;
+  }
+  
+  .form h2 {
+    font-size: 1.3rem;
+  }
+  
+  input {
+    font-size: 1rem;
+    padding: 0.7rem 0.5rem;
+  }
+}
