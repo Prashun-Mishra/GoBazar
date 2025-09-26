@@ -87,10 +87,19 @@ class AuthService {
       });
 
       if (!user) {
-        return {
-          success: false,
-          message: 'User not found. Please register first.',
-        };
+        // Auto-create user with email
+        user = await prisma.user.create({
+          data: {
+            email: email,
+            name: email.split('@')[0], // Use email prefix as default name
+            phone: '', // Empty phone, user can update later
+            role: 'USER',
+          },
+          include: { addresses: true },
+        });
+        
+        // Send welcome email
+        await emailService.sendWelcomeEmail(user.email, user.name);
       }
 
       // Generate JWT token
