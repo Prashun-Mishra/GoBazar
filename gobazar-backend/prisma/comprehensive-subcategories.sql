@@ -1,0 +1,82 @@
+-- Comprehensive Subcategories for GoBazar
+-- Insert all subcategories for each category
+
+INSERT INTO "subcategories" (id, name, slug, "categoryId", "order", "isActive", "createdAt", "updatedAt") VALUES
+
+-- Vegetables & Fruits subcategories
+('sub-fresh-vegetables', 'Fresh Vegetables', 'fresh-vegetables', 'cat-vegetables-fruits', 1, true, NOW(), NOW()),
+('sub-fruits', 'Fruits', 'fruits', 'cat-vegetables-fruits', 2, true, NOW(), NOW()),
+('sub-mangoes-melons', 'Mangoes & Melons', 'mangoes-melons', 'cat-vegetables-fruits', 3, true, NOW(), NOW()),
+('sub-seasonal', 'Seasonal', 'seasonal', 'cat-vegetables-fruits', 4, true, NOW(), NOW()),
+('sub-exotics', 'Exotics', 'exotics', 'cat-vegetables-fruits', 5, true, NOW(), NOW()),
+('sub-freshly-cut-sprouts', 'Freshly Cut & Sprouts', 'freshly-cut-sprouts', 'cat-vegetables-fruits', 6, true, NOW(), NOW()),
+('sub-frozen-veg', 'Frozen Veg', 'frozen-veg', 'cat-vegetables-fruits', 7, true, NOW(), NOW()),
+('sub-leafies-herbs', 'Leafies & Herbs', 'leafies-herbs', 'cat-vegetables-fruits', 8, true, NOW(), NOW()),
+('sub-flowers-leaves', 'Flowers & Leaves', 'flowers-leaves', 'cat-vegetables-fruits', 9, true, NOW(), NOW()),
+('sub-combo-recipes', 'Combo & Recipes', 'combo-recipes', 'cat-vegetables-fruits', 10, true, NOW(), NOW()),
+('sub-all-fruits-vegetables', 'All Fruits & Vegetables', 'all-fruits-vegetables', 'cat-vegetables-fruits', 11, true, NOW(), NOW()),
+('sub-apples-pears', 'Apples & Pears', 'apples-pears', 'cat-vegetables-fruits', 12, true, NOW(), NOW()),
+
+-- Dairy & Breakfast subcategories
+('sub-milk', 'Milk', 'milk', 'cat-dairy-breakfast', 1, true, NOW(), NOW()),
+('sub-bread-pav', 'Bread & Pav', 'bread-pav', 'cat-dairy-breakfast', 2, true, NOW(), NOW()),
+('sub-eggs', 'Eggs', 'eggs', 'cat-dairy-breakfast', 3, true, NOW(), NOW()),
+('sub-flakes-kids-cereals', 'Flakes & Kids Cereals', 'flakes-kids-cereals', 'cat-dairy-breakfast', 4, true, NOW(), NOW()),
+('sub-muesli-granola', 'Muesli & Granola', 'muesli-granola', 'cat-dairy-breakfast', 5, true, NOW(), NOW()),
+('sub-oats', 'Oats', 'oats', 'cat-dairy-breakfast', 6, true, NOW(), NOW()),
+('sub-paneer-tofu', 'Paneer & Tofu', 'paneer-tofu', 'cat-dairy-breakfast', 7, true, NOW(), NOW()),
+('sub-curd-yogurt', 'Curd & Yogurt', 'curd-yogurt', 'cat-dairy-breakfast', 8, true, NOW(), NOW()),
+('sub-butter-more', 'Butter & More', 'butter-more', 'cat-dairy-breakfast', 9, true, NOW(), NOW()),
+('sub-cheese', 'Cheese', 'cheese', 'cat-dairy-breakfast', 10, true, NOW(), NOW()),
+('sub-cream-condensed-milk', 'Cream & Condensed Milk', 'cream-condensed-milk', 'cat-dairy-breakfast', 11, true, NOW(), NOW()),
+('sub-vermicelli-poha-daliya', 'Vermicelli, Poha, Daliya & Other Grains', 'vermicelli-poha-daliya', 'cat-dairy-breakfast', 12, true, NOW(), NOW()),
+('sub-peanut-butter', 'Peanut Butter', 'peanut-butter', 'cat-dairy-breakfast', 13, true, NOW(), NOW()),
+('sub-energy-bars-dairy', 'Energy Bars', 'energy-bars-dairy', 'cat-dairy-breakfast', 14, true, NOW(), NOW()),
+('sub-lassi-shakes-more', 'Lassi, Shakes & More', 'lassi-shakes-more', 'cat-dairy-breakfast', 15, true, NOW(), NOW()),
+('sub-breakfast-mixes', 'Breakfast Mixes', 'breakfast-mixes', 'cat-dairy-breakfast', 16, true, NOW(), NOW()),
+('sub-honey-chyawanprash', 'Honey & Chyawanprash', 'honey-chyawanprash', 'cat-dairy-breakfast', 17, true, NOW(), NOW()),
+('sub-sausage-salami-ham', 'Sausage, Salami & Ham', 'sausage-salami-ham', 'cat-dairy-breakfast', 18, true, NOW(), NOW()),
+('sub-batter', 'Batter', 'batter', 'cat-dairy-breakfast', 19, true, NOW(), NOW()),
+
+-- Munchies subcategories
+('sub-chips-crisps', 'Chips & Crisps', 'chips-crisps', 'cat-munchies', 1, true, NOW(), NOW()),
+('sub-rusks-wafers', 'Rusks & Wafers', 'rusks-wafers', 'cat-munchies', 2, true, NOW(), NOW()),
+('sub-energy-bars-munchies', 'Energy Bars', 'energy-bars-munchies', 'cat-munchies', 3, true, NOW(), NOW()),
+('sub-nachos', 'Nachos', 'nachos', 'cat-munchies', 4, true, NOW(), NOW()),
+('sub-bhujia-mixtures', 'Bhujia & Mixtures', 'bhujia-mixtures', 'cat-munchies', 5, true, NOW(), NOW()),
+('sub-popcorn', 'Popcorn', 'popcorn', 'cat-munchies', 6, true, NOW(), NOW()),
+('sub-namkeen-snacks', 'Namkeen Snacks', 'namkeen-snacks', 'cat-munchies', 7, true, NOW(), NOW()),
+('sub-makhana-more', 'Makhana & More', 'makhana-more', 'cat-munchies', 8, true, NOW(), NOW()),
+('sub-papad-fryums', 'Papad & Fryums', 'papad-fryums', 'cat-munchies', 9, true, NOW(), NOW()),
+('sub-imported-snacks', 'Imported Snacks', 'imported-snacks', 'cat-munchies', 10, true, NOW(), NOW()),
+('sub-granola', 'Granola', 'granola', 'cat-munchies', 11, true, NOW(), NOW()),
+('sub-munchies-gift-packs', 'Munchies Gift Packs', 'munchies-gift-packs', 'cat-munchies', 12, true, NOW(), NOW()),
+
+-- Cold Drinks & Juices subcategories
+('sub-beverages-gift-packs', 'Beverages Gift Packs', 'beverages-gift-packs', 'cat-cold-drinks-juices', 1, true, NOW(), NOW()),
+('sub-soft-drinks', 'Soft Drinks', 'soft-drinks', 'cat-cold-drinks-juices', 2, true, NOW(), NOW()),
+('sub-fruit-juice', 'Fruit Juice', 'fruit-juice', 'cat-cold-drinks-juices', 3, true, NOW(), NOW()),
+('sub-mango-drinks', 'Mango Drinks', 'mango-drinks', 'cat-cold-drinks-juices', 4, true, NOW(), NOW()),
+('sub-pure-juices', 'Pure Juices', 'pure-juices', 'cat-cold-drinks-juices', 5, true, NOW(), NOW()),
+('sub-concentrates-syrups', 'Concentrates & Syrups', 'concentrates-syrups', 'cat-cold-drinks-juices', 6, true, NOW(), NOW()),
+('sub-herbal-drinks-cold', 'Herbal Drinks', 'herbal-drinks-cold', 'cat-cold-drinks-juices', 7, true, NOW(), NOW()),
+('sub-energy-drinks-cold', 'Energy Drinks', 'energy-drinks-cold', 'cat-cold-drinks-juices', 8, true, NOW(), NOW()),
+('sub-coconut-water', 'Coconut Water', 'coconut-water', 'cat-cold-drinks-juices', 9, true, NOW(), NOW()),
+('sub-lassi-shakes-cold', 'Lassi, Shakes & More', 'lassi-shakes-cold', 'cat-cold-drinks-juices', 10, true, NOW(), NOW()),
+('sub-water-ice-cubes', 'Water & Ice Cubes', 'water-ice-cubes', 'cat-cold-drinks-juices', 11, true, NOW(), NOW()),
+('sub-cold-coffee-ice-tea', 'Cold Coffee & Ice Tea', 'cold-coffee-ice-tea', 'cat-cold-drinks-juices', 12, true, NOW(), NOW()),
+('sub-soda-mixers', 'Soda & Mixers', 'soda-mixers', 'cat-cold-drinks-juices', 13, true, NOW(), NOW()),
+
+-- Tea, Coffee & Health Drinks subcategories
+('sub-tea', 'Tea', 'tea', 'cat-tea-coffee-health', 1, true, NOW(), NOW()),
+('sub-coffee', 'Coffee', 'coffee', 'cat-tea-coffee-health', 2, true, NOW(), NOW()),
+('sub-milk-drinks', 'Milk Drinks', 'milk-drinks', 'cat-tea-coffee-health', 3, true, NOW(), NOW()),
+('sub-green-flavoured-tea', 'Green & Flavoured Tea', 'green-flavoured-tea', 'cat-tea-coffee-health', 4, true, NOW(), NOW()),
+('sub-herbal-drinks-hot', 'Herbal Drinks', 'herbal-drinks-hot', 'cat-tea-coffee-health', 5, true, NOW(), NOW()),
+('sub-hot-chocolate', 'Hot Chocolate', 'hot-chocolate', 'cat-tea-coffee-health', 6, true, NOW(), NOW()),
+('sub-energy-drinks-hot', 'Energy Drinks', 'energy-drinks-hot', 'cat-tea-coffee-health', 7, true, NOW(), NOW()),
+('sub-lassi-shakes-hot', 'Lassi, Shakes & More', 'lassi-shakes-hot', 'cat-tea-coffee-health', 8, true, NOW(), NOW()),
+('sub-cold-coffee-tea-hot', 'Cold Coffee & Ice Tea', 'cold-coffee-tea-hot', 'cat-tea-coffee-health', 9, true, NOW(), NOW()),
+('sub-tea-coffee-addons', 'Tea & Coffee Add-Ons', 'tea-coffee-addons', 'cat-tea-coffee-health', 10, true, NOW(), NOW()),
+('sub-lactose-free-drink', 'Lactose Free Drink', 'lactose-free-drink', 'cat-tea-coffee-health', 11, true, NOW(), NOW()),
+('sub-imported-tea-coffee', 'Imported Tea & Coffee', 'imported-tea-coffee', 'cat-tea-coffee-health', 12, true, NOW(), NOW());

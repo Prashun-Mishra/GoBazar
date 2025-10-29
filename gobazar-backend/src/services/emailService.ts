@@ -202,6 +202,91 @@ class EmailService {
     });
   }
 
+  async sendOrderStatusUpdate(email: string, orderDetails: { id: string; status: string; customerName?: string; estimatedDelivery?: string }): Promise<boolean> {
+    const statusMessages: Record<string, string> = {
+      RECEIVED: 'Your order has been received and is being processed.',
+      PACKING: 'Your order is being packed and will be out for delivery soon.',
+      ON_THE_WAY: 'Your order is on the way! Our delivery partner is heading to your location.',
+      DELIVERED: 'Your order has been successfully delivered. Thank you for shopping with GoBazar!',
+      CANCELED: 'Your order has been canceled. If you have any questions, please contact our support team.'
+    };
+
+    const statusColors: Record<string, string> = {
+      RECEIVED: '#3B82F6',
+      PACKING: '#F59E0B', 
+      ON_THE_WAY: '#8B5CF6',
+      DELIVERED: '#10B981',
+      CANCELED: '#EF4444'
+    };
+
+    const html = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>GoBazar - Order Status Update</title>
+        <style>
+          body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+          .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+          .header { background: #4F46E5; color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0; }
+          .content { background: #f8f9fa; padding: 30px; border-radius: 0 0 8px 8px; }
+          .status-badge { 
+            display: inline-block; 
+            padding: 8px 16px; 
+            border-radius: 20px; 
+            color: white; 
+            font-weight: bold;
+            background-color: ${statusColors[orderDetails.status] || '#6B7280'};
+          }
+          .order-info { background: white; padding: 20px; border-radius: 8px; margin: 20px 0; }
+          .footer { text-align: center; margin-top: 30px; color: #666; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <h1>Order Status Update</h1>
+          </div>
+          <div class="content">
+            <h2>Hello ${orderDetails.customerName || 'Valued Customer'},</h2>
+            
+            <p>Your order status has been updated:</p>
+            
+            <div class="order-info">
+              <h3>Order #${orderDetails.id}</h3>
+              <p><strong>Status:</strong> <span class="status-badge">${orderDetails.status}</span></p>
+              <p><strong>Update:</strong> ${statusMessages[orderDetails.status] || 'Your order status has been updated.'}</p>
+              ${orderDetails.estimatedDelivery ? `<p><strong>Estimated Delivery:</strong> ${orderDetails.estimatedDelivery}</p>` : ''}
+            </div>
+
+            <p>You can track your order anytime by visiting our website or clicking the link below:</p>
+            <p style="text-align: center;">
+              <a href="${config.frontendUrl}/orders/${orderDetails.id}" 
+                 style="background: #4F46E5; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block;">
+                Track Your Order
+              </a>
+            </p>
+
+            <p>Thank you for choosing GoBazar!</p>
+          </div>
+          <div class="footer">
+            <p>GoBazar - Fresh Groceries Delivered Fast</p>
+            <p>If you have any questions, contact us at support@gobazar.com</p>
+          </div>
+        </div>
+      </body>
+      </html>
+    `;
+
+    return this.sendEmail({
+      to: email,
+      subject: `Order Status Update - ${orderDetails.status}`,
+      html,
+      text: `Your GoBazar order ${orderDetails.id} status has been updated to: ${orderDetails.status}. ${statusMessages[orderDetails.status]}`,
+    });
+  }
+
   async testConnection(): Promise<boolean> {
     try {
       await this.transporter.verify();

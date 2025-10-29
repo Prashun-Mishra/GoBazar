@@ -12,6 +12,7 @@ router.use(authenticateToken);
 router.get('/', cartController.getCart);
 router.get('/summary', cartController.getCartSummary);
 router.post('/add', validateBody(ValidationSchemas.addToCart), cartController.addToCart);
+router.post('/sync', cartController.syncCart);
 router.put('/:cartItemId', validateBody(ValidationSchemas.updateCart), cartController.updateCartItem);
 router.delete('/:cartItemId', cartController.removeFromCart);
 router.delete('/', cartController.clearCart);

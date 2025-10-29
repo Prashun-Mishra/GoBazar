@@ -30,12 +30,25 @@ class AddressController {
     const userId = req.user!.userId;
     const addressData = req.body;
 
-    const result = await addressService.createAddress(userId, addressData);
+    console.log('🏠 [Address Controller] Create address request:', {
+      userId,
+      addressData: JSON.stringify(addressData, null, 2)
+    });
 
-    if (result.success) {
-      return ResponseUtil.success(res, result.address, result.message, 201);
-    } else {
-      return ResponseUtil.error(res, result.message, 400);
+    try {
+      const result = await addressService.createAddress(userId, addressData);
+
+      console.log('🏠 [Address Controller] Service result:', result);
+
+      if (result.success) {
+        return ResponseUtil.success(res, result.address, result.message, 201);
+      } else {
+        console.error('❌ [Address Controller] Service failed:', result.message);
+        return ResponseUtil.error(res, result.message, 400);
+      }
+    } catch (error) {
+      console.error('💥 [Address Controller] Exception:', error);
+      return ResponseUtil.error(res, 'Failed to create address', 500);
     }
   });
 

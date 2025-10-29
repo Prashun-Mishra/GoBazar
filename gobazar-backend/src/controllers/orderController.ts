@@ -113,6 +113,71 @@ class OrderController {
 
     return ResponseUtil.success(res, stats, 'Order statistics retrieved successfully');
   });
+
+  // Order tracking endpoints
+  trackOrder = asyncHandler(async (req: Request, res: Response) => {
+    const { orderId } = req.params;
+    const { phone } = req.query;
+
+    if (!phone) {
+      return ResponseUtil.error(res, 'Phone number is required for tracking', 400);
+    }
+
+    const result = await orderService.trackOrderByPhone(orderId, phone as string);
+
+    if (!result.success) {
+      return ResponseUtil.error(res, result.message, 404);
+    }
+
+    return ResponseUtil.success(res, result.order, 'Order tracking information retrieved successfully');
+  });
+
+  getOrderTimeline = asyncHandler(async (req: AuthenticatedRequest, res: Response) => {
+    const { orderId } = req.params;
+    const userId = req.user!.userId;
+
+    const timeline = await orderService.getOrderTimeline(orderId, userId);
+
+    if (!timeline) {
+      return ResponseUtil.notFound(res, 'Order not found');
+    }
+
+    return ResponseUtil.success(res, timeline, 'Order timeline retrieved successfully');
+  });
+
+  updateDeliveryPartner = asyncHandler(async (req: Request, res: Response) => {
+    const { orderId } = req.params;
+    const { partnerName, partnerPhone, vehicleNumber } = req.body;
+
+    const result = await orderService.updateDeliveryPartner(orderId, {
+      partnerName,
+      partnerPhone,
+      vehicleNumber,
+    });
+
+    if (!result.success) {
+      return ResponseUtil.error(res, result.message, 400);
+    }
+
+    return ResponseUtil.success(res, result.order, 'Delivery partner updated successfully');
+  });
+
+  updateOrderLocation = asyncHandler(async (req: Request, res: Response) => {
+    const { orderId } = req.params;
+    const { latitude, longitude, address } = req.body;
+
+    const result = await orderService.updateOrderLocation(orderId, {
+      latitude,
+      longitude,
+      address,
+    });
+
+    if (!result.success) {
+      return ResponseUtil.error(res, result.message, 400);
+    }
+
+    return ResponseUtil.success(res, null, 'Order location updated successfully');
+  });
 }
 
 export default new OrderController();

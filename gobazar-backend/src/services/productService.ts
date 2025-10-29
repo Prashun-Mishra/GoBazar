@@ -105,6 +105,28 @@ class ProductService {
     return product as ProductWithRelations | null;
   }
 
+  async getBulkProducts(productIds: string[]): Promise<ProductWithRelations[]> {
+    console.log('🛒 [Product Service] Fetching bulk products:', productIds.length);
+    
+    const products = await prisma.product.findMany({
+      where: {
+        id: { in: productIds },
+        isActive: true,
+      },
+      include: {
+        category: true,
+        subcategory: true,
+        variants: {
+          where: { isActive: true },
+          orderBy: { price: 'asc' },
+        },
+      },
+    });
+
+    console.log('✅ [Product Service] Found products:', products.length);
+    return products as ProductWithRelations[];
+  }
+
   async getProductsByCategory(categoryId: string, limit: number = 20): Promise<ProductWithRelations[]> {
     const products = await prisma.product.findMany({
       where: {

@@ -8,53 +8,203 @@ async function main() {
   // Create categories
   const categories = await Promise.all([
     prisma.category.upsert({
-      where: { slug: 'dairy-bread-eggs' },
+      where: { slug: 'vegetables-fruits' },
       update: {},
       create: {
-        name: 'Dairy, Bread & Eggs',
-        slug: 'dairy-bread-eggs',
-        image: 'https://images.unsplash.com/photo-1563636619-e9143da7973b?w=400',
+        name: 'Vegetables & Fruits',
+        slug: 'vegetables-fruits',
+        image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=400',
         order: 1,
       },
     }),
     prisma.category.upsert({
-      where: { slug: 'fruits-vegetables' },
+      where: { slug: 'dairy-breakfast' },
       update: {},
       create: {
-        name: 'Fruits & Vegetables',
-        slug: 'fruits-vegetables',
-        image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=400',
+        name: 'Dairy & Breakfast',
+        slug: 'dairy-breakfast',
+        image: 'https://images.unsplash.com/photo-1563636619-e9143da7973b?w=400',
         order: 2,
       },
     }),
     prisma.category.upsert({
-      where: { slug: 'snacks-beverages' },
+      where: { slug: 'munchies' },
       update: {},
       create: {
-        name: 'Snacks & Beverages',
-        slug: 'snacks-beverages',
+        name: 'Munchies',
+        slug: 'munchies',
         image: 'https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=400',
         order: 3,
       },
     }),
     prisma.category.upsert({
-      where: { slug: 'grocery-staples' },
+      where: { slug: 'cold-drinks-juices' },
       update: {},
       create: {
-        name: 'Grocery & Staples',
-        slug: 'grocery-staples',
-        image: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400',
+        name: 'Cold Drinks & Juices',
+        slug: 'cold-drinks-juices',
+        image: 'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=400',
         order: 4,
       },
     }),
     prisma.category.upsert({
-      where: { slug: 'household-care' },
+      where: { slug: 'tea-coffee-health-drinks' },
       update: {},
       create: {
-        name: 'Household Care',
-        slug: 'household-care',
-        image: 'https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=400',
+        name: 'Tea, Coffee & Health Drinks',
+        slug: 'tea-coffee-health-drinks',
+        image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400',
         order: 5,
+      },
+    }),
+    prisma.category.upsert({
+      where: { slug: 'bakery-biscuits' },
+      update: {},
+      create: {
+        name: 'Bakery & Biscuits',
+        slug: 'bakery-biscuits',
+        image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400',
+        order: 6,
+      },
+    }),
+    prisma.category.upsert({
+      where: { slug: 'sweet-tooth' },
+      update: {},
+      create: {
+        name: 'Sweet Tooth',
+        slug: 'sweet-tooth',
+        image: 'https://images.unsplash.com/photo-1551024506-0bccd828d307?w=400',
+        order: 7,
+      },
+    }),
+    prisma.category.upsert({
+      where: { slug: 'paan-corner' },
+      update: {},
+      create: {
+        name: 'Paan Corner',
+        slug: 'paan-corner',
+        image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400',
+        order: 8,
+      },
+    }),
+    prisma.category.upsert({
+      where: { slug: 'breakfast-instant-food' },
+      update: {},
+      create: {
+        name: 'Breakfast & Instant Food',
+        slug: 'breakfast-instant-food',
+        image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400',
+        order: 9,
+      },
+    }),
+    prisma.category.upsert({
+      where: { slug: 'atta-rice-dal' },
+      update: {},
+      create: {
+        name: 'Atta, Rice & Dal',
+        slug: 'atta-rice-dal',
+        image: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400',
+        order: 10,
+      },
+    }),
+    prisma.category.upsert({
+      where: { slug: 'masala-oil-more' },
+      update: {},
+      create: {
+        name: 'Masala, Oil & More',
+        slug: 'masala-oil-more',
+        image: 'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=400',
+        order: 11,
+      },
+    }),
+    prisma.category.upsert({
+      where: { slug: 'sauces-spreads' },
+      update: {},
+      create: {
+        name: 'Sauces & Spreads',
+        slug: 'sauces-spreads',
+        image: 'https://images.unsplash.com/photo-1472476443507-c7a5948772fc?w=400',
+        order: 12,
+      },
+    }),
+    prisma.category.upsert({
+      where: { slug: 'chicken-meat-fish' },
+      update: {},
+      create: {
+        name: 'Chicken, Meat & Fish',
+        slug: 'chicken-meat-fish',
+        image: 'https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=400',
+        order: 13,
+      },
+    }),
+    prisma.category.upsert({
+      where: { slug: 'organic-healthy-living' },
+      update: {},
+      create: {
+        name: 'Organic & Healthy Living',
+        slug: 'organic-healthy-living',
+        image: 'https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=400',
+        order: 14,
+      },
+    }),
+    prisma.category.upsert({
+      where: { slug: 'baby-care' },
+      update: {},
+      create: {
+        name: 'Baby Care',
+        slug: 'baby-care',
+        image: 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=400',
+        order: 15,
+      },
+    }),
+    prisma.category.upsert({
+      where: { slug: 'pharma-wellness' },
+      update: {},
+      create: {
+        name: 'Pharma & Wellness',
+        slug: 'pharma-wellness',
+        image: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400',
+        order: 16,
+      },
+    }),
+    prisma.category.upsert({
+      where: { slug: 'cleaning-essentials' },
+      update: {},
+      create: {
+        name: 'Cleaning Essentials',
+        slug: 'cleaning-essentials',
+        image: 'https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=400',
+        order: 17,
+      },
+    }),
+    prisma.category.upsert({
+      where: { slug: 'home-office' },
+      update: {},
+      create: {
+        name: 'Home & Office',
+        slug: 'home-office',
+        image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400',
+        order: 18,
+      },
+    }),
+    prisma.category.upsert({
+      where: { slug: 'personal-care' },
+      update: {},
+      create: {
+        name: 'Personal Care',
+        slug: 'personal-care',
+        image: 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400',
+        order: 19,
+      },
+    }),
+    prisma.category.upsert({
+      where: { slug: 'pet-care' },
+      update: {},
+      create: {
+        name: 'Pet Care',
+        slug: 'pet-care',
+        image: 'https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=400',
+        order: 20,
       },
     }),
   ]);
@@ -63,24 +213,146 @@ async function main() {
 
   // Create subcategories
   const subcategories = await Promise.all([
-    // Dairy, Bread & Eggs subcategories
+    // Vegetables & Fruits subcategories
     prisma.subCategory.upsert({
-      where: { slug: 'milk-curd' },
+      where: { slug: 'fresh-vegetables' },
       update: {},
       create: {
-        name: 'Milk & Curd',
-        slug: 'milk-curd',
+        name: 'Fresh Vegetables',
+        slug: 'fresh-vegetables',
         categoryId: categories[0].id,
         order: 1,
       },
     }),
     prisma.subCategory.upsert({
-      where: { slug: 'bread-bakery' },
+      where: { slug: 'fruits' },
       update: {},
       create: {
-        name: 'Bread & Bakery',
-        slug: 'bread-bakery',
+        name: 'Fruits',
+        slug: 'fruits',
         categoryId: categories[0].id,
+        order: 2,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'mangoes-melons' },
+      update: {},
+      create: {
+        name: 'Mangoes & Melons',
+        slug: 'mangoes-melons',
+        categoryId: categories[0].id,
+        order: 3,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'seasonal' },
+      update: {},
+      create: {
+        name: 'Seasonal',
+        slug: 'seasonal',
+        categoryId: categories[0].id,
+        order: 4,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'exotics' },
+      update: {},
+      create: {
+        name: 'Exotics',
+        slug: 'exotics',
+        categoryId: categories[0].id,
+        order: 5,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'freshly-cut-sprouts' },
+      update: {},
+      create: {
+        name: 'Freshly Cut & Sprouts',
+        slug: 'freshly-cut-sprouts',
+        categoryId: categories[0].id,
+        order: 6,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'frozen-veg' },
+      update: {},
+      create: {
+        name: 'Frozen Veg',
+        slug: 'frozen-veg',
+        categoryId: categories[0].id,
+        order: 7,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'leafies-herbs' },
+      update: {},
+      create: {
+        name: 'Leafies & Herbs',
+        slug: 'leafies-herbs',
+        categoryId: categories[0].id,
+        order: 8,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'flowers-leaves' },
+      update: {},
+      create: {
+        name: 'Flowers & Leaves',
+        slug: 'flowers-leaves',
+        categoryId: categories[0].id,
+        order: 9,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'combo-recipes' },
+      update: {},
+      create: {
+        name: 'Combo & Recipes',
+        slug: 'combo-recipes',
+        categoryId: categories[0].id,
+        order: 10,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'all-fruits-vegetables' },
+      update: {},
+      create: {
+        name: 'All Fruits & Vegetables',
+        slug: 'all-fruits-vegetables',
+        categoryId: categories[0].id,
+        order: 11,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'apples-pears' },
+      update: {},
+      create: {
+        name: 'Apples & Pears',
+        slug: 'apples-pears',
+        categoryId: categories[0].id,
+        order: 12,
+      },
+    }),
+
+    // Dairy & Breakfast subcategories
+    prisma.subCategory.upsert({
+      where: { slug: 'milk' },
+      update: {},
+      create: {
+        name: 'Milk',
+        slug: 'milk',
+        categoryId: categories[1].id,
+        order: 1,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'bread-pav' },
+      update: {},
+      create: {
+        name: 'Bread & Pav',
+        slug: 'bread-pav',
+        categoryId: categories[1].id,
         order: 2,
       },
     }),
@@ -90,29 +362,422 @@ async function main() {
       create: {
         name: 'Eggs',
         slug: 'eggs',
-        categoryId: categories[0].id,
+        categoryId: categories[1].id,
         order: 3,
       },
     }),
-    // Fruits & Vegetables subcategories
     prisma.subCategory.upsert({
-      where: { slug: 'fresh-fruits' },
+      where: { slug: 'flakes-kids-cereals' },
       update: {},
       create: {
-        name: 'Fresh Fruits',
-        slug: 'fresh-fruits',
+        name: 'Flakes & Kids Cereals',
+        slug: 'flakes-kids-cereals',
         categoryId: categories[1].id,
+        order: 4,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'muesli-granola' },
+      update: {},
+      create: {
+        name: 'Muesli & Granola',
+        slug: 'muesli-granola',
+        categoryId: categories[1].id,
+        order: 5,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'oats' },
+      update: {},
+      create: {
+        name: 'Oats',
+        slug: 'oats',
+        categoryId: categories[1].id,
+        order: 6,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'paneer-tofu' },
+      update: {},
+      create: {
+        name: 'Paneer & Tofu',
+        slug: 'paneer-tofu',
+        categoryId: categories[1].id,
+        order: 7,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'curd-yogurt' },
+      update: {},
+      create: {
+        name: 'Curd & Yogurt',
+        slug: 'curd-yogurt',
+        categoryId: categories[1].id,
+        order: 8,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'butter-more' },
+      update: {},
+      create: {
+        name: 'Butter & More',
+        slug: 'butter-more',
+        categoryId: categories[1].id,
+        order: 9,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'cheese' },
+      update: {},
+      create: {
+        name: 'Cheese',
+        slug: 'cheese',
+        categoryId: categories[1].id,
+        order: 10,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'cream-condensed-milk' },
+      update: {},
+      create: {
+        name: 'Cream & Condensed Milk',
+        slug: 'cream-condensed-milk',
+        categoryId: categories[1].id,
+        order: 11,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'vermicelli-poha-daliya' },
+      update: {},
+      create: {
+        name: 'Vermicelli, Poha, Daliya & Other Grains',
+        slug: 'vermicelli-poha-daliya',
+        categoryId: categories[1].id,
+        order: 12,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'peanut-butter' },
+      update: {},
+      create: {
+        name: 'Peanut Butter',
+        slug: 'peanut-butter',
+        categoryId: categories[1].id,
+        order: 13,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'energy-bars' },
+      update: {},
+      create: {
+        name: 'Energy Bars',
+        slug: 'energy-bars',
+        categoryId: categories[1].id,
+        order: 14,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'lassi-shakes-more' },
+      update: {},
+      create: {
+        name: 'Lassi, Shakes & More',
+        slug: 'lassi-shakes-more',
+        categoryId: categories[1].id,
+        order: 15,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'breakfast-mixes' },
+      update: {},
+      create: {
+        name: 'Breakfast Mixes',
+        slug: 'breakfast-mixes',
+        categoryId: categories[1].id,
+        order: 16,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'honey-chyawanprash' },
+      update: {},
+      create: {
+        name: 'Honey & Chyawanprash',
+        slug: 'honey-chyawanprash',
+        categoryId: categories[1].id,
+        order: 17,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'sausage-salami-ham' },
+      update: {},
+      create: {
+        name: 'Sausage, Salami & Ham',
+        slug: 'sausage-salami-ham',
+        categoryId: categories[1].id,
+        order: 18,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'batter' },
+      update: {},
+      create: {
+        name: 'Batter',
+        slug: 'batter',
+        categoryId: categories[1].id,
+        order: 19,
+      },
+    }),
+
+    // Munchies subcategories
+    prisma.subCategory.upsert({
+      where: { slug: 'chips-crisps' },
+      update: {},
+      create: {
+        name: 'Chips & Crisps',
+        slug: 'chips-crisps',
+        categoryId: categories[2].id,
         order: 1,
       },
     }),
     prisma.subCategory.upsert({
-      where: { slug: 'fresh-vegetables' },
+      where: { slug: 'rusks-wafers' },
       update: {},
       create: {
-        name: 'Fresh Vegetables',
-        slug: 'fresh-vegetables',
-        categoryId: categories[1].id,
+        name: 'Rusks & Wafers',
+        slug: 'rusks-wafers',
+        categoryId: categories[2].id,
         order: 2,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'munchies-energy-bars' },
+      update: {},
+      create: {
+        name: 'Energy Bars',
+        slug: 'munchies-energy-bars',
+        categoryId: categories[2].id,
+        order: 3,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'nachos' },
+      update: {},
+      create: {
+        name: 'Nachos',
+        slug: 'nachos',
+        categoryId: categories[2].id,
+        order: 4,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'bhujia-mixtures' },
+      update: {},
+      create: {
+        name: 'Bhujia & Mixtures',
+        slug: 'bhujia-mixtures',
+        categoryId: categories[2].id,
+        order: 5,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'popcorn' },
+      update: {},
+      create: {
+        name: 'Popcorn',
+        slug: 'popcorn',
+        categoryId: categories[2].id,
+        order: 6,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'namkeen-snacks' },
+      update: {},
+      create: {
+        name: 'Namkeen Snacks',
+        slug: 'namkeen-snacks',
+        categoryId: categories[2].id,
+        order: 7,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'makhana-more' },
+      update: {},
+      create: {
+        name: 'Makhana & More',
+        slug: 'makhana-more',
+        categoryId: categories[2].id,
+        order: 8,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'papad-fryums' },
+      update: {},
+      create: {
+        name: 'Papad & Fryums',
+        slug: 'papad-fryums',
+        categoryId: categories[2].id,
+        order: 9,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'imported-snacks' },
+      update: {},
+      create: {
+        name: 'Imported Snacks',
+        slug: 'imported-snacks',
+        categoryId: categories[2].id,
+        order: 10,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'granola' },
+      update: {},
+      create: {
+        name: 'Granola',
+        slug: 'granola',
+        categoryId: categories[2].id,
+        order: 11,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'munchies-gift-packs' },
+      update: {},
+      create: {
+        name: 'Munchies Gift Packs',
+        slug: 'munchies-gift-packs',
+        categoryId: categories[2].id,
+        order: 12,
+      },
+    }),
+
+    // Cold Drinks & Juices subcategories
+    prisma.subCategory.upsert({
+      where: { slug: 'beverages-gift-packs' },
+      update: {},
+      create: {
+        name: 'Beverages Gift Packs',
+        slug: 'beverages-gift-packs',
+        categoryId: categories[3].id,
+        order: 1,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'soft-drinks' },
+      update: {},
+      create: {
+        name: 'Soft Drinks',
+        slug: 'soft-drinks',
+        categoryId: categories[3].id,
+        order: 2,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'fruit-juice' },
+      update: {},
+      create: {
+        name: 'Fruit Juice',
+        slug: 'fruit-juice',
+        categoryId: categories[3].id,
+        order: 3,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'mango-drinks' },
+      update: {},
+      create: {
+        name: 'Mango Drinks',
+        slug: 'mango-drinks',
+        categoryId: categories[3].id,
+        order: 4,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'pure-juices' },
+      update: {},
+      create: {
+        name: 'Pure Juices',
+        slug: 'pure-juices',
+        categoryId: categories[3].id,
+        order: 5,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'concentrates-syrups' },
+      update: {},
+      create: {
+        name: 'Concentrates & Syrups',
+        slug: 'concentrates-syrups',
+        categoryId: categories[3].id,
+        order: 6,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'herbal-drinks' },
+      update: {},
+      create: {
+        name: 'Herbal Drinks',
+        slug: 'herbal-drinks',
+        categoryId: categories[3].id,
+        order: 7,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'energy-drinks' },
+      update: {},
+      create: {
+        name: 'Energy Drinks',
+        slug: 'energy-drinks',
+        categoryId: categories[3].id,
+        order: 8,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'coconut-water' },
+      update: {},
+      create: {
+        name: 'Coconut Water',
+        slug: 'coconut-water',
+        categoryId: categories[3].id,
+        order: 9,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'cold-lassi-shakes-more' },
+      update: {},
+      create: {
+        name: 'Lassi, Shakes & More',
+        slug: 'cold-lassi-shakes-more',
+        categoryId: categories[3].id,
+        order: 10,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'water-ice-cubes' },
+      update: {},
+      create: {
+        name: 'Water & Ice Cubes',
+        slug: 'water-ice-cubes',
+        categoryId: categories[3].id,
+        order: 11,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'cold-coffee-ice-tea' },
+      update: {},
+      create: {
+        name: 'Cold Coffee & Ice Tea',
+        slug: 'cold-coffee-ice-tea',
+        categoryId: categories[3].id,
+        order: 12,
+      },
+    }),
+    prisma.subCategory.upsert({
+      where: { slug: 'soda-mixers' },
+      update: {},
+      create: {
+        name: 'Soda & Mixers',
+        slug: 'soda-mixers',
+        categoryId: categories[3].id,
+        order: 13,
       },
     }),
   ]);
@@ -333,11 +998,11 @@ async function main() {
 
   // Create admin user
   await prisma.user.upsert({
-    where: { email: 'admin@gobazar.com' },
+    where: { email: 'gobazar.2025@gmail.com' },
     update: {},
     create: {
       name: 'Admin User',
-      email: 'admin@gobazar.com',
+      email: 'gobazar.2025@gmail.com',
       phone: '+91 9999999999',
       role: 'ADMIN',
     },

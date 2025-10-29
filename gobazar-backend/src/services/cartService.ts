@@ -22,6 +22,8 @@ class CartService {
 
   async addToCart(userId: string, data: AddToCartRequest): Promise<{ success: boolean; message: string; cartItem?: CartItemWithRelations }> {
     try {
+      console.log('🛒 [Cart Service] Adding to cart:', { userId, data });
+
       // Check if product exists and is active
       const product = await prisma.product.findFirst({
         where: {
@@ -30,7 +32,10 @@ class CartService {
         },
       });
 
+      console.log('🛒 [Cart Service] Product found:', !!product);
+
       if (!product) {
+        console.error('❌ [Cart Service] Product not found:', data.productId);
         return {
           success: false,
           message: 'Product not found or unavailable',
@@ -72,15 +77,21 @@ class CartService {
       }
 
       // Check if item already exists in cart
-      const existingCartItem = await prisma.cartItem.findUnique({
+      console.log('🛒 [Cart Service] Checking existing cart item with:', {
+        userId,
+        productId: data.productId,
+        variantId: data.variantId || null
+      });
+
+      const existingCartItem = await prisma.cartItem.findFirst({
         where: {
-          userId_productId_variantId: {
-            userId,
-            productId: data.productId,
-            variantId: data.variantId || null,
-          },
+          userId,
+          productId: data.productId,
+          variantId: data.variantId || null,
         },
       });
+
+      console.log('🛒 [Cart Service] Existing cart item found:', !!existingCartItem);
 
       let cartItem;
 

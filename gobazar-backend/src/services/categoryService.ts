@@ -52,16 +52,23 @@ class CategoryService {
   }
 
   async getSubcategories(categoryId?: string): Promise<SubCategory[]> {
+    console.log('🔍 CategoryService.getSubcategories called with categoryId:', categoryId);
+    
     const where: any = { isActive: true };
     
     if (categoryId) {
       where.categoryId = categoryId;
     }
 
+    console.log('🔍 Query where clause:', where);
+
     const subcategories = await prisma.subCategory.findMany({
       where,
       orderBy: { order: 'asc' },
     });
+
+    console.log('🔍 Found subcategories:', subcategories.length);
+    console.log('🔍 First subcategory:', subcategories[0]);
 
     return subcategories;
   }

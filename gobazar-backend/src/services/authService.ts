@@ -7,9 +7,13 @@ import { RegisterRequest, JWTPayload } from '@/types';
 class AuthService {
   async sendOTP(email: string): Promise<{ success: boolean; message: string }> {
     try {
+      console.log(`📧 [Auth Service] Sending OTP to: ${email}`);
+      
       // Generate OTP
       const otpCode = OTPUtil.generateOTP();
       const expiresAt = OTPUtil.generateExpiryTime();
+      
+      console.log(`🔢 [Auth Service] Generated OTP: ${otpCode}, expires at: ${expiresAt}`);
 
       // Delete any existing OTPs for this email
       await prisma.oTP.deleteMany({
@@ -24,20 +28,26 @@ class AuthService {
           expiresAt,
         },
       });
+      
+      console.log(`💾 [Auth Service] OTP saved to database`);
 
       // Send OTP via email
+      console.log(`📨 [Auth Service] Attempting to send email...`);
       const emailSent = await emailService.sendOTP(email, otpCode);
 
       if (!emailSent) {
+        console.error(`❌ [Auth Service] Email sending failed`);
         throw new Error('Failed to send OTP email');
       }
+      
+      console.log(`✅ [Auth Service] OTP email sent successfully`);
 
       return {
         success: true,
         message: 'OTP sent successfully to your email',
       };
     } catch (error) {
-      console.error('Error sending OTP:', error);
+      console.error('❌ [Auth Service] Error sending OTP:', error);
       return {
         success: false,
         message: 'Failed to send OTP. Please try again.',
@@ -47,6 +57,8 @@ class AuthService {
 
   async verifyOTP(email: string, code: string): Promise<{ success: boolean; token?: string; user?: any; message: string }> {
     try {
+      console.log(`🔐 [Auth Service] Verifying OTP for email: ${email}, code: ${code}`);
+      
       // Find the OTP record
       const otpRecord = await prisma.oTP.findFirst({
         where: {
@@ -60,20 +72,26 @@ class AuthService {
       });
 
       if (!otpRecord) {
+        console.log(`❌ [Auth Service] No valid OTP found for email: ${email}`);
         return {
           success: false,
           message: 'Invalid OTP code',
         };
       }
+      
+      console.log(`✅ [Auth Service] OTP record found, checking expiry...`);
 
       // Check if OTP is expired
       if (OTPUtil.isExpired(otpRecord.expiresAt)) {
+        console.log(`❌ [Auth Service] OTP expired for email: ${email}`);
         return {
           success: false,
           message: 'OTP has expired. Please request a new one.',
         };
       }
 
+      console.log(`✅ [Auth Service] OTP is valid, marking as used...`);
+      
       // Mark OTP as used
       await prisma.oTP.update({
         where: { id: otpRecord.id },
@@ -81,25 +99,34 @@ class AuthService {
       });
 
       // Check if user exists
+      console.log(`🔍 [Auth Service] Checking if user exists: ${email}`);
       let user = await prisma.user.findUnique({
         where: { email },
         include: { addresses: true },
       });
 
       if (!user) {
+        console.log(`👤 [Auth Service] User not found, creating new user...`);
         // Auto-create user with email
+        // Generate a unique temporary phone number to avoid constraint violation
+        const tempPhone = `temp_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+        
         user = await prisma.user.create({
           data: {
             email: email,
             name: email.split('@')[0], // Use email prefix as default name
-            phone: '', // Empty phone, user can update later
+            phone: tempPhone, // Temporary unique phone, user can update later
             role: 'USER',
           },
           include: { addresses: true },
         });
         
+        console.log(`✅ [Auth Service] New user created: ${user.id}`);
+        
         // Send welcome email
         await emailService.sendWelcomeEmail(user.email, user.name);
+      } else {
+        console.log(`✅ [Auth Service] Existing user found: ${user.id}, role: ${user.role}`);
       }
 
       // Generate JWT token
@@ -110,6 +137,8 @@ class AuthService {
       };
 
       const token = JWTUtil.generateToken(tokenPayload);
+      
+      console.log(`🎉 [Auth Service] Login successful for: ${email}`);
 
       return {
         success: true,
@@ -125,7 +154,7 @@ class AuthService {
         message: 'Login successful',
       };
     } catch (error) {
-      console.error('Error verifying OTP:', error);
+      console.error('❌ [Auth Service] Error verifying OTP:', error);
       return {
         success: false,
         message: 'Failed to verify OTP. Please try again.',

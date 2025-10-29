@@ -20,6 +20,22 @@ class ProductController {
     );
   });
 
+  getBulkProducts = asyncHandler(async (req: Request, res: Response) => {
+    const { productIds } = req.body;
+    
+    console.log('🛒 [Product Controller] Bulk fetch request:', productIds?.length || 0, 'products');
+    
+    if (!productIds || !Array.isArray(productIds)) {
+      return ResponseUtil.error(res, 'Product IDs array is required', 400);
+    }
+    
+    const products = await productService.getBulkProducts(productIds);
+    
+    console.log('✅ [Product Controller] Bulk fetch result:', products.length, 'products found');
+    
+    return ResponseUtil.success(res, products, 'Products retrieved successfully');
+  });
+
   getProductById = asyncHandler(async (req: Request, res: Response) => {
     const { id } = req.params;
     

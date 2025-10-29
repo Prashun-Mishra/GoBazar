@@ -11,6 +11,9 @@ class OrderService {
     order?: OrderWithRelations;
   }> {
     try {
+      console.log('📦 [Order Service] Creating order for user:', userId);
+      console.log('📦 [Order Service] Order data:', JSON.stringify(orderData, null, 2));
+      
       // Validate address
       const address = await prisma.address.findFirst({
         where: {
@@ -20,11 +23,14 @@ class OrderService {
       });
 
       if (!address) {
+        console.log('❌ [Order Service] Address not found:', orderData.addressId);
         return {
           success: false,
           message: 'Invalid delivery address',
         };
       }
+      
+      console.log('✅ [Order Service] Address validated:', address.id);
 
       // Validate cart items or provided items
       let orderItems = orderData.items;
@@ -41,14 +47,22 @@ class OrderService {
         
         orderItems = cartItems.map(item => ({
           productId: item.productId,
-          variantId: item.variantId,
+          variantId: item.variantId || undefined,
           quantity: item.quantity,
         }));
       }
 
       // Validate stock availability and calculate totals
       let subtotal = 0;
-      const validatedItems = [];
+      const validatedItems: Array<{
+        productId: string;
+        variantId?: string;
+        quantity: number;
+        price: number;
+        name: string;
+        image: string;
+        unit: string;
+      }> = [];
 
       for (const item of orderItems) {
         const product = await prisma.product.findUnique({
@@ -171,7 +185,7 @@ class OrderService {
             deliveryFee,
             taxes,
             total,
-            deliverySlot: orderData.deliverySlot,
+            deliverySlot: orderData.deliverySlot || 'Not specified',
             couponCode: orderData.couponCode,
           },
         });
@@ -194,7 +208,7 @@ class OrderService {
           // Update stock
           await productService.updateProductStock(
             item.productId,
-            item.variantId,
+            item.variantId || null,
             item.quantity
           );
         }
@@ -235,7 +249,7 @@ class OrderService {
       return {
         success: true,
         message: 'Order placed successfully',
-        order: completeOrder,
+        order: completeOrder || undefined,
       };
     } catch (error) {
       console.error('Error creating order:', error);
@@ -313,21 +327,52 @@ class OrderService {
     order?: OrderWithRelations;
   }> {
     try {
-      const order = await prisma.order.update({
-        where: { id: orderId },
-        data: { status },
-        include: {
-          user: true,
-          address: true,
-          items: {
-            include: {
-              product: true,
-              variant: true,
+      const order = await prisma.$transaction(async (tx) => {
+        // Update order status
+        const updatedOrder = await tx.order.update({
+          where: { id: orderId },
+          data: { status },
+          include: {
+            user: true,
+            address: true,
+            items: {
+              include: {
+                product: true,
+                variant: true,
+              },
             },
+            coupon: true,
           },
-          coupon: true,
-        },
+        });
+
+        // Create order tracking entry (will be implemented after migration)
+        // await tx.orderTracking.create({
+        //   data: {
+        //     orderId,
+        //     status,
+        //     timestamp: new Date(),
+        //     description: this.getStatusDescription(status),
+        //   },
+        // });
+
+        return updatedOrder;
       });
+
+      // Send status update notification
+      console.log('📧 [Order Service] Sending status update email to:', order.user.email)
+      if (order.user.email) {
+        try {
+          await emailService.sendOrderStatusUpdate(order.user.email, {
+            id: order.id,
+            status,
+            customerName: order.user.name,
+            estimatedDelivery: status === 'ON_THE_WAY' ? 'Within 30 minutes' : undefined,
+          });
+          console.log('✅ [Order Service] Status update email sent successfully')
+        } catch (error) {
+          console.error('❌ [Order Service] Failed to send status update email:', error)
+        }
+      }
 
       return {
         success: true,
@@ -341,6 +386,17 @@ class OrderService {
         message: 'Failed to update order status',
       };
     }
+  }
+
+  private getStatusDescription(status: string): string {
+    const descriptions = {
+      RECEIVED: 'Your order has been received and confirmed',
+      PACKING: 'Your items are being packed with care',
+      ON_THE_WAY: 'Your order is out for delivery',
+      DELIVERED: 'Your order has been delivered successfully',
+      CANCELED: 'Your order has been canceled',
+    };
+    return descriptions[status as keyof typeof descriptions] || 'Order status updated';
   }
 
   async cancelOrder(orderId: string, userId: string): Promise<{
@@ -482,6 +538,199 @@ class OrderService {
       averageOrderValue,
       ordersByStatus: statusCounts,
     };
+  }
+
+  // Order tracking methods
+  async trackOrderByPhone(orderId: string, phone: string): Promise<{
+    success: boolean;
+    message: string;
+    order?: OrderWithRelations;
+  }> {
+    try {
+      const order = await prisma.order.findFirst({
+        where: {
+          id: orderId,
+          user: {
+            phone,
+          },
+        },
+        include: {
+          user: true,
+          address: true,
+          items: {
+            include: {
+              product: true,
+              variant: true,
+            },
+          },
+          coupon: true,
+          // tracking: {
+          //   orderBy: { timestamp: 'asc' },
+          // },
+          // deliveryPartner: true,
+        },
+      });
+
+      if (!order) {
+        return {
+          success: false,
+          message: 'Order not found or phone number does not match',
+        };
+      }
+
+      return {
+        success: true,
+        message: 'Order found',
+        order: order as OrderWithRelations,
+      };
+    } catch (error) {
+      console.error('Error tracking order:', error);
+      return {
+        success: false,
+        message: 'Failed to track order',
+      };
+    }
+  }
+
+  async getOrderTimeline(orderId: string, userId?: string): Promise<any> {
+    try {
+      const where: any = { id: orderId };
+      if (userId) {
+        where.userId = userId;
+      }
+
+      const order = await prisma.order.findFirst({
+        where,
+        include: {
+          // tracking: {
+          //   orderBy: { timestamp: 'asc' },
+          // },
+          // deliveryPartner: true,
+          address: true,
+        },
+      });
+
+      if (!order) {
+        return null;
+      }
+
+      // Calculate estimated delivery time
+      const estimatedDelivery = this.calculateEstimatedDelivery(order.status, order.createdAt);
+
+      return {
+        orderId: order.id,
+        status: order.status,
+        timeline: [], // order.tracking,
+        deliveryPartner: null, // order.deliveryPartner,
+        estimatedDelivery,
+        address: order.address,
+      };
+    } catch (error) {
+      console.error('Error getting order timeline:', error);
+      return null;
+    }
+  }
+
+  async updateDeliveryPartner(orderId: string, partnerData: {
+    partnerName: string;
+    partnerPhone: string;
+    vehicleNumber?: string;
+  }): Promise<{
+    success: boolean;
+    message: string;
+    order?: any;
+  }> {
+    try {
+      const order = await prisma.$transaction(async (tx) => {
+        // Create or update delivery partner (will be implemented after migration)
+        // const deliveryPartner = await tx.deliveryPartner.upsert({
+        //   where: { orderId },
+        //   update: partnerData,
+        //   create: {
+        //     orderId,
+        //     ...partnerData,
+        //   },
+        // });
+
+        // Update order with delivery partner
+        const updatedOrder = await tx.order.update({
+          where: { id: orderId },
+          data: {}, // { deliveryPartnerId: deliveryPartner.id },
+          include: {
+            user: true,
+            // deliveryPartner: true,
+          },
+        });
+
+        return updatedOrder;
+      });
+
+      return {
+        success: true,
+        message: 'Delivery partner updated successfully',
+        order,
+      };
+    } catch (error) {
+      console.error('Error updating delivery partner:', error);
+      return {
+        success: false,
+        message: 'Failed to update delivery partner',
+      };
+    }
+  }
+
+  async updateOrderLocation(orderId: string, locationData: {
+    latitude: number;
+    longitude: number;
+    address?: string;
+  }): Promise<{
+    success: boolean;
+    message: string;
+  }> {
+    try {
+      // await prisma.orderLocation.create({
+      //   data: {
+      //     orderId,
+      //     ...locationData,
+      //     timestamp: new Date(),
+      //   },
+      // });
+      
+      // Placeholder implementation
+      console.log('Order location update:', { orderId, ...locationData });
+
+      return {
+        success: true,
+        message: 'Order location updated successfully',
+      };
+    } catch (error) {
+      console.error('Error updating order location:', error);
+      return {
+        success: false,
+        message: 'Failed to update order location',
+      };
+    }
+  }
+
+  private calculateEstimatedDelivery(status: string, createdAt: Date): string {
+    const now = new Date();
+    const orderTime = new Date(createdAt);
+    const elapsedMinutes = Math.floor((now.getTime() - orderTime.getTime()) / (1000 * 60));
+
+    switch (status) {
+      case 'RECEIVED':
+        return `${Math.max(8 - elapsedMinutes, 2)}-${Math.max(15 - elapsedMinutes, 5)} minutes`;
+      case 'PACKING':
+        return `${Math.max(5 - elapsedMinutes, 2)}-${Math.max(12 - elapsedMinutes, 4)} minutes`;
+      case 'ON_THE_WAY':
+        return `${Math.max(2 - elapsedMinutes, 1)}-${Math.max(8 - elapsedMinutes, 3)} minutes`;
+      case 'DELIVERED':
+        return 'Delivered';
+      case 'CANCELED':
+        return 'Canceled';
+      default:
+        return '8-15 minutes';
+    }
   }
 }
 

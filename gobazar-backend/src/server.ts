@@ -57,6 +57,7 @@ app.get('/', (_req, res) => {
       cart: '/api/cart',
       orders: '/api/orders',
       addresses: '/api/addresses',
+      payments: '/api/payments',
     },
   });
 });
@@ -94,6 +95,7 @@ const startServer = async () => {
         console.log(`   Cart: http://localhost:${config.port}/api/cart`);
         console.log(`   Orders: http://localhost:${config.port}/api/orders`);
         console.log(`   Addresses: http://localhost:${config.port}/api/addresses`);
+        console.log(`   Payments: http://localhost:${config.port}/api/payments`);
       }
     });
 

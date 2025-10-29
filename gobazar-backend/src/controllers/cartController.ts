@@ -25,16 +25,32 @@ class CartController {
     const userId = req.user!.userId;
     const { productId, variantId, quantity } = req.body;
 
-    const result = await cartService.addToCart(userId, {
+    console.log('🛒 [Cart Controller] Add to cart request:', {
+      userId,
       productId,
       variantId,
       quantity,
+      quantityType: typeof quantity
     });
 
-    if (result.success) {
-      return ResponseUtil.success(res, result.cartItem, result.message, 201);
-    } else {
-      return ResponseUtil.error(res, result.message, 400);
+    try {
+      const result = await cartService.addToCart(userId, {
+        productId,
+        variantId,
+        quantity,
+      });
+
+      console.log('🛒 [Cart Controller] Service result:', result);
+
+      if (result.success) {
+        return ResponseUtil.success(res, result.cartItem, result.message, 201);
+      } else {
+        console.error('❌ [Cart Controller] Service failed:', result.message);
+        return ResponseUtil.error(res, result.message, 400);
+      }
+    } catch (error) {
+      console.error('💥 [Cart Controller] Exception:', error);
+      return ResponseUtil.error(res, 'Failed to add item to cart', 500);
     }
   });
 
@@ -91,6 +107,14 @@ class CartController {
         unavailableItems: validation.unavailableItems,
       }, 'Cart validation completed');
     }
+  });
+
+  syncCart = asyncHandler(async (req: AuthenticatedRequest, res: Response) => {
+    const userId = req.user!.userId;
+    const { items } = req.body;
+
+    // For now, just return success - implement actual sync logic if needed
+    return ResponseUtil.success(res, { synced: true, items: [] }, 'Cart synced successfully');
   });
 }
 

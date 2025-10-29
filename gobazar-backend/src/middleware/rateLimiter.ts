@@ -1,16 +1,24 @@
 import rateLimit from 'express-rate-limit';
 import config from '@/config';
 
-// General rate limiter
+// General rate limiter (more lenient in development)
 export const generalLimiter = rateLimit({
   windowMs: config.rateLimit.windowMs,
-  max: config.rateLimit.maxRequests,
+  max: config.nodeEnv === 'development' ? 1000 : config.rateLimit.maxRequests, // 1000 in dev, 100 in prod
   message: {
     success: false,
     error: 'Too many requests from this IP, please try again later.',
   },
   standardHeaders: true,
   legacyHeaders: false,
+  skip: (req) => {
+    // Skip rate limiting for localhost in development
+    if (config.nodeEnv === 'development') {
+      const ip = req.ip || req.socket.remoteAddress || '';
+      return ip === '127.0.0.1' || ip === '::1' || ip.includes('localhost');
+    }
+    return false;
+  },
 });
 
 // Strict rate limiter for auth endpoints

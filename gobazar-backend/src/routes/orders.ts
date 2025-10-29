@@ -12,10 +12,18 @@ router.get('/', authenticateToken, orderController.getOrders);
 router.get('/:orderId', authenticateToken, orderController.getOrderById);
 router.put('/:orderId/cancel', authenticateToken, orderController.cancelOrder);
 
-// Admin routes
-router.get('/admin/all', requireAdmin, orderController.getAllOrders);
-router.get('/admin/:orderId', requireAdmin, orderController.getOrderByIdAdmin);
-router.put('/admin/:orderId/status', requireAdmin, orderController.updateOrderStatus);
-router.get('/admin/stats/overview', requireAdmin, orderController.getOrderStats);
+// Order tracking routes
+router.get('/:orderId/timeline', authenticateToken, orderController.getOrderTimeline);
+router.get('/track/:orderId', orderController.trackOrder);
+
+// Admin routes (require authentication + admin role)
+router.get('/admin/all', authenticateToken, requireAdmin, orderController.getAllOrders);
+router.get('/admin/:orderId', authenticateToken, requireAdmin, orderController.getOrderByIdAdmin);
+router.put('/admin/:orderId/status', authenticateToken, requireAdmin, orderController.updateOrderStatus);
+router.get('/admin/stats/overview', authenticateToken, requireAdmin, orderController.getOrderStats);
+
+// Admin order tracking routes
+router.put('/admin/:orderId/delivery-partner', authenticateToken, requireAdmin, orderController.updateDeliveryPartner);
+router.put('/admin/:orderId/location', authenticateToken, requireAdmin, orderController.updateOrderLocation);
 
 export default router;

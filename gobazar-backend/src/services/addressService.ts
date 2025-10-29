@@ -46,15 +46,20 @@ class AddressService {
 
       const isDefault = addressData.isDefault || existingAddressCount === 0;
 
+      // Convert type to uppercase for Prisma enum
+      const addressType = addressData.type.toUpperCase() as 'HOME' | 'WORK' | 'OTHER';
+      
+      console.log('🏠 [Address Service] Creating address with type:', addressType);
+
       const address = await prisma.address.create({
         data: {
           userId,
-          type: addressData.type,
+          type: addressType,
           street: addressData.street,
           city: addressData.city,
           state: addressData.state,
           pincode: addressData.pincode,
-          landmark: addressData.landmark,
+          landmark: addressData.landmark || '',
           isDefault,
         },
       });

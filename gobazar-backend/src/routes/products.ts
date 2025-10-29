@@ -8,6 +8,7 @@ const router = Router();
 
 // Public routes
 router.get('/', validateQuery(ValidationSchemas.productQuery), productController.getProducts);
+router.post('/bulk', productController.getBulkProducts);
 router.get('/featured', productController.getFeaturedProducts);
 router.get('/popular', productController.getPopularProducts);
 router.get('/trending', productController.getTrendingProducts);

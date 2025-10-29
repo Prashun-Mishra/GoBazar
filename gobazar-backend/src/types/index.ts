@@ -77,6 +77,8 @@ export interface OrderWithRelations extends Order {
     variant?: ProductVariant;
   })[];
   coupon?: Coupon;
+  paymentStatus?: string;
+  payments?: any[];
 }
 
 export interface CreateOrderRequest {
@@ -86,7 +88,8 @@ export interface CreateOrderRequest {
     quantity: number;
   }[];
   addressId: string;
-  deliverySlot: string;
+  deliverySlot?: string;
+  paymentMethod?: string;
   couponCode?: string;
 }
 

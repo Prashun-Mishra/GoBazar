@@ -6,6 +6,10 @@ import recommendationRoutes from './recommendations';
 import cartRoutes from './cart';
 import orderRoutes from './orders';
 import addressRoutes from './addresses';
+import locationRoutes from './location';
+import adminRoutes from './admin';
+import paymentRoutes from './payments';
+import categoryController from '@/controllers/categoryController';
 
 const router = Router();
 
@@ -27,8 +31,12 @@ router.use('/recommendations', recommendationRoutes);
 router.use('/cart', cartRoutes);
 router.use('/orders', orderRoutes);
 router.use('/addresses', addressRoutes);
+router.use('/location', locationRoutes);
+router.use('/admin', adminRoutes);
+router.use('/payments', paymentRoutes);
 
-// Legacy routes for frontend compatibility
-router.use('/subcategories', categoryRoutes);
+// Legacy route for frontend compatibility
+// Direct subcategories endpoint
+router.get('/subcategories', categoryController.getSubcategories);
 
 export default router;
