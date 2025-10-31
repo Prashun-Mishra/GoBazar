@@ -3,21 +3,31 @@ import config from '@/config';
 import { EmailOptions } from '@/types';
 
 class EmailService {
-  private transporter: nodemailer.Transporter;
+  private transporter: nodemailer.Transporter | null = null;
 
   constructor() {
-    this.transporter = nodemailer.createTransport({
-      host: config.email.host,
-      port: config.email.port,
-      secure: config.email.port === 465, // true for 465, false for other ports
-      auth: {
-        user: config.email.user,
-        pass: config.email.pass,
-      },
-    });
+    // Only initialize if email credentials are provided
+    if (config.email.user && config.email.pass) {
+      this.transporter = nodemailer.createTransport({
+        host: config.email.host,
+        port: config.email.port,
+        secure: config.email.port === 465, // true for 465, false for other ports
+        auth: {
+          user: config.email.user,
+          pass: config.email.pass,
+        },
+      });
+    } else {
+      console.warn('⚠️ Email service not configured. Email features will be disabled.');
+    }
   }
 
   async sendEmail(options: EmailOptions): Promise<boolean> {
+    if (!this.transporter) {
+      console.warn('Email service not configured. Skipping email send.');
+      return false;
+    }
+
     try {
       const mailOptions = {
         from: `"GoBazar" <${config.email.user}>`,
@@ -288,6 +298,11 @@ class EmailService {
   }
 
   async testConnection(): Promise<boolean> {
+    if (!this.transporter) {
+      console.warn('Email service not configured.');
+      return false;
+    }
+
     try {
       await this.transporter.verify();
       console.log('Email service connected successfully');

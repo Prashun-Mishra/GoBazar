@@ -1,0 +1,32 @@
+{
+  "version": 2,
+  "buildCommand": "npm run build && npm run prisma:generate",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "builds": [
+    {
+      "src": "dist/server.js",
+      "use": "@vercel/node",
+      "config": {
+        "maxLambdaSize": "50mb",
+        "memory": 1024
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "dist/server.js"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "regions": ["bom1"],
+  "functions": {
+    "dist/server.js": {
+      "maxDuration": 60,
+      "memory": 1024
+    }
+  }
+}

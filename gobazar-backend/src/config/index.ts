@@ -59,17 +59,23 @@ const config: AppConfig = {
   },
 };
 
-// Validate required environment variables
-const requiredEnvVars = [
-  'DATABASE_URL',
-  'JWT_SECRET',
-];
+// Validate required environment variables (only in production)
+if (process.env.NODE_ENV === 'production') {
+  const requiredEnvVars = [
+    'DATABASE_URL',
+    'JWT_SECRET',
+  ];
 
-const missingEnvVars = requiredEnvVars.filter(envVar => !process.env[envVar]);
+  const missingEnvVars = requiredEnvVars.filter(envVar => !process.env[envVar]);
 
-if (missingEnvVars.length > 0) {
-  console.error('Missing required environment variables:', missingEnvVars.join(', '));
-  process.exit(1);
+  if (missingEnvVars.length > 0) {
+    console.error('Missing required environment variables:', missingEnvVars.join(', '));
+    console.error('Please set these variables in your Vercel environment settings');
+    // Don't exit during build, only warn
+    if (process.env.VERCEL_ENV !== 'preview' && process.env.VERCEL_ENV !== 'production') {
+      console.warn('⚠️ Running with missing environment variables. This may cause runtime errors.');
+    }
+  }
 }
 
 export default config;
