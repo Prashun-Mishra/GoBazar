@@ -163,7 +163,12 @@ export interface ErrorResponse {
 }
 
 // Middleware types
-export interface AuthenticatedRequest extends Request {
+export interface AuthenticatedRequest<
+  P = any,
+  ResBody = any,
+  ReqBody = any,
+  ReqQuery = any
+> extends Request<P, ResBody, ReqBody, ReqQuery> {
   user?: JWTPayload;
 }
 
