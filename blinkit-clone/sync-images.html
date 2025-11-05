@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sync Category Images - GoBazar</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #16a34a;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .status {
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .success { background-color: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+        .error { background-color: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+        .info { background-color: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+        .warning { background-color: #fffbeb; color: #d97706; border: 1px solid #fed7aa; }
+        button {
+            background-color: #16a34a;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin: 10px 0;
+        }
+        button:hover { background-color: #15803d; }
+        button:disabled { background-color: #9ca3af; cursor: not-allowed; }
+        .loading { display: none; text-align: center; margin: 20px 0; }
+        .results { margin-top: 20px; }
+        pre {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 12px;
+            white-space: pre-wrap;
+        }
+        .step {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #16a34a;
+            background-color: #f0fdf4;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔄 Sync Category Images to Database</h1>
+        
+        <div class="info status">
+            <strong>🎯 Purpose:</strong><br>
+            This will sync the Grofers/Blinkit category images from your local files to the backend database,
+            making them visible to all users in production.
+        </div>
+        
+        <div class="step">
+            <strong>Step 1:</strong> Make sure your backend server is running (localhost:5000)
+        </div>
+        
+        <div class="step">
+            <strong>Step 2:</strong> Click the sync button below
+        </div>
+        
+        <button id="syncBtn" onclick="syncImages()">
+            🚀 Sync Images to Database
+        </button>
+        
+        <div id="loading" class="loading">
+            <div>⏳ Syncing category images to database...</div>
+            <div style="font-size: 14px; color: #666; margin-top: 10px;">This may take a few moments</div>
+        </div>
+        
+        <div id="results" class="results"></div>
+        
+        <div class="warning status" style="margin-top: 30px;">
+            <strong>⚠️ If sync fails:</strong><br>
+            The page will provide SQL commands that you can run directly in your PostgreSQL database.
+        </div>
+        
+        <div class="info status">
+            <strong>✅ After successful sync:</strong><br>
+            • Images will be live in production<br>
+            • No need to restart servers<br>
+            • All users will see updated images<br>
+            • Hosting will work perfectly
+        </div>
+    </div>
+
+    <script>
+        async function syncImages() {
+            const syncBtn = document.getElementById('syncBtn');
+            const loading = document.getElementById('loading');
+            const results = document.getElementById('results');
+            
+            // Show loading state
+            syncBtn.disabled = true;
+            loading.style.display = 'block';
+            results.innerHTML = '';
+            
+            try {
+                const response = await fetch('/api/categories/sync', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const data = await response.json();
+                
+                // Hide loading
+                loading.style.display = 'none';
+                syncBtn.disabled = false;
+                
+                // Show results
+                if (data.success) {
+                    results.innerHTML = `
+                        <div class="success status">
+                            <strong>✅ ${data.message}</strong>
+                        </div>
+                        <div class="info status">
+                            🎉 Category images are now synced to the database!<br>
+                            All users will see the new Grofers/Blinkit images.<br>
+                            Your site is ready for production hosting.
+                        </div>
+                    `;
+                    
+                    // Show sync details
+                    if (data.results) {
+                        results.innerHTML += `
+                            <div class="step">
+                                <strong>Sync Results:</strong><br>
+                                ✅ Success: ${data.results.success} categories<br>
+                                ❌ Failed: ${data.results.failed} categories<br>
+                                📊 Total: ${data.results.total} categories
+                            </div>
+                        `;
+                    }
+                } else {
+                    results.innerHTML = `
+                        <div class="error status">
+                            <strong>❌ Sync failed: ${data.error || data.message}</strong>
+                        </div>
+                    `;
+                    
+                    // Show SQL fallback if available
+                    if (data.fallback && data.fallback.sql) {
+                        results.innerHTML += `
+                            <div class="warning status">
+                                <strong>🔧 Manual Database Update:</strong><br>
+                                Copy and run these SQL commands in your PostgreSQL database:
+                                <pre>${data.fallback.sql}</pre>
+                            </div>
+                        `;
+                    }
+                }
+                
+            } catch (error) {
+                loading.style.display = 'none';
+                syncBtn.disabled = false;
+                
+                results.innerHTML = `
+                    <div class="error status">
+                        <strong>❌ Network Error:</strong><br>
+                        ${error.message}<br><br>
+                        Please make sure your backend server is running at localhost:5000
+                    </div>
+                    <div class="warning status">
+                        <strong>🔧 Alternative:</strong><br>
+                        If the backend is not accessible, you can run the SQL script manually:<br>
+                        <code>psql -f update-category-images.sql</code>
+                    </div>
+                `;
+            }
+        }
+        
+        // Auto-check backend status on page load
+        window.onload = async function() {
+            try {
+                const response = await fetch('/api/categories');
+                if (response.ok) {
+                    document.querySelector('.step').innerHTML += '<br><span style="color: #16a34a;">✅ Backend is running</span>';
+                } else {
+                    document.querySelector('.step').innerHTML += '<br><span style="color: #dc2626;">❌ Backend not responding</span>';
+                }
+            } catch (error) {
+                document.querySelector('.step').innerHTML += '<br><span style="color: #dc2626;">❌ Backend not accessible</span>';
+            }
+        };
+    </script>
+</body>
+</html>

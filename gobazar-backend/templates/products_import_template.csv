@@ -1,0 +1,6 @@
+name,description,brand,category,subcategory,price,mrp,discountPercent,stock,unit,images,tags
+Amul Milk,Fresh full cream milk,Amul,Dairy,Milk,56,60,7,100,1L,https://example.com/amul-milk.jpg,"milk,dairy,fresh"
+Britannia Bread,Whole wheat bread,Britannia,Bakery,Bread,40,45,11,50,400g,https://example.com/bread.jpg,"bread,bakery"
+Tata Salt,Iodized salt,Tata,Grocery,Spices & Seasonings,20,22,9,200,1kg,https://example.com/salt.jpg,"salt,grocery"
+Fortune Oil,Refined sunflower oil,Fortune,Grocery,Cooking Oil,180,200,10,75,1L,https://example.com/oil.jpg,"oil,cooking"
+Organic Tomato,Fresh organic tomatoes,Local,Vegetables,Fresh Vegetables,40,50,20,150,1kg,https://example.com/tomato.jpg,"vegetables,organic,fresh"

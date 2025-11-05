@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Category Images - GoBazar Admin</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #16a34a;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .status {
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .success { background-color: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+        .error { background-color: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+        .info { background-color: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+        .warning { background-color: #fffbeb; color: #d97706; border: 1px solid #fed7aa; }
+        button {
+            background-color: #16a34a;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin: 10px 0;
+        }
+        button:hover { background-color: #15803d; }
+        button:disabled { background-color: #9ca3af; cursor: not-allowed; }
+        .loading { display: none; text-align: center; margin: 20px 0; }
+        .results { margin-top: 20px; }
+        .category-result {
+            padding: 8px 12px;
+            margin: 5px 0;
+            border-radius: 3px;
+            font-size: 14px;
+        }
+        .category-success { background-color: #f0fdf4; color: #166534; }
+        .category-failed { background-color: #fef2f2; color: #dc2626; }
+        pre {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🖼️ Update Category Images</h1>
+        
+        <div class="info status">
+            <strong>📋 What this does:</strong><br>
+            Updates all 20 category images with professional Grofers/Blinkit CDN images.<br>
+            This will make the new images visible to all users immediately.
+        </div>
+        
+        <button id="updateBtn" onclick="updateCategories()">
+            🚀 Update Category Images Now
+        </button>
+        
+        <div id="loading" class="loading">
+            <div>⏳ Updating categories...</div>
+            <div style="font-size: 14px; color: #666; margin-top: 10px;">This may take a few moments</div>
+        </div>
+        
+        <div id="results" class="results"></div>
+        
+        <div class="warning status" style="margin-top: 30px;">
+            <strong>⚠️ If the update fails:</strong><br>
+            1. Make sure your backend server is running (localhost:5000)<br>
+            2. Or use the SQL script: <code>run-sql-update.bat</code><br>
+            3. Or run: <code>node direct-db-update.js</code>
+        </div>
+        
+        <div class="info status">
+            <strong>📁 Files created for manual update:</strong><br>
+            • <code>update-category-images.sql</code> - SQL script<br>
+            • <code>run-sql-update.bat</code> - Batch file for Windows<br>
+            • <code>direct-db-update.js</code> - Direct database connection
+        </div>
+    </div>
+
+    <script>
+        async function updateCategories() {
+            const updateBtn = document.getElementById('updateBtn');
+            const loading = document.getElementById('loading');
+            const results = document.getElementById('results');
+            
+            // Show loading state
+            updateBtn.disabled = true;
+            loading.style.display = 'block';
+            results.innerHTML = '';
+            
+            try {
+                const response = await fetch('/api/admin/update-categories', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const data = await response.json();
+                
+                // Hide loading
+                loading.style.display = 'none';
+                updateBtn.disabled = false;
+                
+                // Show results
+                if (data.success) {
+                    results.innerHTML = `
+                        <div class="success status">
+                            <strong>✅ ${data.message}</strong>
+                        </div>
+                        <div class="info status">
+                            🎉 Category images are now live for all users!<br>
+                            Refresh your website to see the new Grofers/Blinkit category images.
+                        </div>
+                    `;
+                    
+                    // Show individual results if available
+                    if (data.results && data.results.details) {
+                        let detailsHtml = '<div style="margin-top: 15px;"><strong>Update Details:</strong></div>';
+                        data.results.details.forEach(result => {
+                            const className = result.status === 'success' ? 'category-success' : 'category-failed';
+                            const icon = result.status === 'success' ? '✅' : '❌';
+                            detailsHtml += `<div class="category-result ${className}">${icon} ${result.category}</div>`;
+                        });
+                        results.innerHTML += detailsHtml;
+                    }
+                } else {
+                    results.innerHTML = `
+                        <div class="error status">
+                            <strong>❌ Update failed: ${data.error || data.message}</strong>
+                        </div>
+                    `;
+                    
+                    // Show fallback options
+                    if (data.fallback) {
+                        results.innerHTML += `
+                            <div class="warning status">
+                                <strong>🔧 Alternative methods:</strong><br>
+                                ${data.fallback.message}<br><br>
+                                <strong>Options:</strong><br>
+                                ${data.fallback.instructions ? data.fallback.instructions.join('<br>') : 
+                                  data.fallback.options ? data.fallback.options.join('<br>') : ''}
+                            </div>
+                        `;
+                    }
+                }
+                
+            } catch (error) {
+                loading.style.display = 'none';
+                updateBtn.disabled = false;
+                
+                results.innerHTML = `
+                    <div class="error status">
+                        <strong>❌ Network Error:</strong><br>
+                        ${error.message}<br><br>
+                        Please make sure your development server is running and try again.
+                    </div>
+                    <div class="warning status">
+                        <strong>🔧 Manual alternatives:</strong><br>
+                        1. Run: <code>run-sql-update.bat</code><br>
+                        2. Or: <code>node direct-db-update.js</code><br>
+                        3. Or execute the SQL script manually in your database
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

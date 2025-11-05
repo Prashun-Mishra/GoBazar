@@ -1,0 +1,364 @@
+"use client"
+
+import { useState, useEffect } from "react"
+import { useParams, useSearchParams, useRouter } from "next/navigation"
+import Link from "next/link"
+import { Header } from "@/components/header"
+import { ProductCard } from "@/components/product-card"
+import { Footer } from "@/components/footer"
+import { Button } from "@/components/ui/button"
+import { ChevronRight, Filter, SlidersHorizontal } from "lucide-react"
+import type { Category, SubCategory, Product } from "@/types"
+
+export default function CategoryPage() {
+  const params = useParams()
+  const searchParams = useSearchParams()
+  const router = useRouter()
+  const [category, setCategory] = useState<Category | null>(null)
+  const [subcategories, setSubcategories] = useState<SubCategory[]>([])
+  const [products, setProducts] = useState<Product[]>([])
+  const [loading, setLoading] = useState(true)
+  const [sortBy, setSortBy] = useState("popularity")
+  const [showFilters, setShowFilters] = useState(false)
+  const [activeSubcategory, setActiveSubcategory] = useState<string>("")
+
+  useEffect(() => {
+    const fetchCategoryData = async () => {
+      try {
+        // Fetch category details
+        const categoriesResponse = await fetch("/api/categories")
+        const categoriesResult = await categoriesResponse.json()
+        const categories = categoriesResult.data || categoriesResult
+        const currentCategory = Array.isArray(categories) ? categories.find((cat: Category) => cat.slug === params.slug) : null
+        setCategory(currentCategory)
+
+        if (currentCategory) {
+          // Fetch subcategories
+          const subcategoriesResponse = await fetch("/api/subcategories")
+          const subcategoriesResult = await subcategoriesResponse.json()
+          const allSubcategories = subcategoriesResult.data || subcategoriesResult
+          const categorySubcategories = Array.isArray(allSubcategories) ? allSubcategories.filter(
+            (sub: SubCategory) => sub.categoryId === currentCategory.id,
+          ) : []
+          setSubcategories(categorySubcategories)
+
+          // Set active subcategory from URL or default to first
+          const subParam = searchParams.get("sub")
+          const activeSubcat = subParam
+            ? categorySubcategories.find((sub: SubCategory) => sub.slug === subParam)?.id ||
+              categorySubcategories[0]?.id
+            : categorySubcategories[0]?.id
+          setActiveSubcategory(activeSubcat || "")
+
+          // Fetch products
+          const productsResponse = await fetch("/api/products")
+          const productsData = await productsResponse.json()
+          // Handle both old and new API response formats
+          const allProducts = productsData.products || productsData.data || productsData
+          const productsArray = Array.isArray(allProducts) ? allProducts : []
+          const categoryProducts = productsArray.filter((product: Product) => product.categoryId === currentCategory.id)
+          setProducts(categoryProducts)
+        }
+      } catch (error) {
+        console.error("Failed to fetch category data:", error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchCategoryData()
+  }, [params.slug, searchParams])
+
+  const handleSubcategoryChange = (subcategoryId: string) => {
+    setActiveSubcategory(subcategoryId)
+    const subcategory = subcategories.find((sub) => sub.id === subcategoryId)
+    if (subcategory) {
+      router.push(`/category/${params.slug}?sub=${subcategory.slug}`)
+    }
+  }
+
+  const filteredProducts = products.filter(
+    (product) => !activeSubcategory || product.subcategoryId === activeSubcategory,
+  )
+
+  const sortedProducts = [...filteredProducts].sort((a, b) => {
+    switch (sortBy) {
+      case "price-low":
+        return a.price - b.price
+      case "price-high":
+        return b.price - a.price
+      case "rating":
+        return b.rating - a.rating
+      case "discount":
+        return b.discountPercent - a.discountPercent
+      default:
+        return b.reviewCount - a.reviewCount
+    }
+  })
+
+  const activeSubcategoryData = subcategories.find((sub) => sub.id === activeSubcategory)
+  const productCount = filteredProducts.length
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        <div className="container py-8">
+          <div className="animate-pulse">
+            <div className="h-8 bg-gray-200 rounded w-1/3 mb-6"></div>
+            <div className="flex">
+              <div className="w-64 bg-gray-200 rounded h-96 mr-6"></div>
+              <div className="flex-1 grid grid-cols-2 md:grid-cols-3 gap-4">
+                {Array.from({ length: 12 }).map((_, index) => (
+                  <div key={index} className="bg-white rounded-lg p-4">
+                    <div className="bg-gray-200 aspect-square rounded mb-3"></div>
+                    <div className="bg-gray-200 h-4 rounded mb-2"></div>
+                    <div className="bg-gray-200 h-3 rounded w-2/3"></div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (!category) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        <div className="container py-8">
+          <div className="text-center">
+            <h1 className="text-2xl font-bold text-gray-900 mb-4">Category not found</h1>
+            <p className="text-gray-600">The category you're looking for doesn't exist.</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <Header />
+
+      <main className="container py-4">
+        {/* Breadcrumb */}
+        <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-6">
+          <Link href="/" className="hover:text-green-600">
+            Home
+          </Link>
+          <ChevronRight className="w-4 h-4" />
+          <span className="text-gray-900">{category.name}</span>
+          {activeSubcategoryData && (
+            <>
+              <ChevronRight className="w-4 h-4" />
+              <span className="text-gray-900">{activeSubcategoryData.name}</span>
+            </>
+          )}
+        </nav>
+
+        {/* Mobile Subcategory Tabs */}
+        <div className="md:hidden mb-6">
+          <div className="flex overflow-x-auto space-x-2 pb-2">
+            {subcategories.map((subcategory) => (
+              <button
+                key={subcategory.id}
+                onClick={() => handleSubcategoryChange(subcategory.id)}
+                className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap ${
+                  activeSubcategory === subcategory.id
+                    ? "bg-green-600 text-white"
+                    : "bg-white text-gray-700 border border-gray-200"
+                }`}
+              >
+                {subcategory.name}
+                <span className="ml-1 text-xs opacity-75">
+                  ({products.filter((p) => p.subcategoryId === subcategory.id).length})
+                </span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex gap-6">
+          {/* Desktop Sidebar */}
+          <div className="hidden md:block w-64 flex-shrink-0">
+            <div className="bg-white rounded-lg border p-4 sticky top-4">
+              <h3 className="font-semibold text-gray-900 mb-4">{category.name}</h3>
+              <div className="space-y-2">
+                {subcategories.map((subcategory) => (
+                  <button
+                    key={subcategory.id}
+                    onClick={() => handleSubcategoryChange(subcategory.id)}
+                    className={`w-full text-left px-3 py-2 rounded-md text-sm flex items-center justify-between ${
+                      activeSubcategory === subcategory.id
+                        ? "bg-green-50 text-green-700 border border-green-200"
+                        : "text-gray-700 hover:bg-gray-50"
+                    }`}
+                  >
+                    <span>{subcategory.name}</span>
+                    <span className="text-xs text-gray-500">
+                      ({products.filter((p) => p.subcategoryId === subcategory.id).length})
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Main Content */}
+          <div className="flex-1">
+            {/* Category Header */}
+            <div className="mb-6">
+              <h1 className="text-2xl font-bold text-gray-900 mb-2">
+                {activeSubcategoryData ? activeSubcategoryData.name : category.name}
+              </h1>
+              <p className="text-gray-600">{productCount} products available</p>
+            </div>
+
+            {/* Sort and Filter Bar */}
+            <div className="flex items-center justify-between mb-6 bg-white rounded-lg border p-4">
+              <div className="flex items-center space-x-4">
+                <Button variant="outline" size="sm" onClick={() => setShowFilters(!showFilters)}>
+                  <Filter className="w-4 h-4 mr-2" />
+                  Filters
+                </Button>
+                <div className="hidden md:flex items-center space-x-2">
+                  <Button variant="outline" size="sm">
+                    <SlidersHorizontal className="w-4 h-4 mr-2" />
+                    Price
+                  </Button>
+                  <Button variant="outline" size="sm">
+                    Brand
+                  </Button>
+                  <Button variant="outline" size="sm">
+                    Pack Size
+                  </Button>
+                </div>
+              </div>
+
+              <div className="flex items-center space-x-2">
+                <span className="text-sm text-gray-600">Sort by:</span>
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value)}
+                  className="border border-gray-300 rounded-md px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+                >
+                  <option value="popularity">Popularity</option>
+                  <option value="price-low">Price: Low to High</option>
+                  <option value="price-high">Price: High to Low</option>
+                  <option value="rating">Customer Rating</option>
+                  <option value="discount">Discount</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Mobile Filters */}
+            {showFilters && (
+              <div className="bg-white rounded-lg border p-4 mb-6">
+                <h3 className="font-medium mb-4">Filters</h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div>
+                    <h4 className="font-medium text-sm mb-2">Price Range</h4>
+                    <div className="space-y-2">
+                      <label className="flex items-center">
+                        <input type="checkbox" className="mr-2" />
+                        <span className="text-sm">Under ₹50</span>
+                      </label>
+                      <label className="flex items-center">
+                        <input type="checkbox" className="mr-2" />
+                        <span className="text-sm">₹50 - ₹100</span>
+                      </label>
+                      <label className="flex items-center">
+                        <input type="checkbox" className="mr-2" />
+                        <span className="text-sm">Above ₹100</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-sm mb-2">Brand</h4>
+                    <div className="space-y-2">
+                      <label className="flex items-center">
+                        <input type="checkbox" className="mr-2" />
+                        <span className="text-sm">Kellogg's</span>
+                      </label>
+                      <label className="flex items-center">
+                        <input type="checkbox" className="mr-2" />
+                        <span className="text-sm">Quaker</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-sm mb-2">Pack Size</h4>
+                    <div className="space-y-2">
+                      <label className="flex items-center">
+                        <input type="checkbox" className="mr-2" />
+                        <span className="text-sm">Small (250g)</span>
+                      </label>
+                      <label className="flex items-center">
+                        <input type="checkbox" className="mr-2" />
+                        <span className="text-sm">Large (500g+)</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Products Grid */}
+            {sortedProducts.length > 0 ? (
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
+                {sortedProducts.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-12">
+                <h3 className="text-xl font-medium text-gray-900 mb-2">No products found</h3>
+                <p className="text-gray-600">Try selecting a different subcategory or adjusting your filters.</p>
+              </div>
+            )}
+
+            {/* SEO Content Section */}
+            {activeSubcategoryData && (
+              <div className="bg-white rounded-lg border p-6 mb-8">
+                <h2 className="text-xl font-semibold text-gray-900 mb-4">About {activeSubcategoryData.name}</h2>
+                <p className="text-gray-600 mb-4">
+                  {activeSubcategoryData.description ||
+                    `Discover our wide range of ${activeSubcategoryData.name.toLowerCase()} products. We offer the best quality items at competitive prices with fast delivery.`}
+                </p>
+
+                <div className="border-t pt-4">
+                  <h3 className="font-medium text-gray-900 mb-2">Frequently Asked Questions</h3>
+                  <div className="space-y-2">
+                    <details className="group">
+                      <summary className="flex items-center justify-between cursor-pointer text-sm font-medium text-gray-700 hover:text-gray-900">
+                        What are the health benefits of {activeSubcategoryData.name.toLowerCase()}?
+                        <ChevronRight className="w-4 h-4 group-open:rotate-90 transition-transform" />
+                      </summary>
+                      <p className="mt-2 text-sm text-gray-600">
+                        {activeSubcategoryData.name} provide essential nutrients and are a great source of energy for
+                        your daily activities.
+                      </p>
+                    </details>
+                    <details className="group">
+                      <summary className="flex items-center justify-between cursor-pointer text-sm font-medium text-gray-700 hover:text-gray-900">
+                        How should I store {activeSubcategoryData.name.toLowerCase()}?
+                        <ChevronRight className="w-4 h-4 group-open:rotate-90 transition-transform" />
+                      </summary>
+                      <p className="mt-2 text-sm text-gray-600">
+                        Store in a cool, dry place away from direct sunlight to maintain freshness and quality.
+                      </p>
+                    </details>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </main>
+
+      <Footer />
+    </div>
+  )
+}

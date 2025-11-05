@@ -1,0 +1,353 @@
+[
+  {
+    "id": "1",
+    "name": "Fresh Bananas",
+    "brand": "Fresh Farm",
+    "categoryId": "1",
+    "price": 40,
+    "mrp": 50,
+    "discountPercent": 20,
+    "images": ["/placeholder.svg?height=300&width=300"],
+    "unit": "1 kg",
+    "variants": [
+      {
+        "id": "1-1",
+        "name": "500g Pack",
+        "unit": "500g",
+        "price": 25,
+        "mrp": 30,
+        "stock": 40
+      }
+    ],
+    "stock": 50,
+    "description": "Fresh, ripe bananas perfect for snacking or smoothies. Rich in potassium and natural sugars for instant energy.",
+    "rating": 4.2,
+    "reviewCount": 128
+  },
+  {
+    "id": "2",
+    "name": "Red Apples",
+    "brand": "Hill Fresh",
+    "categoryId": "1",
+    "price": 120,
+    "mrp": 150,
+    "discountPercent": 20,
+    "images": ["/placeholder.svg?height=300&width=300"],
+    "unit": "1 kg",
+    "variants": [
+      {
+        "id": "2-1",
+        "name": "500g Pack",
+        "unit": "500g",
+        "price": 70,
+        "mrp": 80,
+        "stock": 25
+      }
+    ],
+    "stock": 30,
+    "description": "Crisp and sweet red apples, rich in vitamins and fiber. Perfect for healthy snacking and cooking.",
+    "rating": 4.5,
+    "reviewCount": 89
+  },
+  {
+    "id": "3",
+    "name": "Fresh Milk",
+    "brand": "Amul",
+    "categoryId": "2",
+    "subcategoryId": "6",
+    "price": 28,
+    "mrp": 30,
+    "discountPercent": 7,
+    "images": ["/amul-milk-packet.jpg"],
+    "unit": "500 ml",
+    "variants": [
+      {
+        "id": "3-1",
+        "name": "1 Liter",
+        "unit": "1 L",
+        "price": 55,
+        "mrp": 60,
+        "stock": 80
+      }
+    ],
+    "stock": 100,
+    "description": "Fresh full cream milk, rich in calcium and protein. Perfect for drinking, cooking, and making tea or coffee.",
+    "rating": 4.7,
+    "reviewCount": 256
+  },
+  {
+    "id": "4",
+    "name": "Brown Bread",
+    "brand": "Britannia",
+    "categoryId": "3",
+    "price": 35,
+    "mrp": 40,
+    "discountPercent": 12,
+    "images": ["/amul-bread-packet.jpg"],
+    "unit": "400g",
+    "stock": 25,
+    "description": "Healthy brown bread made with whole wheat. High in fiber and perfect for sandwiches and toast.",
+    "rating": 4.1,
+    "reviewCount": 67
+  },
+  {
+    "id": "5",
+    "name": "Coca Cola",
+    "brand": "Coca Cola",
+    "categoryId": "4",
+    "price": 40,
+    "mrp": 45,
+    "discountPercent": 11,
+    "images": ["/placeholder.svg?height=300&width=300"],
+    "unit": "750 ml",
+    "variants": [
+      {
+        "id": "5-1",
+        "name": "1.25 Liter",
+        "unit": "1.25 L",
+        "price": 65,
+        "mrp": 70,
+        "stock": 50
+      },
+      {
+        "id": "5-2",
+        "name": "300ml Can",
+        "unit": "300ml",
+        "price": 25,
+        "mrp": 30,
+        "stock": 100
+      }
+    ],
+    "stock": 80,
+    "description": "Refreshing cola drink perfect for any occasion. The classic taste that brings people together.",
+    "rating": 4.3,
+    "reviewCount": 145
+  },
+  {
+    "id": "6",
+    "name": "Lays Chips",
+    "brand": "Lays",
+    "categoryId": "5",
+    "price": 20,
+    "mrp": 25,
+    "discountPercent": 20,
+    "images": ["/placeholder.svg?height=300&width=300"],
+    "unit": "52g",
+    "variants": [
+      {
+        "id": "6-1",
+        "name": "Large Pack",
+        "unit": "90g",
+        "price": 35,
+        "mrp": 40,
+        "stock": 40
+      }
+    ],
+    "stock": 60,
+    "description": "Crispy potato chips with classic salted flavor. Made from the finest potatoes for the perfect crunch.",
+    "rating": 4.0,
+    "reviewCount": 234
+  },
+  {
+    "id": "7",
+    "name": "Basmati Rice",
+    "brand": "India Gate",
+    "categoryId": "6",
+    "price": 180,
+    "mrp": 200,
+    "discountPercent": 10,
+    "images": ["/placeholder.svg?height=300&width=300"],
+    "unit": "1 kg",
+    "variants": [
+      {
+        "id": "7-1",
+        "name": "5 kg Pack",
+        "unit": "5 kg",
+        "price": 850,
+        "mrp": 950,
+        "stock": 20
+      }
+    ],
+    "stock": 45,
+    "description": "Premium basmati rice with long grains and aromatic fragrance. Perfect for biryanis and pulao.",
+    "rating": 4.6,
+    "reviewCount": 312
+  },
+  {
+    "id": "8",
+    "name": "Sunflower Oil",
+    "brand": "Fortune",
+    "categoryId": "7",
+    "price": 140,
+    "mrp": 160,
+    "discountPercent": 12,
+    "images": ["/placeholder.svg?height=300&width=300"],
+    "unit": "1 L",
+    "variants": [
+      {
+        "id": "8-1",
+        "name": "5 Liter",
+        "unit": "5 L",
+        "price": 650,
+        "mrp": 750,
+        "stock": 15
+      }
+    ],
+    "stock": 35,
+    "description": "Pure sunflower oil, light and healthy for all your cooking needs. Rich in vitamin E.",
+    "rating": 4.4,
+    "reviewCount": 189
+  },
+  {
+    "id": "9",
+    "name": "Kellogg's Corn Flakes",
+    "brand": "Kellogg's",
+    "categoryId": "19",
+    "subcategoryId": "1",
+    "price": 149,
+    "mrp": 165,
+    "discountPercent": 10,
+    "images": ["/placeholder.svg?height=300&width=300"],
+    "unit": "475g",
+    "variants": [
+      {
+        "id": "9-1",
+        "name": "875g Family Pack",
+        "unit": "875g",
+        "price": 265,
+        "mrp": 295,
+        "stock": 25
+      }
+    ],
+    "stock": 40,
+    "description": "Crispy golden corn flakes made from sun-ripened corn. A nutritious breakfast option that's light and crunchy.",
+    "rating": 4.3,
+    "reviewCount": 187
+  },
+  {
+    "id": "10",
+    "name": "Kellogg's Chocos",
+    "brand": "Kellogg's",
+    "categoryId": "19",
+    "subcategoryId": "4",
+    "price": 175,
+    "mrp": 195,
+    "discountPercent": 10,
+    "images": ["/placeholder.svg?height=300&width=300"],
+    "unit": "350g",
+    "stock": 35,
+    "description": "Chocolatey breakfast cereal that kids love. Made with real cocoa for a delicious chocolate taste.",
+    "rating": 4.5,
+    "reviewCount": 156
+  },
+  {
+    "id": "11",
+    "name": "Quaker Oats",
+    "brand": "Quaker",
+    "categoryId": "19",
+    "subcategoryId": "3",
+    "price": 185,
+    "mrp": 210,
+    "discountPercent": 12,
+    "images": ["/placeholder.svg?height=300&width=300"],
+    "unit": "1kg",
+    "variants": [
+      {
+        "id": "11-1",
+        "name": "500g Pack",
+        "unit": "500g",
+        "price": 95,
+        "mrp": 110,
+        "stock": 50
+      }
+    ],
+    "stock": 30,
+    "description": "100% whole grain oats, perfect for a healthy breakfast. Rich in fiber and helps maintain cholesterol levels.",
+    "rating": 4.6,
+    "reviewCount": 298
+  },
+  {
+    "id": "12",
+    "name": "Kellogg's Muesli",
+    "brand": "Kellogg's",
+    "categoryId": "19",
+    "subcategoryId": "2",
+    "price": 285,
+    "mrp": 320,
+    "discountPercent": 11,
+    "images": ["/placeholder.svg?height=300&width=300"],
+    "unit": "500g",
+    "stock": 25,
+    "description": "Wholesome muesli with nuts, raisins and wheat flakes. A perfect blend of taste and nutrition.",
+    "rating": 4.4,
+    "reviewCount": 89
+  },
+  {
+    "id": "13",
+    "name": "Bagrry's Crunchy Granola",
+    "brand": "Bagrry's",
+    "categoryId": "19",
+    "subcategoryId": "5",
+    "price": 225,
+    "mrp": 250,
+    "discountPercent": 10,
+    "images": ["/placeholder.svg?height=300&width=300"],
+    "unit": "400g",
+    "stock": 20,
+    "description": "Crunchy granola with honey, nuts and dried fruits. Perfect for breakfast or as a healthy snack.",
+    "rating": 4.2,
+    "reviewCount": 67
+  },
+  {
+    "id": "14",
+    "name": "Amul Fresh Curd",
+    "brand": "Amul",
+    "categoryId": "2",
+    "subcategoryId": "7",
+    "price": 25,
+    "mrp": 28,
+    "discountPercent": 11,
+    "images": ["/amul-curd-cup.jpg"],
+    "unit": "200g",
+    "variants": [
+      {
+        "id": "14-1",
+        "name": "400g Pack",
+        "unit": "400g",
+        "price": 48,
+        "mrp": 55,
+        "stock": 60
+      }
+    ],
+    "stock": 80,
+    "description": "Fresh and creamy curd made from pure milk. Rich in probiotics and perfect for digestion.",
+    "rating": 4.5,
+    "reviewCount": 234
+  },
+  {
+    "id": "15",
+    "name": "Country Hen Eggs",
+    "brand": "Fresh Farm",
+    "categoryId": "2",
+    "subcategoryId": "8",
+    "price": 72,
+    "mrp": 80,
+    "discountPercent": 10,
+    "images": ["/country-hen-eggs.jpg"],
+    "unit": "6 pieces",
+    "variants": [
+      {
+        "id": "15-1",
+        "name": "12 pieces",
+        "unit": "12 pieces",
+        "price": 140,
+        "mrp": 155,
+        "stock": 40
+      }
+    ],
+    "stock": 50,
+    "description": "Fresh country hen eggs, rich in protein and essential nutrients. Perfect for cooking and baking.",
+    "rating": 4.7,
+    "reviewCount": 178
+  }
+]

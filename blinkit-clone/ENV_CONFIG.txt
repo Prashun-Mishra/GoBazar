@@ -1,0 +1,13 @@
+# Environment Configuration for GoBazar Frontend
+# Copy this content to .env.local file
+
+NEXT_PUBLIC_API_URL=http://localhost:5000
+
+# Instructions:
+# 1. Create a file named .env.local in the blinkit-clone directory
+# 2. Copy the above line into that file
+# 3. Save the file
+# 4. Restart your Next.js development server
+
+# For production, change the URL to your production backend URL
+# Example: NEXT_PUBLIC_API_URL=https://api.gobazar.com

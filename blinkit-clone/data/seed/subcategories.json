@@ -1,0 +1,82 @@
+[
+  {
+    "id": "1",
+    "categoryId": "19",
+    "name": "Cornflakes",
+    "slug": "cornflakes",
+    "description": "Crispy and nutritious cornflakes for a healthy breakfast",
+    "order": 1
+  },
+  {
+    "id": "2",
+    "categoryId": "19",
+    "name": "Muesli",
+    "slug": "muesli",
+    "description": "Mixed cereals with nuts and dried fruits",
+    "order": 2
+  },
+  {
+    "id": "3",
+    "categoryId": "19",
+    "name": "Oats",
+    "slug": "oats",
+    "description": "Healthy oats for breakfast and cooking",
+    "order": 3
+  },
+  {
+    "id": "4",
+    "categoryId": "19",
+    "name": "Kids Cereals",
+    "slug": "kids-cereals",
+    "description": "Fun and nutritious cereals for children",
+    "order": 4
+  },
+  {
+    "id": "5",
+    "categoryId": "19",
+    "name": "Granola",
+    "slug": "granola",
+    "description": "Crunchy granola with nuts and honey",
+    "order": 5
+  },
+  {
+    "id": "6",
+    "categoryId": "2",
+    "name": "Milk",
+    "slug": "milk",
+    "description": "Fresh and packaged milk varieties",
+    "order": 1
+  },
+  {
+    "id": "7",
+    "categoryId": "2",
+    "name": "Curd & Yogurt",
+    "slug": "curd-yogurt",
+    "description": "Fresh curd and flavored yogurt",
+    "order": 2
+  },
+  {
+    "id": "8",
+    "categoryId": "2",
+    "name": "Eggs",
+    "slug": "eggs",
+    "description": "Fresh farm eggs",
+    "order": 3
+  },
+  {
+    "id": "9",
+    "categoryId": "2",
+    "name": "Cheese",
+    "slug": "cheese",
+    "description": "Various types of cheese",
+    "order": 4
+  },
+  {
+    "id": "10",
+    "categoryId": "2",
+    "name": "Butter & Ghee",
+    "slug": "butter-ghee",
+    "description": "Fresh butter and pure ghee",
+    "order": 5
+  }
+]
