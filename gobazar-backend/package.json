@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon --exec \"ts-node -r tsconfig-paths/register --transpile-only src/server.ts\"",
     "dev-simple": "node server-simple.js",
-    "build": "tsc",
+    "build": "tsc && tsc-alias",
     "start": "node dist/server.js",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -21,6 +21,16 @@
     "setup": "node scripts/setup.js",
     "start-db": "node scripts/start-db.js",
     "reset-db": "prisma migrate reset --force && npm run seed"
+  },
+  "_moduleAliases": {
+    "@": "dist",
+    "@/controllers": "dist/controllers",
+    "@/middleware": "dist/middleware",
+    "@/routes": "dist/routes",
+    "@/services": "dist/services",
+    "@/utils": "dist/utils",
+    "@/config": "dist/config",
+    "@/types": "dist/types"
   },
   "keywords": [
     "ecommerce",
@@ -47,6 +57,7 @@
     "helmet": "^7.1.0",
     "joi": "^17.11.0",
     "jsonwebtoken": "^9.0.2",
+    "module-alias": "^2.2.3",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.7",
@@ -77,6 +88,7 @@
     "prettier": "^3.1.0",
     "supertest": "^6.3.3",
     "ts-node": "^10.9.1",
+    "tsc-alias": "^1.8.16",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.2.2"
   }

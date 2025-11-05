@@ -77,7 +77,6 @@ export interface OrderWithRelations extends Order {
     variant?: ProductVariant;
   })[];
   coupon?: Coupon;
-  paymentStatus?: string;
   payments?: any[];
 }
 

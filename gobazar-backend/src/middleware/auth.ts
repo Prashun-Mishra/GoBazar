@@ -14,7 +14,7 @@ export const authenticateToken = (req: AuthenticatedRequest, res: Response, next
   try {
     const decoded = JWTUtil.verifyToken(token);
     req.user = decoded;
-    next();
+    return next();
   } catch (error) {
     return ResponseUtil.unauthorized(res, 'Invalid or expired token');
   }
@@ -46,7 +46,7 @@ export const requireAdmin = (req: AuthenticatedRequest, res: Response, next: Nex
     return ResponseUtil.forbidden(res, 'Admin access required');
   }
 
-  next();
+  return next();
 };
 
 export const requireUser = (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
@@ -58,5 +58,5 @@ export const requireUser = (req: AuthenticatedRequest, res: Response, next: Next
     return ResponseUtil.forbidden(res, 'User access required');
   }
 
-  next();
+  return next();
 };

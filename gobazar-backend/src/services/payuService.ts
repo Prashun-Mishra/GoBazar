@@ -249,7 +249,7 @@ class PayUService {
         await prisma.payment.update({
           where: { id: payment.id },
           data: {
-            status: 'SUCCESS',
+            status: 'PAID',
             gatewayTransactionId: mihpayid,
             gatewayResponse: callbackData,
             completedAt: new Date(),

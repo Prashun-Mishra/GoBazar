@@ -247,7 +247,7 @@ class RecommendationService {
     // If not enough personalized products, fill with popular ones
     if (products.length < limit) {
       const additionalProducts = await this.getPopularProducts(limit - products.length);
-      products.push(...additionalProducts.filter(p => !products.some(existing => existing.id === p.id)));
+      products.push(...additionalProducts.filter(p => !products.some(existing => existing.id === p.id)) as any);
     }
 
     return products.slice(0, limit) as ProductWithRelations[];
