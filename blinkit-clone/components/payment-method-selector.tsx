@@ -36,8 +36,9 @@ const paymentMethods: PaymentMethod[] = [
     name: "Cash on Delivery",
     description: "Pay when you receive",
     icon: <Wallet className="w-5 h-5" />,
-    processingTime: "On delivery",
-    available: true,
+    processingTime: "Coming Soon",
+    available: false,
+    comingSoon: true,
   },
   {
     id: "upi",
