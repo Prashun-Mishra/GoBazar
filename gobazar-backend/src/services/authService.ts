@@ -16,12 +16,18 @@ class AuthService {
       console.log(`🔢 [Auth Service] Generated OTP: ${otpCode}, expires at: ${expiresAt}`);
 
       // Delete any existing OTPs for this email
-      await prisma.oTP.deleteMany({
-        where: { email, isUsed: false },
-      });
+      try {
+        await prisma.oTP.deleteMany({
+          where: { email, isUsed: false },
+        });
+        console.log(`🗑️ [Auth Service] Deleted old OTPs for email: ${email}`);
+      } catch (deleteError) {
+        console.warn(`⚠️ [Auth Service] Warning deleting old OTPs:`, deleteError);
+        // Continue anyway, as this is not critical
+      }
 
       // Create new OTP record
-      await prisma.oTP.create({
+      const createdOTP = await prisma.oTP.create({
         data: {
           email,
           code: otpCode,
@@ -29,7 +35,7 @@ class AuthService {
         },
       });
       
-      console.log(`💾 [Auth Service] OTP saved to database`);
+      console.log(`💾 [Auth Service] OTP saved to database with ID: ${createdOTP.id}`);
 
       // Send OTP via email
       console.log(`📨 [Auth Service] Attempting to send email...`);
@@ -59,6 +65,16 @@ class AuthService {
     try {
       console.log(`🔐 [Auth Service] Verifying OTP for email: ${email}, code: ${code}`);
       
+      // First, check all OTPs for this email to debug
+      const allOTPs = await prisma.oTP.findMany({
+        where: { email },
+        orderBy: { createdAt: 'desc' },
+      });
+      console.log(`📋 [Auth Service] Found ${allOTPs.length} OTP records for email: ${email}`);
+      allOTPs.forEach((otp, index) => {
+        console.log(`  OTP ${index + 1}: code=${otp.code}, isUsed=${otp.isUsed}, expiresAt=${otp.expiresAt}`);
+      });
+      
       // Find the OTP record
       const otpRecord = await prisma.oTP.findFirst({
         where: {
@@ -72,7 +88,7 @@ class AuthService {
       });
 
       if (!otpRecord) {
-        console.log(`❌ [Auth Service] No valid OTP found for email: ${email}`);
+        console.log(`❌ [Auth Service] No valid OTP found for email: ${email}, code: ${code}`);
         return {
           success: false,
           message: 'Invalid OTP code',
@@ -138,7 +154,8 @@ class AuthService {
 
       const token = JWTUtil.generateToken(tokenPayload);
       
-      console.log(`🎉 [Auth Service] Login successful for: ${email}`);
+      console.log(`🎉 [Auth Service] Login successful for: ${email}, role: ${user.role}`);
+      console.log(`📋 [Auth Service] Returning user object with role: ${user.role}`);
 
       return {
         success: true,

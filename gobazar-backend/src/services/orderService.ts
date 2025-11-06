@@ -14,6 +14,15 @@ class OrderService {
       console.log('📦 [Order Service] Creating order for user:', userId);
       console.log('📦 [Order Service] Order data:', JSON.stringify(orderData, null, 2));
       
+      // Validate required fields
+      if (!orderData.addressId) {
+        console.log('❌ [Order Service] Missing addressId');
+        return {
+          success: false,
+          message: 'Address is required',
+        };
+      }
+      
       // Validate address
       const address = await prisma.address.findFirst({
         where: {

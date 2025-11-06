@@ -157,6 +157,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         // Backend returns token and user inside data object
         if (data?.token && data?.user) {
           console.log('[AuthContext] OTP verification successful, logging in user:', data.user?.email);
+          console.log('[AuthContext] User role from backend:', data.user?.role);
           
           // Sanitize user data before storing
           const userData: AuthUser = {
@@ -169,10 +170,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             createdAt: data.user.createdAt || new Date().toISOString()
           };
           
+          console.log('[AuthContext] Storing user data:', userData);
+          
           setUser(userData);
           localStorage.setItem("user", JSON.stringify(userData));
           localStorage.setItem("auth-token", data.token);
           document.cookie = `auth-token=${data.token}; path=/; max-age=${7 * 24 * 60 * 60}; SameSite=Lax`;
+          
+          console.log('[AuthContext] User stored in localStorage:', localStorage.getItem("user"));
           
           return { 
             success: true, 

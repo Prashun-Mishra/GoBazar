@@ -5,13 +5,18 @@ import { ValidationUtil } from '@/utils/validation';
 
 export const validateBody = (schema: Joi.ObjectSchema) => {
   return (req: Request, res: Response, next: NextFunction) => {
+    console.log('🔍 [Validation] Request body:', JSON.stringify(req.body, null, 2));
+    
     const { error, value } = schema.validate(req.body, { abortEarly: false });
     
     if (error) {
+      console.log('❌ [Validation] Validation failed:', error.details);
       const validationErrors = ValidationUtil.formatJoiErrors(error);
+      console.log('❌ [Validation] Formatted errors:', validationErrors);
       return ResponseUtil.validationError(res, validationErrors);
     }
     
+    console.log('✅ [Validation] Validation passed');
     req.body = value;
     return next();
   };

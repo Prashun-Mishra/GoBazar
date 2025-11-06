@@ -119,29 +119,31 @@ export const ValidationSchemas = {
     items: Joi.array().items(
       Joi.object({
         productId: Joi.string().required(),
-        variantId: Joi.string().optional(),
+        variantId: Joi.string().optional().allow(null, ''),
         quantity: Joi.number().integer().min(1).required(),
       })
     ).min(1).required(),
     addressId: Joi.string().required(),
-    deliverySlot: Joi.string().optional(),
-    paymentMethod: Joi.string().optional(),
-    couponCode: Joi.string().optional(),
-  }),
+    deliverySlot: Joi.string().optional().allow(''),
+    paymentMethod: Joi.string().optional().allow(''),
+    couponCode: Joi.string().optional().allow(''),
+  }).unknown(true),
 
   // Product schemas
   productQuery: Joi.object({
     page: Joi.number().integer().min(1).optional(),
     limit: Joi.number().integer().min(1).max(100).optional(),
     category: Joi.string().optional(),
+    categoryId: Joi.string().optional(),
     subcategory: Joi.string().optional(),
+    subcategoryId: Joi.string().optional(),
     search: Joi.string().max(100).optional(),
     minPrice: Joi.number().min(0).optional(),
     maxPrice: Joi.number().min(0).optional(),
     brand: Joi.string().optional(),
     sortBy: Joi.string().valid('price', 'rating', 'name', 'createdAt').optional(),
     sortOrder: Joi.string().valid('asc', 'desc').optional(),
-  }),
+  }).unknown(true),
 
   // Recommendation schemas
   recommendationQuery: Joi.object({

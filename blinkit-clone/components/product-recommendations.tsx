@@ -1,9 +1,8 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { ProductCard } from "@/components/product-card"
-import { Button } from "@/components/ui/button"
-import { ArrowRight, TrendingUp, Users, Clock, Star, Zap } from "lucide-react"
+import { ChevronLeft, ChevronRight, TrendingUp, Users, Clock, Star, Zap } from "lucide-react"
 import type { Product } from "@/types"
 
 interface ProductRecommendationsProps {
@@ -27,6 +26,39 @@ export function ProductRecommendations({
 }: ProductRecommendationsProps) {
   const [products, setProducts] = useState<Product[]>([])
   const [loading, setLoading] = useState(true)
+  const [canScrollPrev, setCanScrollPrev] = useState(false)
+  const [canScrollNext, setCanScrollNext] = useState(true)
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
+
+  const checkScroll = () => {
+    if (!scrollContainerRef.current) return
+    const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current
+    setCanScrollPrev(scrollLeft > 0)
+    setCanScrollNext(scrollLeft < scrollWidth - clientWidth - 10)
+  }
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (!scrollContainerRef.current) return
+    const scrollAmount = 300
+    const newPosition =
+      direction === 'left'
+        ? scrollContainerRef.current.scrollLeft - scrollAmount
+        : scrollContainerRef.current.scrollLeft + scrollAmount
+    scrollContainerRef.current.scrollTo({ left: newPosition, behavior: 'smooth' })
+  }
+
+  useEffect(() => {
+    checkScroll()
+    const container = scrollContainerRef.current
+    if (container) {
+      container.addEventListener('scroll', checkScroll)
+      window.addEventListener('resize', checkScroll)
+      return () => {
+        container.removeEventListener('scroll', checkScroll)
+        window.removeEventListener('resize', checkScroll)
+      }
+    }
+  }, [products])
 
   useEffect(() => {
     const fetchRecommendations = async () => {
@@ -148,7 +180,7 @@ export function ProductRecommendations({
   }
 
   return (
-    <section className="py-6">
+    <section className="container py-6">
       {showHeader && (
         <div className="flex items-center justify-between mb-4">
           <div>
@@ -156,23 +188,55 @@ export function ProductRecommendations({
               <div className={`p-1.5 rounded-lg ${config.bgColor}`}>
                 <div className={config.color}>{config.icon}</div>
               </div>
-              <h2 className="text-xl font-bold text-gray-900">{config.title}</h2>
+              <h2 className="text-xl md:text-2xl font-bold text-gray-900">{config.title}</h2>
             </div>
             {config.description && <p className="text-sm text-gray-600">{config.description}</p>}
           </div>
-          <Button variant="ghost" className="text-green-600 hover:text-green-700">
-            see all
-            <ArrowRight className="w-4 h-4 ml-1" />
-          </Button>
+          
+          {/* Navigation Arrows */}
+          <div className="flex gap-2">
+            <button
+              type="button"
+              onClick={() => scroll('left')}
+              disabled={!canScrollPrev}
+              className={`p-2 rounded-full transition-all ${
+                canScrollPrev
+                  ? 'bg-green-100 hover:bg-green-200 text-green-700 cursor-pointer'
+                  : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+              }`}
+              aria-label="Previous products"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button
+              type="button"
+              onClick={() => scroll('right')}
+              disabled={!canScrollNext}
+              className={`p-2 rounded-full transition-all ${
+                canScrollNext
+                  ? 'bg-green-100 hover:bg-green-200 text-green-700 cursor-pointer'
+                  : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+              }`}
+              aria-label="Next products"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
         </div>
       )}
 
-      <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
-        {products.map((product) => (
-          <div key={product.id} className="flex-shrink-0 w-40">
-            <ProductCard product={product} />
-          </div>
-        ))}
+      {/* Carousel */}
+      <div className="overflow-hidden -mx-2" ref={scrollContainerRef} style={{ scrollBehavior: 'smooth' }}>
+        <div className="flex gap-4 px-2">
+          {products.map((product) => (
+            <div 
+              key={product.id} 
+              className="flex-shrink-0 w-40 sm:w-48 md:w-56"
+            >
+              <ProductCard product={product} />
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   )

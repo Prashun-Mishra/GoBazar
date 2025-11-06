@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { Header } from "@/components/header"
 import { CategoryGrid } from "@/components/category-grid"
-import { ProductCard } from "@/components/product-card"
+import { CustomCarousel } from "@/components/custom-carousel"
 import { SmartRecommendations } from "@/components/smart-recommendations"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Heart, Shield } from "lucide-react"
@@ -12,13 +12,11 @@ import Link from "next/link"
 import { Footer } from "@/components/footer"
 import type { Product } from "@/types"
 
-// Category slug to name mapping
+// First 3 categories with carousel
 const categoryConfig = [
-  { slug: 'dairy-breakfast', name: 'Dairy, Bread & Eggs', limit: 6 },
-  { slug: 'munchies', name: 'Snacks & Munchies', limit: 6 },
-  { slug: 'paan-corner', name: 'Mouth fresheners', limit: 6 },
-  { slug: 'cold-drinks-juices', name: 'Cold Drinks & Juices', limit: 6 },
-  { slug: 'sweet-tooth', name: 'Candies & Gums', limit: 6 },
+  { slug: 'vegetables-fruits', name: 'Vegetables & Fruits', limit: 12 },
+  { slug: 'dairy-breakfast', name: 'Dairy & Breakfast', limit: 12 },
+  { slug: 'munchies', name: 'Snacks & Munchies', limit: 12 },
 ]
 
 export default function HomePage() {
@@ -40,6 +38,8 @@ export default function HomePage() {
               if (response.ok) {
                 const data = await response.json()
                 productsByCategory[config.slug] = data.products || []
+              } else {
+                productsByCategory[config.slug] = []
               }
             } catch (error) {
               console.error(`Error fetching ${config.name}:`, error)
@@ -156,7 +156,7 @@ export default function HomePage() {
 
         <SmartRecommendations context="homepage" />
 
-        {/* Dynamic Category Sections */}
+        {/* Category Carousels */}
         {loading ? (
           <div className="container py-12 text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto"></div>
@@ -165,29 +165,12 @@ export default function HomePage() {
         ) : (
           categoryConfig.map((config) => {
             const products = categoryProducts[config.slug] || []
-            if (products.length === 0) return null
-            
             return (
-              <section key={config.slug} className="container py-6">
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-xl font-bold text-gray-900">{config.name}</h2>
-                  <Button 
-                    variant="ghost" 
-                    className="text-green-600 hover:text-green-700"
-                    onClick={() => window.location.href = `/category/${config.slug}`}
-                  >
-                    see all
-                    <ArrowRight className="w-4 h-4 ml-1" />
-                  </Button>
-                </div>
-                <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
-                  {products.map((product) => (
-                    <div key={product.id} className="flex-shrink-0 w-40">
-                      <ProductCard product={product} />
-                    </div>
-                  ))}
-                </div>
-              </section>
+              <CustomCarousel 
+                key={config.slug}
+                products={products}
+                title={config.name}
+              />
             )
           })
         )}

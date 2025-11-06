@@ -47,8 +47,8 @@ export async function GET(request: Request) {
     if (category && mappedCategory !== category) {
       console.log(`🔄 [Products API] Mapped category: ${category} → ${mappedCategory}`)
     }
-    if (mappedCategory) queryParams.append('categoryId', mappedCategory)
-    if (subcategory) queryParams.append('subcategoryId', subcategory)
+    if (mappedCategory) queryParams.append('category', mappedCategory)
+    if (subcategory) queryParams.append('subcategory', subcategory)
     if (search) queryParams.append('search', search)
     queryParams.append('limit', limit)
     queryParams.append('page', page)

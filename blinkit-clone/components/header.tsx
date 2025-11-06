@@ -205,8 +205,22 @@ export function Header() {
         isOpen={isAuthModalOpen} 
         onClose={() => setIsAuthModalOpen(false)}
         onSuccess={() => {
-          // Refresh page or update state after successful login
-          window.location.reload()
+          // Check if user is admin and redirect to admin dashboard
+          const savedUser = localStorage.getItem("user")
+          if (savedUser) {
+            try {
+              const parsedUser = JSON.parse(savedUser)
+              if (parsedUser?.role === "ADMIN" || parsedUser?.role === "admin") {
+                window.location.href = "/admin"
+              } else {
+                window.location.reload()
+              }
+            } catch (error) {
+              window.location.reload()
+            }
+          } else {
+            window.location.reload()
+          }
         }}
       />
     </header>
