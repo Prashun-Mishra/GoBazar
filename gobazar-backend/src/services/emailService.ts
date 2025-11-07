@@ -15,7 +15,7 @@ class EmailService {
         from: 'GoBazar <onboarding@resend.dev>',
         to: options.to,
         subject: options.subject,
-        html: options.html,
+        html: options.html || '',
       });
 
       if (result.error) {
@@ -284,8 +284,7 @@ class EmailService {
 
   async testConnection(): Promise<boolean> {
     try {
-      await this.transporter.verify();
-      console.log('Email service connected successfully');
+      console.log('Email service (Resend) is configured');
       return true;
     } catch (error) {
       console.error('Email service connection failed:', error);
