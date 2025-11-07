@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { BACKEND_URL } from '@/lib/api-config'
 
 export async function GET(request: NextRequest) {
   try {
@@ -8,7 +9,7 @@ export async function GET(request: NextRequest) {
     const authHeader = request.headers.get('authorization')
     console.log('📊 [Admin Orders API] Auth header:', !!authHeader)
     
-    const backendUrl = `${process.env.BACKEND_URL || 'http://localhost:5000'}/api/orders/admin/all`
+    const backendUrl = `${BACKEND_URL}/api/orders/admin/all`
     
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',

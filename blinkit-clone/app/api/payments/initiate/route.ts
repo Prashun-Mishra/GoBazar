@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { BACKEND_URL } from '@/lib/api-config'
 
 export async function POST(request: NextRequest) {
   try {
@@ -16,7 +17,7 @@ export async function POST(request: NextRequest) {
       )
     }
     
-    const backendUrl = `${process.env.BACKEND_URL || 'http://localhost:5000'}/api/payments/initiate`
+    const backendUrl = `${BACKEND_URL}/api/payments/initiate`
     
     const response = await fetch(backendUrl, {
       method: 'POST',

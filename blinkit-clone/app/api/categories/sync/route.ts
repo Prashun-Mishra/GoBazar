@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import fs from 'fs'
 import path from 'path'
-
-const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost:5000'
+import { BACKEND_URL } from '@/lib/api-config'
 
 export async function POST(request: NextRequest) {
   try {

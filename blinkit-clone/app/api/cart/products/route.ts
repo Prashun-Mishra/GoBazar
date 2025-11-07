@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { BACKEND_URL } from '@/lib/api-config'
 
 export async function POST(request: NextRequest) {
   try {
@@ -10,7 +11,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: true, data: [] })
     }
     
-    const backendUrl = `${process.env.BACKEND_URL || 'http://localhost:5000'}/api/products/bulk`
+    const backendUrl = `${BACKEND_URL}/api/products/bulk`
     
     const response = await fetch(backendUrl, {
       method: 'POST',

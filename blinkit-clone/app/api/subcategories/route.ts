@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
+import { BACKEND_URL } from "@/lib/api-config"
 
 // Disable caching for this API route
-const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost:5000'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0

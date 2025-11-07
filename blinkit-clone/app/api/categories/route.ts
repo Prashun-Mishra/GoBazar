@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server"
+import { BACKEND_URL } from "@/lib/api-config"
 
 // Disable caching for this API route
 export const dynamic = 'force-dynamic'
@@ -7,12 +8,13 @@ export const revalidate = 0
 export async function GET() {
   try {
     console.log('🔍 Frontend API: Attempting to fetch categories from backend...')
+    console.log('🔍 Backend URL:', BACKEND_URL)
     
     // Try direct backend API call with timeout
     const controller = new AbortController()
     const timeoutId = setTimeout(() => controller.abort(), 5000) // 5 second timeout
     
-    const response = await fetch("http://localhost:5000/api/categories", {
+    const response = await fetch(`${BACKEND_URL}/api/categories`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

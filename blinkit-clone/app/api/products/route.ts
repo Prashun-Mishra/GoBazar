@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server"
-
-const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost:5000'
+import { BACKEND_URL } from "@/lib/api-config"
 
 // Category slug mapping for backend compatibility
 const categorySlugMapping: Record<string, string> = {
