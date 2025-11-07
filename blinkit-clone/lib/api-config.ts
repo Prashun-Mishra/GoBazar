@@ -4,14 +4,20 @@
  */
 
 export const getBackendUrl = (): string => {
-  // In production, use NEXT_PUBLIC_API_URL from environment
-  if (typeof window === 'undefined') {
-    // Server-side: use BACKEND_URL or NEXT_PUBLIC_API_URL
-    return process.env.BACKEND_URL || process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || process.env.BACKEND_URL
+  
+  if (apiUrl) {
+    return apiUrl
   }
   
-  // Client-side: use NEXT_PUBLIC_API_URL
-  return process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'
+  // Fallback for development
+  if (typeof window === 'undefined') {
+    return 'http://localhost:5000'
+  }
+  
+  return 'http://localhost:5000'
 }
 
 export const BACKEND_URL = getBackendUrl()
+
+console.log('🔗 Backend URL configured as:', BACKEND_URL)
