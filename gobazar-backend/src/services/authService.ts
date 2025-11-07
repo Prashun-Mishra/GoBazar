@@ -68,7 +68,7 @@ class AuthService {
         orderBy: { createdAt: 'desc' },
       });
       console.log(`📋 [Auth Service] Found ${allOTPs.length} OTP records for email: ${email}`);
-      allOTPs.forEach((otp, index) => {
+      allOTPs.forEach((otp: any, index: number) => {
         console.log(`  OTP ${index + 1}: code=${otp.code}, isUsed=${otp.isUsed}, expiresAt=${otp.expiresAt}`);
       });
       
