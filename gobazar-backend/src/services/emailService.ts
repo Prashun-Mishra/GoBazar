@@ -14,6 +14,8 @@ class EmailService {
         user: config.email.user,
         pass: config.email.pass,
       },
+      connectionTimeout: 10000,
+      socketTimeout: 10000,
     });
   }
 
