@@ -1,36 +1,29 @@
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 import config from '@/config';
 import { EmailOptions } from '@/types';
 
 class EmailService {
-  private transporter: nodemailer.Transporter;
+  private resend: Resend;
 
   constructor() {
-    this.transporter = nodemailer.createTransport({
-      host: config.email.host,
-      port: config.email.port,
-      secure: config.email.port === 465, // true for 465, false for other ports
-      auth: {
-        user: config.email.user,
-        pass: config.email.pass,
-      },
-      connectionTimeout: 10000,
-      socketTimeout: 10000,
-    });
+    this.resend = new Resend(process.env.RESEND_API_KEY);
   }
 
   async sendEmail(options: EmailOptions): Promise<boolean> {
     try {
-      const mailOptions = {
-        from: `"GoBazar" <${config.email.user}>`,
+      const result = await this.resend.emails.send({
+        from: 'GoBazar <onboarding@resend.dev>',
         to: options.to,
         subject: options.subject,
-        text: options.text,
         html: options.html,
-      };
+      });
 
-      const result = await this.transporter.sendMail(mailOptions);
-      console.log('Email sent:', result.messageId);
+      if (result.error) {
+        console.error('Error sending email:', result.error);
+        return false;
+      }
+
+      console.log('Email sent:', result.data?.id);
       return true;
     } catch (error) {
       console.error('Error sending email:', error);
