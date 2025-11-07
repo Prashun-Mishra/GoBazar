@@ -37,16 +37,13 @@ class AuthService {
       
       console.log(`💾 [Auth Service] OTP saved to database with ID: ${createdOTP.id}`);
 
-      // Send OTP via email
+      // Send OTP via email (non-blocking - don't wait for response)
       console.log(`📨 [Auth Service] Attempting to send email...`);
-      const emailSent = await emailService.sendOTP(email, otpCode);
-
-      if (!emailSent) {
-        console.error(`❌ [Auth Service] Email sending failed`);
-        throw new Error('Failed to send OTP email');
-      }
+      emailService.sendOTP(email, otpCode).catch((err) => {
+        console.error(`⚠️ [Auth Service] Email sending failed (non-blocking):`, err);
+      });
       
-      console.log(`✅ [Auth Service] OTP email sent successfully`);
+      console.log(`✅ [Auth Service] OTP generated and saved (email sending in background)`);
 
       return {
         success: true,
