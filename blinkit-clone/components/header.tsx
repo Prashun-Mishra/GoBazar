@@ -123,14 +123,22 @@ export function Header() {
               </Button>
             )}
 
+
             {/* Cart */}
             <button
-              onClick={toggleCart}
+              onClick={() => {
+                if (!user) {
+                  openLoginModal()
+                } else {
+                  toggleCart()
+                }
+              }}
               className="relative bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors"
             >
               <ShoppingCart className="w-5 h-5" />
               <span className="text-sm font-medium">{getItemCount()} items</span>
             </button>
+
 
             {/* Mobile Menu Toggle */}
             <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden p-2 text-gray-600">

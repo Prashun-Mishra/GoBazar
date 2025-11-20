@@ -24,10 +24,6 @@ export function ProductCard({ product }: ProductCardProps) {
 
   const handleAdd = (e: React.MouseEvent) => {
     e.preventDefault()
-    if (!user) {
-      openLoginModal()
-      return
-    }
     if (quantity === 0) {
       addItem(product.id)
     } else {

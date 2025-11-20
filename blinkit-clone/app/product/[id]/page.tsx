@@ -121,10 +121,6 @@ export default function ProductPage({ params }: { params: { id: string } }) {
   const quantity = cartItem?.quantity || 0
 
   const handleAddToCart = () => {
-    if (!user) {
-      openLoginModal()
-      return
-    }
     if (quantity === 0) {
       addItem(product.id, selectedVariant || undefined)
     } else {
