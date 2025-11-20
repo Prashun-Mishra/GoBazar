@@ -20,9 +20,8 @@ import {
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
   const { getItemCount, toggleCart } = useCart()
-  const { user, logout } = useAuth()
+  const { user, logout, isLoginModalOpen, openLoginModal, closeLoginModal } = useAuth()
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
@@ -37,9 +36,9 @@ export function Header() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
-            <img 
-              src="/images/gobazaar-CQUww9iQ.jpg" 
-              alt="Gobazar Logo" 
+            <img
+              src="/images/gobazaar-CQUww9iQ.jpg"
+              alt="Gobazar Logo"
               className="h-10 w-auto object-contain"
             />
           </Link>
@@ -114,10 +113,10 @@ export function Header() {
                 </DropdownMenu>
               </div>
             ) : (
-              <Button 
-                variant="ghost" 
+              <Button
+                variant="ghost"
                 className="flex items-center space-x-2 px-3 py-2 hover:bg-gray-50"
-                onClick={() => setIsAuthModalOpen(true)}
+                onClick={openLoginModal}
               >
                 <User className="w-5 h-5" />
                 <span className="text-sm font-medium">Sign In</span>
@@ -188,10 +187,10 @@ export function Header() {
                 </button>
               </div>
             ) : (
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 className="w-full bg-transparent"
-                onClick={() => setIsAuthModalOpen(true)}
+                onClick={openLoginModal}
               >
                 Sign In
               </Button>
@@ -201,9 +200,9 @@ export function Header() {
       </div>
 
       {/* Auth Modal */}
-      <AuthModal 
-        isOpen={isAuthModalOpen} 
-        onClose={() => setIsAuthModalOpen(false)}
+      <AuthModal
+        isOpen={isLoginModalOpen}
+        onClose={closeLoginModal}
         onSuccess={() => {
           // Check if user is admin and redirect to admin dashboard
           const savedUser = localStorage.getItem("user")
@@ -213,13 +212,14 @@ export function Header() {
               if (parsedUser?.role === "ADMIN" || parsedUser?.role === "admin") {
                 window.location.href = "/admin"
               } else {
-                window.location.reload()
+                // No reload needed, state updates automatically
+                closeLoginModal()
               }
             } catch (error) {
-              window.location.reload()
+              closeLoginModal()
             }
           } else {
-            window.location.reload()
+            closeLoginModal()
           }
         }}
       />

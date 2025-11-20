@@ -10,6 +10,7 @@ import { ProductHighlights } from "@/components/product-highlights"
 import { Button } from "@/components/ui/button"
 import { Star, Plus, Minus, Truck, DollarSign, Package } from "lucide-react"
 import { useCart } from "@/contexts/cart-context"
+import { useAuth } from "@/contexts/auth-context"
 import type { Product } from "@/types"
 import Link from "next/link"
 import { SmartRecommendations } from "@/components/smart-recommendations"
@@ -25,6 +26,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
   const [showFullDescription, setShowFullDescription] = useState(false)
 
   const { items, addItem, updateQuantity } = useCart()
+  const { user, openLoginModal } = useAuth()
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -119,6 +121,10 @@ export default function ProductPage({ params }: { params: { id: string } }) {
   const quantity = cartItem?.quantity || 0
 
   const handleAddToCart = () => {
+    if (!user) {
+      openLoginModal()
+      return
+    }
     if (quantity === 0) {
       addItem(product.id, selectedVariant || undefined)
     } else {

@@ -3,13 +3,23 @@ import config from '@/config';
 import { EmailOptions } from '@/types';
 
 class EmailService {
-  private resend: Resend;
+  private resend: Resend | null = null;
 
   constructor() {
-    this.resend = new Resend(process.env.RESEND_API_KEY);
+    const apiKey = process.env.RESEND_API_KEY;
+    if (apiKey) {
+      this.resend = new Resend(apiKey);
+    } else {
+      console.warn('⚠️ RESEND_API_KEY is missing. Email service will be disabled.');
+    }
   }
 
   async sendEmail(options: EmailOptions): Promise<boolean> {
+    if (!this.resend) {
+      console.warn('Email service not configured (missing API key). Skipping email:', options.subject);
+      return true; // Return true to allow flow to continue
+    }
+
     try {
       const result = await this.resend.emails.send({
         from: 'GoBazar <onboarding@resend.dev>',
@@ -208,7 +218,7 @@ class EmailService {
 
     const statusColors: Record<string, string> = {
       RECEIVED: '#3B82F6',
-      PACKING: '#F59E0B', 
+      PACKING: '#F59E0B',
       ON_THE_WAY: '#8B5CF6',
       DELIVERED: '#10B981',
       CANCELED: '#EF4444'

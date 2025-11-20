@@ -19,10 +19,10 @@ interface AuthUser {
 interface AuthContextType {
   user: AuthUser | null
   sendOTP: (email: string) => Promise<{ success: boolean; message: string }>
-  verifyOTP: (email: string, code: string) => Promise<{ 
-    success: boolean; 
-    message: string; 
-    user?: AuthUser; 
+  verifyOTP: (email: string, code: string) => Promise<{
+    success: boolean;
+    message: string;
+    user?: AuthUser;
     token?: string;
     requiresRegistration?: boolean;
   }>
@@ -34,6 +34,9 @@ interface AuthContextType {
   }>
   logout: () => void
   isLoading: boolean
+  isLoginModalOpen: boolean
+  openLoginModal: () => void
+  closeLoginModal: () => void
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -41,6 +44,10 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined)
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<AuthUser | null>(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
+
+  const openLoginModal = () => setIsLoginModalOpen(true)
+  const closeLoginModal = () => setIsLoginModalOpen(false)
 
   useEffect(() => {
     // Load user from localStorage on mount
@@ -89,26 +96,26 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       const responseData = await response.json();
       console.log('[AuthContext] Send OTP response:', { status: response.status, responseData });
-      
+
       if (response.ok) {
         console.log('[AuthContext] OTP sent successfully to:', email);
-        return { 
-          success: true, 
-          message: responseData.message || "OTP sent successfully" 
+        return {
+          success: true,
+          message: responseData.message || "OTP sent successfully"
         };
       }
-      
+
       const errorMessage = responseData.error || responseData.message || "Failed to send OTP";
       console.error(`[AuthContext] Failed to send OTP: ${errorMessage}`);
-      return { 
-        success: false, 
-        message: errorMessage 
+      return {
+        success: false,
+        message: errorMessage
       };
     } catch (error) {
       console.error("[AuthContext] Send OTP failed:", error);
-      return { 
-        success: false, 
-        message: "Network error. Please check your connection and try again." 
+      return {
+        success: false,
+        message: "Network error. Please check your connection and try again."
       };
     } finally {
       setIsLoading(false);
@@ -116,12 +123,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   const verifyOTP = async (
-    email: string, 
+    email: string,
     code: string
-  ): Promise<{ 
-    success: boolean; 
-    message: string; 
-    user?: AuthUser; 
+  ): Promise<{
+    success: boolean;
+    message: string;
+    user?: AuthUser;
     token?: string;
     requiresRegistration?: boolean;
   }> => {
@@ -136,29 +143,29 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       });
 
       const responseData = await response.json();
-      console.log('[AuthContext] Verify OTP response:', { 
-        status: response.status, 
-        responseData 
+      console.log('[AuthContext] Verify OTP response:', {
+        status: response.status,
+        responseData
       });
-      
+
       if (response.ok) {
         // Backend wraps response in { success, message, data: { token, user } }
         const { data, message } = responseData;
-        
+
         if (data?.requiresRegistration) {
           console.log('[AuthContext] User needs to complete registration');
-          return { 
-            success: true, 
+          return {
+            success: true,
             message: message || "Please complete registration",
             requiresRegistration: true
           };
         }
-        
+
         // Backend returns token and user inside data object
         if (data?.token && data?.user) {
           console.log('[AuthContext] OTP verification successful, logging in user:', data.user?.email);
           console.log('[AuthContext] User role from backend:', data.user?.role);
-          
+
           // Sanitize user data before storing
           const userData: AuthUser = {
             id: data.user.id,
@@ -169,39 +176,42 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             addresses: data.user.addresses || [],
             createdAt: data.user.createdAt || new Date().toISOString()
           };
-          
+
           console.log('[AuthContext] Storing user data:', userData);
-          
+
           setUser(userData);
           localStorage.setItem("user", JSON.stringify(userData));
           localStorage.setItem("auth-token", data.token);
           document.cookie = `auth-token=${data.token}; path=/; max-age=${7 * 24 * 60 * 60}; SameSite=Lax`;
-          
+
           console.log('[AuthContext] User stored in localStorage:', localStorage.getItem("user"));
-          
-          return { 
-            success: true, 
+
+          // Close modal on successful login
+          closeLoginModal();
+
+          return {
+            success: true,
             message: message || "Login successful",
             user: userData,
             token: data.token
           };
         }
       }
-      
+
       // If we get here, there was an error
-      const errorMessage = responseData.error || responseData.message || 
-                         (response.status === 400 ? "Invalid OTP code" : "Verification failed");
+      const errorMessage = responseData.error || responseData.message ||
+        (response.status === 400 ? "Invalid OTP code" : "Verification failed");
       console.error(`[AuthContext] OTP verification failed: ${errorMessage}`);
-      
-      return { 
-        success: false, 
-        message: errorMessage 
+
+      return {
+        success: false,
+        message: errorMessage
       };
     } catch (error) {
       console.error("[AuthContext] Verify OTP failed:", error);
-      return { 
-        success: false, 
-        message: "Network error. Please check your connection and try again." 
+      return {
+        success: false,
+        message: "Network error. Please check your connection and try again."
       };
     } finally {
       setIsLoading(false);
@@ -230,11 +240,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       const responseData = await response.json();
       console.log('[AuthContext] Register response:', { status: response.status, responseData });
-      
+
       if (response.ok && responseData.data) {
         const { data, message } = responseData;
         console.log('[AuthContext] Registration successful, logging in user:', data.user?.email);
-        
+
         const userData: AuthUser = {
           id: data.user.id,
           name: data.user.name,
@@ -244,31 +254,34 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           addresses: data.user.addresses || [],
           createdAt: data.user.createdAt || new Date().toISOString()
         };
-        
+
         setUser(userData);
         localStorage.setItem("user", JSON.stringify(userData));
         localStorage.setItem("auth-token", data.token);
         document.cookie = `auth-token=${data.token}; path=/; max-age=${7 * 24 * 60 * 60}; SameSite=Lax`;
-        
-        return { 
-          success: true, 
+
+        // Close modal on successful registration
+        closeLoginModal();
+
+        return {
+          success: true,
           message: message || "Registration successful",
           user: userData,
           token: data.token
         };
       }
-      
+
       const errorMessage = responseData.error || responseData.message || "Registration failed";
       console.error(`[AuthContext] Registration failed: ${errorMessage}`);
-      return { 
-        success: false, 
-        message: errorMessage 
+      return {
+        success: false,
+        message: errorMessage
       };
     } catch (error) {
       console.error("[AuthContext] Register failed:", error);
-      return { 
-        success: false, 
-        message: "Network error. Please check your connection and try again." 
+      return {
+        success: false,
+        message: "Network error. Please check your connection and try again."
       };
     } finally {
       setIsLoading(false);
@@ -293,6 +306,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         register,
         logout,
         isLoading,
+        isLoginModalOpen,
+        openLoginModal,
+        closeLoginModal,
       }}
     >
       {children}

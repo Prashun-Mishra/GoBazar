@@ -7,6 +7,7 @@ import Link from "next/link"
 import { Plus, Minus } from "lucide-react"
 import type { Product } from "@/types"
 import { useCart } from "@/contexts/cart-context"
+import { useAuth } from "@/contexts/auth-context"
 import { Button } from "@/components/ui/button"
 import { getFirstParagraph, truncateText } from "@/lib/text-utils"
 
@@ -16,12 +17,17 @@ interface ProductCardProps {
 
 export function ProductCard({ product }: ProductCardProps) {
   const { items, addItem, updateQuantity } = useCart()
+  const { user, openLoginModal } = useAuth()
 
   const cartItem = items.find((item) => item.productId === product.id)
   const quantity = cartItem?.quantity || 0
 
   const handleAdd = (e: React.MouseEvent) => {
     e.preventDefault()
+    if (!user) {
+      openLoginModal()
+      return
+    }
     if (quantity === 0) {
       addItem(product.id)
     } else {

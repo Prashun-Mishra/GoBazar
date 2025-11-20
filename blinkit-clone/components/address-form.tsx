@@ -5,7 +5,6 @@ import type React from "react"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { X, MapPin, User, Phone, Map } from "lucide-react"
-import { MapAddressPicker } from "@/components/map-address-picker"
 import type { Address } from "@/types"
 
 interface AddressFormProps {
@@ -32,8 +31,7 @@ export function AddressForm({ address, onSave, onCancel, isOpen }: AddressFormPr
   })
 
   const [errors, setErrors] = useState<Record<string, string>>({})
-  const [showMapPicker, setShowMapPicker] = useState(false)
-  const [isServiceable, setIsServiceable] = useState(true)
+  // Removed map picker state
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {}
@@ -89,26 +87,6 @@ export function AddressForm({ address, onSave, onCancel, isOpen }: AddressFormPr
     }
   }
 
-  const handleLocationSelect = (location: {
-    lat: number
-    lng: number
-    address: string
-    pincode: string
-    city: string
-    state: string
-    isServiceable: boolean
-  }) => {
-    setFormData((prev) => ({
-      ...prev,
-      area: location.address,
-      city: location.city,
-      state: location.state,
-      pincode: location.pincode,
-    }))
-    setIsServiceable(location.isServiceable)
-    setShowMapPicker(false)
-  }
-
   if (!isOpen) return null
 
   return (
@@ -131,48 +109,16 @@ export function AddressForm({ address, onSave, onCancel, isOpen }: AddressFormPr
                   key={type}
                   type="button"
                   onClick={() => handleInputChange("type", type)}
-                  className={`px-4 py-2 rounded-lg border text-sm font-medium capitalize transition-colors ${
-                    formData.type === type
-                      ? "border-green-500 bg-green-50 text-green-700"
-                      : "border-gray-300 hover:border-gray-400"
-                  }`}
+                  className={`px-4 py-2 rounded-lg border text-sm font-medium capitalize transition-colors ${formData.type === type
+                    ? "border-green-500 bg-green-50 text-green-700"
+                    : "border-gray-300 hover:border-gray-400"
+                    }`}
                 >
                   {type}
                 </button>
               ))}
             </div>
           </div>
-
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="font-medium text-blue-900">📍 Select Location on Map</h3>
-              <Button
-                type="button"
-                onClick={() => setShowMapPicker(true)}
-                size="sm"
-                className="bg-blue-600 hover:bg-blue-700"
-              >
-                <Map className="w-4 h-4 mr-1" />
-                Open Map
-              </Button>
-            </div>
-            <p className="text-sm text-blue-700">
-              Use map to select your exact location and check delivery availability
-            </p>
-          </div>
-
-          {formData.pincode && (
-            <div
-              className={`p-3 rounded-lg border ${
-                isServiceable ? "bg-green-50 border-green-200 text-green-800" : "bg-red-50 border-red-200 text-red-800"
-              }`}
-            >
-              <p className="font-medium">{isServiceable ? "✅ Delivery Available" : "❌ Delivery Not Available"}</p>
-              <p className="text-sm">
-                {isServiceable ? "We deliver to this area in 8-15 minutes" : "We don't deliver to this area yet"}
-              </p>
-            </div>
-          )}
 
           {/* Flat/House Number */}
           <div>
@@ -181,9 +127,8 @@ export function AddressForm({ address, onSave, onCancel, isOpen }: AddressFormPr
               type="text"
               value={formData.flatNumber}
               onChange={(e) => handleInputChange("flatNumber", e.target.value)}
-              className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 ${
-                errors.flatNumber ? "border-red-500" : "border-gray-300"
-              }`}
+              className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 ${errors.flatNumber ? "border-red-500" : "border-gray-300"
+                }`}
               placeholder="e.g., 123, A-4, Building Name"
             />
             {errors.flatNumber && <p className="text-red-500 text-xs mt-1">{errors.flatNumber}</p>}
@@ -210,9 +155,8 @@ export function AddressForm({ address, onSave, onCancel, isOpen }: AddressFormPr
                 type="text"
                 value={formData.area}
                 onChange={(e) => handleInputChange("area", e.target.value)}
-                className={`w-full pl-10 pr-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 ${
-                  errors.area ? "border-red-500" : "border-gray-300"
-                }`}
+                className={`w-full pl-10 pr-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 ${errors.area ? "border-red-500" : "border-gray-300"
+                  }`}
                 placeholder="Search or enter area name"
               />
             </div>
@@ -245,9 +189,8 @@ export function AddressForm({ address, onSave, onCancel, isOpen }: AddressFormPr
                     type="text"
                     value={formData.userName}
                     onChange={(e) => handleInputChange("userName", e.target.value)}
-                    className={`w-full pl-10 pr-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 ${
-                      errors.userName ? "border-red-500" : "border-gray-300"
-                    }`}
+                    className={`w-full pl-10 pr-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 ${errors.userName ? "border-red-500" : "border-gray-300"
+                      }`}
                     placeholder="Enter your full name"
                   />
                 </div>
@@ -263,9 +206,8 @@ export function AddressForm({ address, onSave, onCancel, isOpen }: AddressFormPr
                     type="tel"
                     value={formData.phone}
                     onChange={(e) => handleInputChange("phone", e.target.value.replace(/\D/g, "").slice(0, 10))}
-                    className={`w-full pl-10 pr-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 ${
-                      errors.phone ? "border-red-500" : "border-gray-300"
-                    }`}
+                    className={`w-full pl-10 pr-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 ${errors.phone ? "border-red-500" : "border-gray-300"
+                      }`}
                     placeholder="Enter 10-digit mobile number"
                   />
                 </div>
@@ -282,9 +224,8 @@ export function AddressForm({ address, onSave, onCancel, isOpen }: AddressFormPr
                 type="text"
                 value={formData.city}
                 onChange={(e) => handleInputChange("city", e.target.value)}
-                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 ${
-                  errors.city ? "border-red-500" : "border-gray-300"
-                }`}
+                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 ${errors.city ? "border-red-500" : "border-gray-300"
+                  }`}
                 placeholder="City"
               />
               {errors.city && <p className="text-red-500 text-xs mt-1">{errors.city}</p>}
@@ -296,9 +237,8 @@ export function AddressForm({ address, onSave, onCancel, isOpen }: AddressFormPr
                 type="text"
                 value={formData.state}
                 onChange={(e) => handleInputChange("state", e.target.value)}
-                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 ${
-                  errors.state ? "border-red-500" : "border-gray-300"
-                }`}
+                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 ${errors.state ? "border-red-500" : "border-gray-300"
+                  }`}
                 placeholder="State"
               />
               {errors.state && <p className="text-red-500 text-xs mt-1">{errors.state}</p>}
@@ -311,9 +251,8 @@ export function AddressForm({ address, onSave, onCancel, isOpen }: AddressFormPr
               type="text"
               value={formData.pincode}
               onChange={(e) => handleInputChange("pincode", e.target.value.replace(/\D/g, "").slice(0, 6))}
-              className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 ${
-                errors.pincode ? "border-red-500" : "border-gray-300"
-              }`}
+              className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 ${errors.pincode ? "border-red-500" : "border-gray-300"
+                }`}
               placeholder="6-digit pincode"
             />
             {errors.pincode && <p className="text-red-500 text-xs mt-1">{errors.pincode}</p>}
@@ -338,18 +277,12 @@ export function AddressForm({ address, onSave, onCancel, isOpen }: AddressFormPr
             <Button type="button" variant="outline" onClick={onCancel} className="flex-1 bg-transparent">
               Cancel
             </Button>
-            <Button type="submit" className="flex-1 bg-green-600 hover:bg-green-700" disabled={!isServiceable}>
+            <Button type="submit" className="flex-1 bg-green-600 hover:bg-green-700">
               Save Address
             </Button>
           </div>
         </form>
       </div>
-
-      <MapAddressPicker
-        isOpen={showMapPicker}
-        onClose={() => setShowMapPicker(false)}
-        onLocationSelect={handleLocationSelect}
-      />
     </div>
   )
 }

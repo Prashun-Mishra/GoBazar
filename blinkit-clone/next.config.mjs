@@ -7,7 +7,15 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
+  },
+  compiler: {
+    removeConsole: process.env.NODE_ENV === "production",
   },
 }
 
