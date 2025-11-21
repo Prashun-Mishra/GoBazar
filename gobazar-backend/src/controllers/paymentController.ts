@@ -21,7 +21,7 @@ class PaymentController {
 
     // Get order details
     const order = await orderService.getOrderById(orderId, userId);
-    
+
     if (!order) {
       return ResponseUtil.notFound(res, 'Order not found');
     }
@@ -53,7 +53,7 @@ class PaymentController {
 
     return ResponseUtil.success(res, {
       paymentData,
-      payuUrl: 'https://test.payu.in/_payment', // Use production URL for live: https://secure.payu.in/_payment
+      payuUrl: process.env.PAYU_API_URL || 'https://secure.payu.in/_payment',
     }, 'Payment initiated successfully');
   });
 
@@ -102,9 +102,9 @@ class PaymentController {
 
     try {
       const result = await payuService.processPaymentCallback(req.body);
-      
+
       console.log('✅ [Payment Webhook] Webhook processed successfully');
-      
+
       return ResponseUtil.success(res, { processed: true }, 'Webhook processed successfully');
     } catch (error) {
       console.error('❌ [Payment Webhook] Error processing webhook:', error);
