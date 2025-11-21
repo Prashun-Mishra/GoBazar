@@ -46,8 +46,9 @@ class PayUService {
     this.merchantKey = config.paymentGateways.payu.merchantId;
     this.merchantSalt = config.paymentGateways.payu.secretKey;
     this.payuUrl = config.paymentGateways.payu.apiUrl;
-    this.successUrl = `${config.frontendUrl}/payment/success`;
-    this.failureUrl = `${config.frontendUrl}/payment/failure`;
+    // PayU should send callbacks to backend, not frontend
+    this.successUrl = `${process.env.BACKEND_URL || 'http://localhost:5000'}/api/payments/callback`;
+    this.failureUrl = `${process.env.BACKEND_URL || 'http://localhost:5000'}/api/payments/callback`;
   }
 
   /**
@@ -70,24 +71,24 @@ class PayUService {
     email: string;
   }): any {
     const { key, txnid, amount, productinfo, firstname, email } = params;
-    
+
     // UDF fields (user defined fields) - empty but must be included in correct positions
     const udf1 = '';
     const udf2 = '';
     const udf3 = '';
     const udf4 = '';
     const udf5 = '';
-    
+
     // Correct PayU hash formula with UDF fields in proper positions
     const hashString = `${key}|${txnid}|${amount}|${productinfo}|${firstname}|${email}|${udf1}|${udf2}|${udf3}|${udf4}|${udf5}||||||${this.merchantSalt}`;
-    
+
     console.log('🔐 [PayU] Generating payment hash');
     console.log('🔐 [PayU] Hash string:', hashString);
-    
+
     const hash = this.generateHash(hashString);
-    
+
     console.log('🔐 [PayU] Generated hash:', hash);
-    
+
     // Return just the hash string (not JSON)
     // PayU expects a simple hash string, not a JSON object
     return hash;
@@ -106,15 +107,15 @@ class PayUService {
     receivedHash: string;
   }): boolean {
     const { status, txnid, amount, productinfo, firstname, email, receivedHash } = params;
-    
+
     // For successful payment
     const hashString = `${this.merchantSalt}|${status}|||||||||||${email}|${firstname}|${productinfo}|${amount}|${txnid}|${this.merchantKey}`;
     const calculatedHash = this.generateHash(hashString);
-    
+
     console.log('🔐 [PayU] Verifying response hash');
     console.log('🔐 [PayU] Calculated hash:', calculatedHash);
     console.log('🔐 [PayU] Received hash:', receivedHash);
-    
+
     return calculatedHash === receivedHash;
   }
 
@@ -124,17 +125,17 @@ class PayUService {
   async initiatePayment(paymentRequest: PayUPaymentRequest): Promise<PayUResponse> {
     try {
       console.log('💳 [PayU] Initiating payment for order:', paymentRequest.orderId);
-      
+
       // Generate unique transaction ID
       const txnid = `TXN${Date.now()}${Math.random().toString(36).substring(7).toUpperCase()}`;
-      
+
       // Generate payment hash
       // Note: PayU expects amount as string without unnecessary decimals
       // For whole numbers like 82, use "82" not "82.00"
-      const amountStr = paymentRequest.amount % 1 === 0 
-        ? paymentRequest.amount.toString() 
+      const amountStr = paymentRequest.amount % 1 === 0
+        ? paymentRequest.amount.toString()
         : paymentRequest.amount.toFixed(2);
-      
+
       const hash = this.generatePaymentHash({
         key: this.merchantKey,
         txnid,
