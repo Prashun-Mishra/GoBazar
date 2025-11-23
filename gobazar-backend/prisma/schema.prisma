@@ -117,6 +117,11 @@ model Product {
   cartItems    CartItem[]
 
   @@map("products")
+  @@index([categoryId])
+  @@index([subcategoryId])
+  @@index([isActive])
+  @@index([rating])
+  @@index([price])
 }
 
 model ProductVariant {
@@ -139,6 +144,7 @@ model ProductVariant {
   cartItems  CartItem[]
 
   @@map("product_variants")
+  @@index([productId])
 }
 
 model CartItem {

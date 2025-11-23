@@ -228,6 +228,7 @@ export interface EmailConfig {
   port: number;
   user: string;
   pass: string;
+  adminEmail?: string;
 }
 
 export interface CloudinaryConfig {

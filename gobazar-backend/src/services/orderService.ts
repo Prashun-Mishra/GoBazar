@@ -13,7 +13,7 @@ class OrderService {
     try {
       console.log('📦 [Order Service] Creating order for user:', userId);
       console.log('📦 [Order Service] Order data:', JSON.stringify(orderData, null, 2));
-      
+
       // Validate required fields
       if (!orderData.addressId) {
         console.log('❌ [Order Service] Missing addressId');
@@ -22,7 +22,7 @@ class OrderService {
           message: 'Address is required',
         };
       }
-      
+
       // Validate address
       const address = await prisma.address.findFirst({
         where: {
@@ -38,12 +38,12 @@ class OrderService {
           message: 'Invalid delivery address',
         };
       }
-      
+
       console.log('✅ [Order Service] Address validated:', address.id);
 
       // Validate cart items or provided items
       let orderItems = orderData.items;
-      
+
       if (!orderItems || orderItems.length === 0) {
         // Get items from cart if not provided
         const cartItems = await cartService.getCart(userId);
@@ -53,7 +53,7 @@ class OrderService {
             message: 'No items to order',
           };
         }
-        
+
         orderItems = cartItems.map(item => ({
           productId: item.productId,
           variantId: item.variantId || undefined,
@@ -247,11 +247,18 @@ class OrderService {
         // Send order confirmation email
         const user = await prisma.user.findUnique({ where: { id: userId } });
         if (user) {
+          // Send order confirmation email
           await emailService.sendOrderConfirmation(user.email, {
             id: order.id,
             total: order.total,
             deliverySlot: order.deliverySlot,
           });
+
+          // Send invoice to user
+          await emailService.sendInvoice(user.email, completeOrder);
+
+          // Send admin notification
+          await emailService.sendAdminOrderNotification(completeOrder);
         }
       }
 
@@ -704,7 +711,7 @@ class OrderService {
       //     timestamp: new Date(),
       //   },
       // });
-      
+
       // Placeholder implementation
       console.log('Order location update:', { orderId, ...locationData });
 

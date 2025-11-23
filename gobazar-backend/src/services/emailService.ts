@@ -292,6 +292,177 @@ class EmailService {
     });
   }
 
+  async sendAdminOrderNotification(order: any): Promise<boolean> {
+    if (!config.email.adminEmail) {
+      console.warn('⚠️ Admin email not configured. Skipping admin notification.');
+      return false;
+    }
+
+    const html = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8">
+        <title>New Order Received</title>
+        <style>
+          body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+          .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+          .header { background: #4F46E5; color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0; }
+          .content { background: #f9f9f9; padding: 30px; border-radius: 0 0 8px 8px; }
+          .order-details { background: white; padding: 15px; border-radius: 5px; margin-top: 15px; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <h1>New Order Received! 🚀</h1>
+          </div>
+          <div class="content">
+            <p>A new order has been placed on GoBazar.</p>
+            
+            <div class="order-details">
+              <p><strong>Order ID:</strong> ${order.id}</p>
+              <p><strong>Customer:</strong> ${order.user?.name} (${order.user?.email})</p>
+              <p><strong>Amount:</strong> ₹${order.total}</p>
+              <p><strong>Items:</strong> ${order.items?.length || 0}</p>
+              <p><strong>Status:</strong> ${order.status}</p>
+            </div>
+            
+            <p><a href="${config.frontendUrl}/admin/orders/${order.id}">View Order in Admin Panel</a></p>
+          </div>
+        </div>
+      </body>
+      </html>
+    `;
+
+    return this.sendEmail({
+      to: config.email.adminEmail,
+      subject: `New Order Alert - ${order.id} - ₹${order.total}`,
+      html,
+    });
+  }
+
+  async sendInvoice(email: string, order: any): Promise<boolean> {
+    const companyName = "Kaonain Pursuit Overseas Exporter pvt limited";
+    const invoiceDate = new Date(order.createdAt).toLocaleDateString('en-IN', {
+      year: 'numeric', month: 'long', day: 'numeric'
+    });
+
+    const itemsHtml = order.items.map((item: any) => `
+      <tr>
+        <td style="padding: 10px; border-bottom: 1px solid #eee;">${item.name} ${item.variant ? `(${item.variant.size || item.variant.weight})` : ''}</td>
+        <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: center;">${item.quantity}</td>
+        <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: right;">₹${item.price}</td>
+        <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: right;">₹${item.price * item.quantity}</td>
+      </tr>
+    `).join('');
+
+    const html = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8">
+        <title>Invoice - ${order.id}</title>
+        <style>
+          body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 1.6; color: #333; }
+          .container { max-width: 800px; margin: 0 auto; padding: 40px; background: white; }
+          .header { display: flex; justify-content: space-between; margin-bottom: 40px; border-bottom: 2px solid #eee; padding-bottom: 20px; }
+          .company-info h1 { margin: 0; font-size: 24px; color: #2c3e50; }
+          .invoice-title { text-align: right; }
+          .invoice-title h2 { margin: 0; color: #7f8c8d; font-weight: 300; }
+          .details-grid { display: flex; justify-content: space-between; margin-bottom: 40px; }
+          .bill-to, .ship-to { width: 45%; }
+          .invoice-meta { text-align: right; }
+          table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
+          th { background: #f8f9fa; padding: 12px; text-align: left; font-weight: 600; color: #2c3e50; }
+          .totals { width: 300px; margin-left: auto; }
+          .total-row { display: flex; justify-content: space-between; padding: 8px 0; }
+          .grand-total { font-size: 18px; font-weight: bold; border-top: 2px solid #333; margin-top: 10px; padding-top: 10px; }
+          .footer { margin-top: 50px; text-align: center; color: #7f8c8d; font-size: 12px; border-top: 1px solid #eee; padding-top: 20px; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <div class="company-info">
+              <h1>${companyName}</h1>
+              <p>123 Export Lane, Business District<br>New Delhi, India 110001<br>GSTIN: 07AABCT1234A1Z5</p>
+            </div>
+            <div class="invoice-title">
+              <h2>INVOICE</h2>
+              <p>#${order.id}</p>
+            </div>
+          </div>
+
+          <div class="details-grid">
+            <div class="bill-to">
+              <h3>Bill To:</h3>
+              <p><strong>${order.user?.name}</strong><br>
+              ${order.address?.street}<br>
+              ${order.address?.city}, ${order.address?.state} - ${order.address?.pincode}<br>
+              Phone: ${order.user?.phone}</p>
+            </div>
+            <div class="invoice-meta">
+              <p><strong>Date:</strong> ${invoiceDate}</p>
+              <p><strong>Payment Method:</strong> ${order.paymentMethod || 'Online'}</p>
+              <p><strong>Order Status:</strong> ${order.status}</p>
+            </div>
+          </div>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Item Description</th>
+                <th style="text-align: center;">Qty</th>
+                <th style="text-align: right;">Price</th>
+                <th style="text-align: right;">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${itemsHtml}
+            </tbody>
+          </table>
+
+          <div class="totals">
+            <div class="total-row">
+              <span>Subtotal:</span>
+              <span>₹${order.subtotal}</span>
+            </div>
+            <div class="total-row">
+              <span>Discount:</span>
+              <span>-₹${order.discount}</span>
+            </div>
+            <div class="total-row">
+              <span>Delivery Fee:</span>
+              <span>₹${order.deliveryFee}</span>
+            </div>
+            <div class="total-row">
+              <span>Tax (5%):</span>
+              <span>₹${order.taxes}</span>
+            </div>
+            <div class="total-row grand-total">
+              <span>Total:</span>
+              <span>₹${order.total}</span>
+            </div>
+          </div>
+
+          <div class="footer">
+            <p>Thank you for your business!</p>
+            <p>For any queries, please contact support@gobazar.com</p>
+            <p>&copy; ${new Date().getFullYear()} ${companyName}</p>
+          </div>
+        </div>
+      </body>
+      </html>
+    `;
+
+    return this.sendEmail({
+      to: email,
+      subject: `Invoice #${order.id} - ${companyName}`,
+      html,
+    });
+  }
+
   async testConnection(): Promise<boolean> {
     try {
       console.log('Email service (Resend) is configured');

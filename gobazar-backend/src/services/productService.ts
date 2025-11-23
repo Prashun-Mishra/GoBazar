@@ -107,7 +107,7 @@ class ProductService {
 
   async getBulkProducts(productIds: string[]): Promise<ProductWithRelations[]> {
     console.log('🛒 [Product Service] Fetching bulk products:', productIds.length);
-    
+
     const products = await prisma.product.findMany({
       where: {
         id: { in: productIds },
@@ -356,6 +356,86 @@ class ProductService {
       console.error('Error checking availability:', error);
       return false;
     }
+  }
+  private homePageCache: {
+    data: Record<string, ProductWithRelations[]> | null;
+    timestamp: number;
+  } = { data: null, timestamp: 0 };
+
+  async getHomePageProducts(): Promise<Record<string, ProductWithRelations[]>> {
+    const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+    const now = Date.now();
+
+    if (this.homePageCache.data && (now - this.homePageCache.timestamp < CACHE_TTL)) {
+      console.log('⚡ [Product Service] Serving homepage products from cache');
+      return this.homePageCache.data;
+    }
+
+    console.log('🔄 [Product Service] Fetching homepage products from DB');
+
+    const categories = [
+      { slug: 'vegetables-fruits', limit: 12 },
+      { slug: 'dairy-breakfast', limit: 12 },
+      { slug: 'munchies', limit: 12 },
+    ];
+
+    const results = await Promise.all(
+      categories.map(async (cat) => {
+        const products = await prisma.product.findMany({
+          where: {
+            category: { slug: cat.slug },
+            isActive: true,
+          },
+          select: {
+            id: true,
+            name: true,
+            price: true,
+            mrp: true,
+            discountPercent: true,
+            images: true,
+            unit: true,
+            rating: true,
+            reviewCount: true,
+            stock: true,
+            categoryId: true,
+            subcategoryId: true,
+            isActive: true,
+            createdAt: true,
+            updatedAt: true,
+            brand: true,
+            description: true,
+            highlights: true,
+            tags: true,
+            nutritionalInfo: true,
+            ingredients: true,
+            benefits: true,
+            // Relations needed for frontend type compatibility
+            category: true,
+            subcategory: true,
+            variants: {
+              where: { isActive: true },
+              orderBy: { price: 'asc' },
+              take: 1
+            }
+          },
+          orderBy: { rating: 'desc' },
+          take: cat.limit,
+        });
+        return { slug: cat.slug, products };
+      })
+    );
+
+    const response: Record<string, ProductWithRelations[]> = {};
+    results.forEach(result => {
+      response[result.slug] = result.products as unknown as ProductWithRelations[];
+    });
+
+    this.homePageCache = {
+      data: response,
+      timestamp: now
+    };
+
+    return response;
   }
 }
 
