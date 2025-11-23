@@ -1,6 +1,3 @@
-"use client"
-
-import { useState, useEffect } from "react"
 import { Header } from "@/components/header"
 import { CategoryGrid } from "@/components/category-grid"
 import { CustomCarousel } from "@/components/custom-carousel"
@@ -10,6 +7,7 @@ import { ArrowRight, Heart, Shield } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { Footer } from "@/components/footer"
+import { BACKEND_URL } from "@/lib/api-config"
 import type { Product } from "@/types"
 
 // First 3 categories with carousel
@@ -19,45 +17,25 @@ const categoryConfig = [
   { slug: 'munchies', name: 'Snacks & Munchies', limit: 12 },
 ]
 
-export default function HomePage() {
-  const [categoryProducts, setCategoryProducts] = useState<Record<string, Product[]>>({})
-  const [loading, setLoading] = useState(true)
+async function getHomePageProducts() {
+  try {
+    const res = await fetch(`${BACKEND_URL}/api/products/home`, {
+      next: { revalidate: 60 }, // ISR: Revalidate every 60 seconds
+    })
 
-  useEffect(() => {
-    const fetchCategoryProducts = async () => {
-      try {
-        const productsByCategory: Record<string, Product[]> = {}
-        
-        // Fetch products for each category
-        await Promise.all(
-          categoryConfig.map(async (config) => {
-            try {
-              const response = await fetch(
-                `/api/products?category=${config.slug}&limit=${config.limit}&page=1`
-              )
-              if (response.ok) {
-                const data = await response.json()
-                productsByCategory[config.slug] = data.products || []
-              } else {
-                productsByCategory[config.slug] = []
-              }
-            } catch (error) {
-              console.error(`Error fetching ${config.name}:`, error)
-              productsByCategory[config.slug] = []
-            }
-          })
-        )
-        
-        setCategoryProducts(productsByCategory)
-      } catch (error) {
-        console.error('Error fetching products:', error)
-      } finally {
-        setLoading(false)
-      }
+    if (!res.ok) {
+      throw new Error('Failed to fetch products')
     }
 
-    fetchCategoryProducts()
-  }, [])
+    return res.json()
+  } catch (error) {
+    console.error('Error fetching homepage products:', error)
+    return {}
+  }
+}
+
+export default async function HomePage() {
+  const categoryProducts = await getHomePageProducts()
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -82,9 +60,9 @@ export default function HomePage() {
         <section className="container py-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {/* Pharmacy Card */}
-            <div 
+            <Link
+              href="/category/pharma-wellness"
               className="relative rounded-xl overflow-hidden group cursor-pointer transition-transform duration-200 hover:scale-[1.02]"
-              onClick={() => window.location.href = '/category/pharma-wellness'}
             >
               <Image
                 src="/pharmacy-Bfm2sXvr.jpg"
@@ -101,12 +79,12 @@ export default function HomePage() {
               <div className="absolute top-4 right-4">
                 <ArrowRight className="w-5 h-5 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
-            </div>
+            </Link>
 
             {/* Pet Care Card */}
-            <div 
+            <Link
+              href="/category/pet-care"
               className="relative rounded-xl overflow-hidden group cursor-pointer transition-transform duration-200 hover:scale-[1.02]"
-              onClick={() => window.location.href = '/category/pet-care'}
             >
               <Image
                 src="/Pet-BySWoZKo.jpg"
@@ -123,12 +101,12 @@ export default function HomePage() {
               <div className="absolute top-4 right-4">
                 <ArrowRight className="w-5 h-5 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
-            </div>
+            </Link>
 
             {/* Baby Care Card */}
-            <div 
+            <Link
+              href="/category/baby-care"
               className="relative rounded-xl overflow-hidden group cursor-pointer transition-transform duration-200 hover:scale-[1.02]"
-              onClick={() => window.location.href = '/category/baby-care'}
             >
               <Image
                 src="/babycare-a72xxgiX.jpg"
@@ -145,7 +123,7 @@ export default function HomePage() {
               <div className="absolute top-4 right-4">
                 <ArrowRight className="w-5 h-5 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
-            </div>
+            </Link>
           </div>
         </section>
 
@@ -157,23 +135,16 @@ export default function HomePage() {
         <SmartRecommendations context="homepage" />
 
         {/* Category Carousels */}
-        {loading ? (
-          <div className="container py-12 text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto"></div>
-            <p className="mt-4 text-gray-600">Loading products...</p>
-          </div>
-        ) : (
-          categoryConfig.map((config) => {
-            const products = categoryProducts[config.slug] || []
-            return (
-              <CustomCarousel 
-                key={config.slug}
-                products={products}
-                title={config.name}
-              />
-            )
-          })
-        )}
+        {categoryConfig.map((config) => {
+          const products = categoryProducts[config.slug] || []
+          return (
+            <CustomCarousel
+              key={config.slug}
+              products={products}
+              title={config.name}
+            />
+          )
+        })}
 
         {/* Welcome to GoBazaar Section */}
         <section className="py-16 bg-white">
@@ -185,9 +156,9 @@ export default function HomePage() {
                   Welcome to GoBazaar – Your Trusted Online Grocery Store
                 </h1>
                 <p className="text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed">
-                  At GoBazaar, we know how important it is to get fresh groceries for a healthy life. What you eat affects your health, 
-                  how much energy you have, and how happy you feel each day. We are here to help, so you do not have to give up on 
-                  freshness or quality. Our goal is to bring you vegetables straight from the farm, fruits in season, top-quality chicken, 
+                  At GoBazaar, we know how important it is to get fresh groceries for a healthy life. What you eat affects your health,
+                  how much energy you have, and how happy you feel each day. We are here to help, so you do not have to give up on
+                  freshness or quality. Our goal is to bring you vegetables straight from the farm, fruits in season, top-quality chicken,
                   and all your everyday needs. We deliver all these straight to your door.
                 </p>
               </div>
@@ -196,8 +167,8 @@ export default function HomePage() {
               <div className="mb-16">
                 <h2 className="text-3xl font-bold text-gray-900 text-center mb-8">Why Choose GoBazaar?</h2>
                 <p className="text-lg text-gray-600 text-center max-w-4xl mx-auto leading-relaxed mb-12">
-                  We offer a wide range of products including organic vegetables, seasonal fruits, and high-quality chicken. 
-                  Our delivery process is designed to be quick and efficient, ensuring that your groceries arrive fresh and on time. 
+                  We offer a wide range of products including organic vegetables, seasonal fruits, and high-quality chicken.
+                  Our delivery process is designed to be quick and efficient, ensuring that your groceries arrive fresh and on time.
                   With GoBazaar, you can shop with confidence knowing that you are getting the best prices and quality.
                 </p>
 
@@ -205,7 +176,7 @@ export default function HomePage() {
                 <div className="bg-green-50 rounded-2xl p-8 mb-12">
                   <h3 className="text-2xl font-bold text-gray-900 text-center mb-8">Our Delivery Process in India</h3>
                   <p className="text-gray-600 text-center mb-8">Ordering with GoBazaar is quick and easy for everyone.</p>
-                  
+
                   <div className="grid md:grid-cols-3 gap-8">
                     <div className="text-center">
                       <div className="w-16 h-16 bg-green-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">1</div>
@@ -223,10 +194,10 @@ export default function HomePage() {
                       <p className="text-sm text-gray-600">Make your order with us and take it easy. We take care of everything else</p>
                     </div>
                   </div>
-                  
+
                   <p className="text-gray-600 text-center mt-8">
-                    We deliver to all parts of India, and we go to big cities and many towns. Our delivery time depends on where you are 
-                    and how big your order is. We try to be fast and reliable every time. If you live in a metro city, you can pick 
+                    We deliver to all parts of India, and we go to big cities and many towns. Our delivery time depends on where you are
+                    and how big your order is. We try to be fast and reliable every time. If you live in a metro city, you can pick
                     express delivery, so you get the things you need quicker.
                   </p>
                 </div>
@@ -239,9 +210,9 @@ export default function HomePage() {
                   <h3 className="text-2xl font-bold text-gray-900 mb-4">Farm-Fresh Vegetables & Fruits</h3>
                   <h4 className="text-lg font-semibold text-green-700 mb-4">Pure Goodness, Every Time</h4>
                   <p className="text-gray-600 leading-relaxed">
-                    There is nothing like eating fresh vegetables and juicy fruits. At GoBazaar, we make sure you have only the best 
-                    that you can get. The produce at our shop comes straight from local farmers. This means you get natural freshness 
-                    and better nutrition. You also get the original flavors. If you are looking for leafy greens, seasonal fruits, 
+                    There is nothing like eating fresh vegetables and juicy fruits. At GoBazaar, we make sure you have only the best
+                    that you can get. The produce at our shop comes straight from local farmers. This means you get natural freshness
+                    and better nutrition. You also get the original flavors. If you are looking for leafy greens, seasonal fruits,
                     or different kinds of veggies, we have it all for you.
                   </p>
                 </div>
@@ -251,7 +222,7 @@ export default function HomePage() {
                   <h3 className="text-2xl font-bold text-gray-900 mb-4">Quality Chicken & Meat Products</h3>
                   <h4 className="text-lg font-semibold text-red-700 mb-4">Hygienic & Fresh</h4>
                   <p className="text-gray-600 leading-relaxed mb-4">
-                    Protein helps build and keep your body strong. We want people to be healthy, so we do not take this lightly. 
+                    Protein helps build and keep your body strong. We want people to be healthy, so we do not take this lightly.
                     All our premium chicken and meat products are:
                   </p>
                   <div className="space-y-2 text-sm text-gray-700">
@@ -303,7 +274,7 @@ export default function HomePage() {
                 <p className="text-green-100 text-center mb-12 text-lg">
                   Shopping with GoBazaar is easy and makes sense. It is also safe and costs less money. A lot of people trust us, and here is why:
                 </p>
-                
+
                 <div className="grid md:grid-cols-2 gap-8">
                   <div className="space-y-6">
                     <div className="flex items-start">
@@ -311,58 +282,57 @@ export default function HomePage() {
                       <div>
                         <h4 className="font-semibold mb-2">Fresh & Organic Produce</h4>
                         <p className="text-green-100 text-sm">
-                          We pick our vegetables and fruits by hand. They come straight from farmers to you, packed with care by our team. 
+                          We pick our vegetables and fruits by hand. They come straight from farmers to you, packed with care by our team.
                           This makes sure you get the freshest food every time. There are no middlemen and no old stock.
                         </p>
                       </div>
                     </div>
-                    
+
                     <div className="flex items-start">
                       <span className="text-green-300 mr-3 text-xl">✔</span>
                       <div>
                         <h4 className="font-semibold mb-2">Premium Meat & Chicken</h4>
                         <p className="text-green-100 text-sm">
-                          Get fresh chicken and meat that is packed with care. The meat and chicken are prepared in a clean environment. 
+                          Get fresh chicken and meat that is packed with care. The meat and chicken are prepared in a clean environment.
                           They are handled with strong safety rules. Every piece meets our high-quality levels.
                         </p>
                       </div>
                     </div>
                   </div>
-                  
+
                   <div className="space-y-6">
                     <div className="flex items-start">
                       <span className="text-green-300 mr-3 text-xl">✔</span>
                       <div>
                         <h4 className="font-semibold mb-2">Fast & Reliable Delivery</h4>
                         <p className="text-green-100 text-sm">
-                          We know that your time is important. We use an efficient delivery network so your groceries get to you quickly 
+                          We know that your time is important. We use an efficient delivery network so your groceries get to you quickly
                           and on time. If you are in select metro cities, we also have express delivery options for you.
                         </p>
                       </div>
                     </div>
-                    
+
                     <div className="flex items-start">
                       <span className="text-green-300 mr-3 text-xl">✔</span>
                       <div>
                         <h4 className="font-semibold mb-2">Best Prices Guaranteed</h4>
                         <p className="text-green-100 text-sm">
-                          Get exclusive deals, discounts, and combo offers here. Shop more to save more and make the most of your grocery budget. 
+                          Get exclusive deals, discounts, and combo offers here. Shop more to save more and make the most of your grocery budget.
                           You do not have to give up good quality to pay these low prices.
                         </p>
                       </div>
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="text-center mt-8">
-                  <Button 
-                    size="lg" 
-                    className="bg-white text-green-600 hover:bg-green-50 font-semibold px-8 py-4"
-                    onClick={() => window.location.href = '/categories'}
+                  <Link
+                    href="/categories"
+                    className="inline-flex items-center bg-white text-green-600 hover:bg-green-50 font-semibold px-8 py-4 rounded-lg transition-colors"
                   >
                     Start Shopping Now
                     <ArrowRight className="w-5 h-5 ml-2" />
-                  </Button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -379,7 +349,7 @@ export default function HomePage() {
                   Discover expert tips for healthy eating and learn about our stringent food safety standards
                 </p>
               </div>
-              
+
               <div className="grid md:grid-cols-2 gap-8">
                 {/* Healthy Eating Tips */}
                 <div className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-shadow">
@@ -389,12 +359,12 @@ export default function HomePage() {
                     </div>
                     <h3 className="text-2xl font-bold text-gray-900">Healthy Eating Tips</h3>
                   </div>
-                  
+
                   <p className="text-gray-600 leading-relaxed mb-6">
-                    Learn how to make nutritious choices, plan balanced meals, and maintain a healthy lifestyle 
+                    Learn how to make nutritious choices, plan balanced meals, and maintain a healthy lifestyle
                     with fresh ingredients from GoBazaar. Our experts share practical tips for better nutrition.
                   </p>
-                  
+
                   <div className="space-y-3 mb-6">
                     <div className="flex items-start">
                       <div className="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
@@ -409,7 +379,7 @@ export default function HomePage() {
                       <span className="text-sm text-gray-700">Plan balanced meals with proper portions of all food groups</span>
                     </div>
                   </div>
-                  
+
                   <Link
                     href="/healthy-eating-tips"
                     className="inline-flex items-center bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors"
@@ -427,12 +397,12 @@ export default function HomePage() {
                     </div>
                     <h3 className="text-2xl font-bold text-gray-900">Food Safety Standards</h3>
                   </div>
-                  
+
                   <p className="text-gray-600 leading-relaxed mb-6">
-                    Discover our comprehensive food safety protocols, quality assurance measures, and hygiene 
+                    Discover our comprehensive food safety protocols, quality assurance measures, and hygiene
                     standards that ensure every product reaches you fresh, safe, and of the highest quality.
                   </p>
-                  
+
                   <div className="space-y-3 mb-6">
                     <div className="flex items-start">
                       <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
@@ -447,7 +417,7 @@ export default function HomePage() {
                       <span className="text-sm text-gray-700">Strict hygiene protocols for meat and dairy products</span>
                     </div>
                   </div>
-                  
+
                   <Link
                     href="/food-safety-standards"
                     className="inline-flex items-center bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
