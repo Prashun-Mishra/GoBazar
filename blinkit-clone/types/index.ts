@@ -11,6 +11,7 @@ export interface SubCategory {
   categoryId: string
   name: string
   slug: string
+  image?: string
   description?: string
   order: number
 }

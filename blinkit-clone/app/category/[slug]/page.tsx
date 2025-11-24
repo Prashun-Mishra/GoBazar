@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { useParams, useSearchParams, useRouter } from "next/navigation"
 import Link from "next/link"
+import Image from "next/image"
 import { Header } from "@/components/header"
 import { ProductCard } from "@/components/product-card"
 import { Footer } from "@/components/footer"
@@ -46,7 +47,7 @@ export default function CategoryPage() {
           const subParam = searchParams.get("sub")
           const activeSubcat = subParam
             ? categorySubcategories.find((sub: SubCategory) => sub.slug === subParam)?.id ||
-              categorySubcategories[0]?.id
+            categorySubcategories[0]?.id
             : categorySubcategories[0]?.id
           setActiveSubcategory(activeSubcat || "")
 
@@ -165,12 +166,22 @@ export default function CategoryPage() {
               <button
                 key={subcategory.id}
                 onClick={() => handleSubcategoryChange(subcategory.id)}
-                className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap ${
-                  activeSubcategory === subcategory.id
-                    ? "bg-green-600 text-white"
-                    : "bg-white text-gray-700 border border-gray-200"
-                }`}
+                className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap flex items-center gap-2 ${activeSubcategory === subcategory.id
+                  ? "bg-green-600 text-white"
+                  : "bg-white text-gray-700 border border-gray-200"
+                  }`}
               >
+                {subcategory.image && (
+                  <div className="w-6 h-6 relative rounded-full overflow-hidden bg-white">
+                    <Image
+                      src={subcategory.image}
+                      alt={subcategory.name}
+                      fill
+                      className="object-cover"
+                      unoptimized
+                    />
+                  </div>
+                )}
                 {subcategory.name}
                 <span className="ml-1 text-xs opacity-75">
                   ({products.filter((p) => p.subcategoryId === subcategory.id).length})
@@ -190,13 +201,26 @@ export default function CategoryPage() {
                   <button
                     key={subcategory.id}
                     onClick={() => handleSubcategoryChange(subcategory.id)}
-                    className={`w-full text-left px-3 py-2 rounded-md text-sm flex items-center justify-between ${
-                      activeSubcategory === subcategory.id
-                        ? "bg-green-50 text-green-700 border border-green-200"
-                        : "text-gray-700 hover:bg-gray-50"
-                    }`}
+                    className={`w-full text-left px-3 py-2 rounded-md text-sm flex items-center justify-between group ${activeSubcategory === subcategory.id
+                      ? "bg-green-50 text-green-700 border border-green-200"
+                      : "text-gray-700 hover:bg-gray-50"
+                      }`}
                   >
-                    <span>{subcategory.name}</span>
+                    <div className="flex items-center gap-3">
+                      {subcategory.image && (
+                        <div className={`w-10 h-10 relative rounded-full overflow-hidden border ${activeSubcategory === subcategory.id ? "border-green-200" : "border-gray-100"
+                          }`}>
+                          <Image
+                            src={subcategory.image}
+                            alt={subcategory.name}
+                            fill
+                            className="object-cover"
+                            unoptimized
+                          />
+                        </div>
+                      )}
+                      <span className="font-medium">{subcategory.name}</span>
+                    </div>
                     <span className="text-xs text-gray-500">
                       ({products.filter((p) => p.subcategoryId === subcategory.id).length})
                     </span>

@@ -71,6 +71,7 @@ model SubCategory {
   id          String   @id @default(cuid())
   name        String
   slug        String   @unique
+  image       String?
   description String?
   order       Int      @default(0)
   isActive    Boolean  @default(true)
