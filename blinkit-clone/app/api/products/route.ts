@@ -88,26 +88,26 @@ export async function GET(request: Request) {
     const products = data.data || data.products || []
     const pagination = data.pagination || {}
     const total = pagination.total || data.total || 0
-    const page = pagination.page || data.page || 1
+    const responsePage = pagination.page || data.page || 1
     const totalPages = pagination.totalPages || data.totalPages || 1
-    const limit = pagination.limit || data.limit || 50
+    const responseLimit = pagination.limit || data.limit || 50
 
     console.log(`✅ [Products API] Backend response:`, {
       productsCount: products.length,
       total,
-      page,
+      page: responsePage,
       format: data.pagination ? 'new (with pagination)' : 'old (flat)'
     })
 
     // Calculate hasMore
-    const hasMore = page < totalPages || products.length >= limit
+    const hasMore = responsePage < totalPages || products.length >= responseLimit
 
     // Transform backend response to match frontend expectations
     return NextResponse.json({
       products,
       total,
       hasMore,
-      page,
+      page: responsePage,
       totalPages,
     })
   } catch (error) {
