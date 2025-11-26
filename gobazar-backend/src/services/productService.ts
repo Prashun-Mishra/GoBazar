@@ -383,6 +383,9 @@ class ProductService {
       { slug: 'vegetables-fruits', limit: 12 },
       { slug: 'dairy-breakfast', limit: 12 },
       { slug: 'munchies', limit: 12 },
+      { slug: 'cold-drinks-juices', limit: 12 },
+      { slug: 'bakery-biscuits', limit: 12 },
+      { slug: 'chicken-meat-fish', limit: 12 },
     ];
 
     const results = [];
