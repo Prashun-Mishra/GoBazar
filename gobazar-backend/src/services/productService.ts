@@ -57,7 +57,11 @@ class ProductService {
 
     // Build orderBy clause
     const orderBy: any = {};
-    orderBy[sortBy] = sortOrder;
+    if (sortBy === 'popularity') {
+      orderBy['rating'] = 'desc'; // Map popularity to rating
+    } else {
+      orderBy[sortBy] = sortOrder;
+    }
 
     console.log('🔍 [ProductService] getProducts where:', JSON.stringify(where));
 

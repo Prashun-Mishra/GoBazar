@@ -51,7 +51,11 @@ export async function GET(request: Request) {
     if (search) queryParams.append('search', search)
     queryParams.append('limit', limit)
     queryParams.append('page', page)
-    if (sortBy) queryParams.append('sortBy', sortBy)
+    if (sortBy) {
+      // Map 'popularity' to 'rating' for backend compatibility
+      const backendSortBy = sortBy === 'popularity' ? 'rating' : sortBy
+      queryParams.append('sortBy', backendSortBy)
+    }
     if (sortOrder) queryParams.append('sortOrder', sortOrder)
     if (minPrice) queryParams.append('minPrice', minPrice)
     if (maxPrice) queryParams.append('maxPrice', maxPrice)
