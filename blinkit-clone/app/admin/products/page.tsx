@@ -36,7 +36,7 @@ export default function AdminProductsPage() {
         }
 
         const [productsRes, categoriesRes] = await Promise.all([
-          fetch('/api/admin/products', { headers }),
+          fetch('/api/admin/products?limit=2000', { headers }),
           fetch('/api/categories')
         ])
 
@@ -124,21 +124,21 @@ export default function AdminProductsPage() {
   const handleProductSubmit = async (productData: Partial<Product>) => {
     try {
       console.log('📝 Submitting product:', productData)
-      
+
       const token = localStorage.getItem('auth-token')
       console.log('🔑 Auth token:', token ? 'Present' : 'Missing')
-      
+
       const headers = {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
       }
 
-      const url = editingProduct 
+      const url = editingProduct
         ? `/api/admin/products/${editingProduct.id}`
         : '/api/admin/products'
-      
+
       const method = editingProduct ? 'PUT' : 'POST'
-      
+
       console.log('🌐 Request:', { url, method })
 
       const response = await fetch(url, {
@@ -157,10 +157,10 @@ export default function AdminProductsPage() {
 
       const result = await response.json()
       console.log('✅ Success result:', result)
-      
+
       // Handle different response formats
       const newProduct = result.data || result
-      
+
       if (editingProduct) {
         // Update existing product
         setProducts(prev => prev.map(p => p.id === editingProduct.id ? newProduct : p))
@@ -448,9 +448,8 @@ export default function AdminProductsPage() {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span
-                      className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                        product.stock > 0 ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
-                      }`}
+                      className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${product.stock > 0 ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
+                        }`}
                     >
                       {product.stock > 0 ? "In Stock" : "Out of Stock"}
                     </span>

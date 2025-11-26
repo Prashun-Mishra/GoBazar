@@ -80,10 +80,10 @@ export default function CategoryPage() {
       }
 
       const queryParams = new URLSearchParams()
-      queryParams.append('category', category.slug)
+      queryParams.append('category', category.id)
       if (activeSubcategory) {
         const sub = subcategories.find(s => s.id === activeSubcategory)
-        if (sub) queryParams.append('subcategory', sub.slug)
+        if (sub) queryParams.append('subcategory', sub.id)
       }
       queryParams.append('page', isLoadMore ? (page + 1).toString() : '1')
       queryParams.append('limit', LIMIT.toString())
