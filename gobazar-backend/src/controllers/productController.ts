@@ -7,6 +7,7 @@ import { ProductQuery } from '@/types';
 class ProductController {
   getProducts = asyncHandler(async (req: Request, res: Response) => {
     const query = req.query as unknown as ProductQuery;
+    console.log('🔍 [ProductController] getProducts query:', JSON.stringify(query));
 
     const result = await productService.getProducts(query);
 

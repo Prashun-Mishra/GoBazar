@@ -59,6 +59,8 @@ class ProductService {
     const orderBy: any = {};
     orderBy[sortBy] = sortOrder;
 
+    console.log('🔍 [ProductService] getProducts where:', JSON.stringify(where));
+
     // Get products with relations
     const [products, total] = await Promise.all([
       prisma.product.findMany({
@@ -379,51 +381,50 @@ class ProductService {
       { slug: 'munchies', limit: 12 },
     ];
 
-    const results = await Promise.all(
-      categories.map(async (cat) => {
-        const products = await prisma.product.findMany({
-          where: {
-            category: { slug: cat.slug },
-            isActive: true,
-          },
-          select: {
-            id: true,
-            name: true,
-            price: true,
-            mrp: true,
-            discountPercent: true,
-            images: true,
-            unit: true,
-            rating: true,
-            reviewCount: true,
-            stock: true,
-            categoryId: true,
-            subcategoryId: true,
-            isActive: true,
-            createdAt: true,
-            updatedAt: true,
-            brand: true,
-            description: true,
-            highlights: true,
-            tags: true,
-            nutritionalInfo: true,
-            ingredients: true,
-            benefits: true,
-            // Relations needed for frontend type compatibility
-            category: true,
-            subcategory: true,
-            variants: {
-              where: { isActive: true },
-              orderBy: { price: 'asc' },
-              take: 1
-            }
-          },
-          orderBy: { rating: 'desc' },
-          take: cat.limit,
-        });
-        return { slug: cat.slug, products };
-      })
-    );
+    const results = [];
+    for (const cat of categories) {
+      const products = await prisma.product.findMany({
+        where: {
+          category: { slug: cat.slug },
+          isActive: true,
+        },
+        select: {
+          id: true,
+          name: true,
+          price: true,
+          mrp: true,
+          discountPercent: true,
+          images: true,
+          unit: true,
+          rating: true,
+          reviewCount: true,
+          stock: true,
+          categoryId: true,
+          subcategoryId: true,
+          isActive: true,
+          createdAt: true,
+          updatedAt: true,
+          brand: true,
+          description: true,
+          highlights: true,
+          tags: true,
+          nutritionalInfo: true,
+          ingredients: true,
+          benefits: true,
+          // Relations needed for frontend type compatibility
+          category: true,
+          subcategory: true,
+          variants: {
+            where: { isActive: true },
+            orderBy: { price: 'asc' },
+            take: 1
+          }
+        },
+        orderBy: { rating: 'desc' },
+        take: cat.limit,
+      });
+      results.push({ slug: cat.slug, products });
+    }
 
     const response: Record<string, ProductWithRelations[]> = {};
     results.forEach(result => {

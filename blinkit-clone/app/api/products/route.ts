@@ -81,18 +81,34 @@ export async function GET(request: Request) {
     }
 
     const data = await response.json()
+
+    // Backend can return data in two formats:
+    // 1. { data: [...], total, page, ... } - old format
+    // 2. { products: [...], pagination: { total, page, ... } } - new format
+    const products = data.data || data.products || []
+    const pagination = data.pagination || {}
+    const total = pagination.total || data.total || 0
+    const page = pagination.page || data.page || 1
+    const totalPages = pagination.totalPages || data.totalPages || 1
+    const limit = pagination.limit || data.limit || 50
+
     console.log(`✅ [Products API] Backend response:`, {
-      productsCount: data.data?.length || data.products?.length || 0,
-      total: data.total
+      productsCount: products.length,
+      total,
+      page,
+      format: data.pagination ? 'new (with pagination)' : 'old (flat)'
     })
+
+    // Calculate hasMore
+    const hasMore = page < totalPages || products.length >= limit
 
     // Transform backend response to match frontend expectations
     return NextResponse.json({
-      products: data.data || data.products || [],
-      total: data.total || 0,
-      hasMore: data.hasMore || false,
-      page: data.page || 1,
-      totalPages: data.totalPages || 1,
+      products,
+      total,
+      hasMore,
+      page,
+      totalPages,
     })
   } catch (error) {
     console.error('Error fetching products:', error)
