@@ -30,7 +30,8 @@ async function getHomePageProducts() {
       throw new Error('Failed to fetch products')
     }
 
-    return res.json()
+    const data = await res.json()
+    return data.data || data
   } catch (error) {
     console.error('Error fetching homepage products:', error)
     return {}
