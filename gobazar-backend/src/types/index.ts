@@ -64,7 +64,7 @@ export interface ProductQuery {
   minPrice?: number;
   maxPrice?: number;
   brand?: string;
-  sortBy?: 'price' | 'rating' | 'name' | 'createdAt';
+  sortBy?: 'price' | 'rating' | 'name' | 'createdAt' | 'popularity';
   sortOrder?: 'asc' | 'desc';
 }
 
