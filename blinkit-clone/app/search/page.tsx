@@ -33,7 +33,7 @@ export default function SearchPage() {
   const [totalResults, setTotalResults] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
   const [hasMore, setHasMore] = useState(false)
-  
+
   const [filters, setFilters] = useState<SearchFilters>({
     query,
     categoryId: category,
@@ -59,7 +59,7 @@ export default function SearchPage() {
   const fetchProducts = async (searchFilters: SearchFilters, page: number = 1) => {
     try {
       setLoading(true)
-      
+
       // Build query parameters
       const queryParams = new URLSearchParams()
       if (searchFilters.query) queryParams.append('search', searchFilters.query)
@@ -72,20 +72,20 @@ export default function SearchPage() {
       if (searchFilters.sortOrder) queryParams.append('sortOrder', searchFilters.sortOrder)
       if (searchFilters.inStock) queryParams.append('inStock', 'true')
       queryParams.append('page', page.toString())
-      queryParams.append('limit', '20')
+      queryParams.append('limit', '50')
 
       const response = await fetch(`/api/products?${queryParams.toString()}`)
       if (!response.ok) throw new Error('Failed to fetch products')
-      
+
       const data = await response.json()
       const newProducts = data.products || data.data || []
-      
+
       if (page === 1) {
         setProducts(newProducts)
       } else {
         setProducts(prev => [...prev, ...newProducts])
       }
-      
+
       setTotalResults(data.total || newProducts.length)
       setHasMore(data.hasMore || false)
       setCurrentPage(page)
@@ -106,13 +106,13 @@ export default function SearchPage() {
     setFilters(newFilters)
     setCurrentPage(1)
     fetchProducts(newFilters, 1)
-    
+
     // Update URL with search parameters
     const params = new URLSearchParams()
     if (newFilters.query) params.set('q', newFilters.query)
     if (newFilters.categoryId) params.set('category', newFilters.categoryId)
     if (newFilters.subcategoryId) params.set('subcategory', newFilters.subcategoryId)
-    
+
     const newUrl = `/search${params.toString() ? '?' + params.toString() : ''}`
     router.push(newUrl, { scroll: false })
   }
@@ -139,7 +139,7 @@ export default function SearchPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-      
+
       <main className="container py-8">
         {/* Advanced Search */}
         <div className="mb-8">

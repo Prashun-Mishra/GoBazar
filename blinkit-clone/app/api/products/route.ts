@@ -4,7 +4,7 @@ import { BACKEND_URL } from "@/lib/api-config"
 // Category slug mapping for backend compatibility
 const categorySlugMapping: Record<string, string> = {
   'dairy-breakfast': 'dairy-breakfast',
-  'munchies': 'munchies', 
+  'munchies': 'munchies',
   'paan-corner': 'paan-corner',
   'cold-drinks-juices': 'cold-drinks-juices',
   'sweet-tooth': 'sweet-tooth',
@@ -31,7 +31,7 @@ export async function GET(request: Request) {
     const category = searchParams.get("category") || searchParams.get("categoryId")
     const subcategory = searchParams.get("subcategory") || searchParams.get("subcategoryId")
     const search = searchParams.get("search")
-    const limit = searchParams.get("limit") || "20"
+    const limit = searchParams.get("limit") || "50"
     const page = searchParams.get("page") || "1"
     const sortBy = searchParams.get("sortBy")
     const sortOrder = searchParams.get("sortOrder")
@@ -40,7 +40,7 @@ export async function GET(request: Request) {
 
     // Build query parameters for backend
     const queryParams = new URLSearchParams()
-    
+
     // Map category slug if needed
     const mappedCategory = category ? (categorySlugMapping[category] || category) : null
     if (category && mappedCategory !== category) {
@@ -58,7 +58,7 @@ export async function GET(request: Request) {
 
     const backendUrl = `${BACKEND_URL}/api/products?${queryParams.toString()}`
     console.log(`🔍 [Products API] Fetching from backend: ${backendUrl}`)
-    
+
     const response = await fetch(backendUrl, {
       headers: {
         'Content-Type': 'application/json',
@@ -68,7 +68,7 @@ export async function GET(request: Request) {
     if (!response.ok) {
       const errorText = await response.text()
       console.error(`❌ [Products API] Backend error ${response.status}:`, errorText)
-      
+
       // Return empty results instead of throwing error
       return NextResponse.json({
         products: [],
@@ -81,11 +81,11 @@ export async function GET(request: Request) {
     }
 
     const data = await response.json()
-    console.log(`✅ [Products API] Backend response:`, { 
+    console.log(`✅ [Products API] Backend response:`, {
       productsCount: data.data?.length || data.products?.length || 0,
-      total: data.total 
+      total: data.total
     })
-    
+
     // Transform backend response to match frontend expectations
     return NextResponse.json({
       products: data.data || data.products || [],

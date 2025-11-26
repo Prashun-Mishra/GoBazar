@@ -10,7 +10,7 @@ class ProductService {
   }> {
     const {
       page = 1,
-      limit = 20,
+      limit = 50,
       category,
       subcategory,
       search,
@@ -127,7 +127,7 @@ class ProductService {
     return products as ProductWithRelations[];
   }
 
-  async getProductsByCategory(categoryId: string, limit: number = 20): Promise<ProductWithRelations[]> {
+  async getProductsByCategory(categoryId: string, limit: number = 50): Promise<ProductWithRelations[]> {
     const products = await prisma.product.findMany({
       where: {
         categoryId,
@@ -150,7 +150,7 @@ class ProductService {
     return products as ProductWithRelations[];
   }
 
-  async getProductsBySubcategory(subcategoryId: string, limit: number = 20): Promise<ProductWithRelations[]> {
+  async getProductsBySubcategory(subcategoryId: string, limit: number = 50): Promise<ProductWithRelations[]> {
     const products = await prisma.product.findMany({
       where: {
         subcategoryId,
@@ -291,7 +291,7 @@ class ProductService {
     return products as ProductWithRelations[];
   }
 
-  async searchProducts(searchTerm: string, limit: number = 20): Promise<ProductWithRelations[]> {
+  async searchProducts(searchTerm: string, limit: number = 50): Promise<ProductWithRelations[]> {
     const products = await prisma.product.findMany({
       where: {
         isActive: true,
