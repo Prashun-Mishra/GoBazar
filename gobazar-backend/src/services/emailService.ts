@@ -23,8 +23,12 @@ class EmailService {
       };
 
       if (isGmail) {
-        console.log('📧 Detected Gmail configuration, using optimized settings with IPv4');
-        transportConfig.service = 'gmail';
+        console.log('📧 Detected Gmail configuration, using explicit settings (Port 587, IPv4)');
+        // We avoid 'service: gmail' as it can hide connection issues
+        transportConfig.host = 'smtp.gmail.com';
+        transportConfig.port = 587;
+        transportConfig.secure = false; // Use STARTTLS
+        transportConfig.requireTLS = true; // Force TLS
       } else {
         transportConfig.host = config.email.host;
         transportConfig.port = config.email.port;
