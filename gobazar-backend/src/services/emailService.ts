@@ -7,15 +7,29 @@ class EmailService {
 
   constructor() {
     if (config.email.user && config.email.pass) {
-      this.transporter = nodemailer.createTransport({
-        host: config.email.host,
-        port: config.email.port,
-        secure: config.email.port === 465, // true for 465, false for other ports
+      const isGmail = config.email.host.includes('gmail');
+
+      const transportConfig: any = {
         auth: {
           user: config.email.user,
           pass: config.email.pass,
         },
-      });
+        // Connection timeout settings
+        connectionTimeout: 10000, // 10 seconds
+        greetingTimeout: 10000,   // 10 seconds
+        socketTimeout: 10000,     // 10 seconds
+      };
+
+      if (isGmail) {
+        console.log('📧 Detected Gmail configuration, using optimized settings');
+        transportConfig.service = 'gmail';
+      } else {
+        transportConfig.host = config.email.host;
+        transportConfig.port = config.email.port;
+        transportConfig.secure = config.email.port === 465;
+      }
+
+      this.transporter = nodemailer.createTransport(transportConfig);
     } else {
       console.warn('⚠️ SMTP credentials missing. Email service will be disabled.');
     }
