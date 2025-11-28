@@ -1,39 +1,42 @@
-import { Resend } from 'resend';
+import nodemailer from 'nodemailer';
 import config from '@/config';
 import { EmailOptions } from '@/types';
 
 class EmailService {
-  private resend: Resend | null = null;
+  private transporter: nodemailer.Transporter | null = null;
 
   constructor() {
-    const apiKey = process.env.RESEND_API_KEY;
-    if (apiKey) {
-      this.resend = new Resend(apiKey);
+    if (config.email.user && config.email.pass) {
+      this.transporter = nodemailer.createTransport({
+        host: config.email.host,
+        port: config.email.port,
+        secure: config.email.port === 465, // true for 465, false for other ports
+        auth: {
+          user: config.email.user,
+          pass: config.email.pass,
+        },
+      });
     } else {
-      console.warn('⚠️ RESEND_API_KEY is missing. Email service will be disabled.');
+      console.warn('⚠️ SMTP credentials missing. Email service will be disabled.');
     }
   }
 
   async sendEmail(options: EmailOptions): Promise<boolean> {
-    if (!this.resend) {
-      console.warn('Email service not configured (missing API key). Skipping email:', options.subject);
+    if (!this.transporter) {
+      console.warn('Email service not configured (missing credentials). Skipping email:', options.subject);
       return true; // Return true to allow flow to continue
     }
 
     try {
-      const result = await this.resend.emails.send({
-        from: 'GoBazar <onboarding@resend.dev>',
+      const info = await this.transporter.sendMail({
+        from: `"GoBazar" <${config.email.user}>`,
         to: options.to,
         subject: options.subject,
         html: options.html || '',
+        text: options.text,
       });
 
-      if (result.error) {
-        console.error('Error sending email:', result.error);
-        return false;
-      }
-
-      console.log('Email sent:', result.data?.id);
+      console.log('Email sent:', info.messageId);
       return true;
     } catch (error) {
       console.error('Error sending email:', error);
@@ -464,8 +467,13 @@ class EmailService {
   }
 
   async testConnection(): Promise<boolean> {
+    if (!this.transporter) {
+      console.error('Email service not configured (missing credentials).');
+      return false;
+    }
     try {
-      console.log('Email service (Resend) is configured');
+      await this.transporter.verify();
+      console.log('Email service (Nodemailer) is configured and ready');
       return true;
     } catch (error) {
       console.error('Email service connection failed:', error);
