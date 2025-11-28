@@ -6,7 +6,11 @@ class EmailService {
   private transporter: nodemailer.Transporter | null = null;
 
   constructor() {
+    // IMPORTANT: Render (and many cloud platforms) block standard SMTP ports (25, 465, 587)
+    // SendGrid SMTP on port 2525 bypasses these restrictions
+
     if (config.email.user && config.email.pass) {
+      const isSendGrid = config.email.host.includes('sendgrid');
       const isGmail = config.email.host.includes('gmail');
 
       const transportConfig: any = {
@@ -15,20 +19,25 @@ class EmailService {
           pass: config.email.pass,
         },
         // Connection timeout settings
-        connectionTimeout: 20000, // 20 seconds
-        greetingTimeout: 20000,
-        socketTimeout: 20000,
-        // Force IPv4 to avoid IPv6 connectivity issues on some cloud providers
+        connectionTimeout: 30000, // 30 seconds
+        greetingTimeout: 30000,
+        socketTimeout: 30000,
+        // Force IPv4 to avoid IPv6 connectivity issues
         family: 4,
       };
 
-      if (isGmail) {
-        console.log('📧 Detected Gmail configuration, using explicit settings (Port 587, IPv4)');
-        // We avoid 'service: gmail' as it can hide connection issues
+      if (isSendGrid) {
+        console.log('📧 Using SendGrid SMTP (Port 2525) - optimized for cloud platforms like Render');
+        transportConfig.host = 'smtp.sendgrid.net';
+        transportConfig.port = 2525; // Alternative port that bypasses firewall restrictions
+        transportConfig.secure = false; // Use STARTTLS
+        transportConfig.requireTLS = true;
+      } else if (isGmail) {
+        console.log('📧 Detected Gmail configuration (Port 587) - may not work on Render due to firewall');
         transportConfig.host = 'smtp.gmail.com';
         transportConfig.port = 587;
         transportConfig.secure = false; // Use STARTTLS
-        transportConfig.requireTLS = true; // Force TLS
+        transportConfig.requireTLS = true;
       } else {
         transportConfig.host = config.email.host;
         transportConfig.port = config.email.port;
@@ -388,7 +397,7 @@ class EmailService {
         <title>Invoice - ${order.id}</title>
         <style>
           body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 1.6; color: #333; }
-          .container { max-width: 800px; margin: 0 auto; padding: 40px; background: white; }
+          .container { max-width: 800px; margin  0 auto; padding: 40px; background: white; }
           .header { display: flex; justify-content: space-between; margin-bottom: 40px; border-bottom: 2px solid #eee; padding-bottom: 20px; }
           .company-info h1 { margin: 0; font-size: 24px; color: #2c3e50; }
           .invoice-title { text-align: right; }
