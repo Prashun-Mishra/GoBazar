@@ -15,13 +15,15 @@ class EmailService {
           pass: config.email.pass,
         },
         // Connection timeout settings
-        connectionTimeout: 10000, // 10 seconds
-        greetingTimeout: 10000,   // 10 seconds
-        socketTimeout: 10000,     // 10 seconds
+        connectionTimeout: 20000, // 20 seconds
+        greetingTimeout: 20000,
+        socketTimeout: 20000,
+        // Force IPv4 to avoid IPv6 connectivity issues on some cloud providers
+        family: 4,
       };
 
       if (isGmail) {
-        console.log('📧 Detected Gmail configuration, using optimized settings');
+        console.log('📧 Detected Gmail configuration, using optimized settings with IPv4');
         transportConfig.service = 'gmail';
       } else {
         transportConfig.host = config.email.host;
