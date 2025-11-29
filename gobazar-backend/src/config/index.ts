@@ -18,11 +18,13 @@ const config: AppConfig = {
   },
 
   email: {
-    host: process.env.SMTP_HOST || 'smtp.gmail.com',
+    host: process.env.SMTP_HOST,
     port: parseInt(process.env.SMTP_PORT || '587', 10),
-    user: process.env.SMTP_USER || '',
-    pass: process.env.SMTP_PASS || '',
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
     adminEmail: process.env.ADMIN_EMAIL || '',
+    resendApiKey: process.env.RESEND_API_KEY || '',
+    fromEmail: process.env.EMAIL_FROM || 'onboarding@resend.dev',
   },
 
   cloudinary: {

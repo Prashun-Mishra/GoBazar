@@ -224,11 +224,13 @@ export interface JWTConfig {
 }
 
 export interface EmailConfig {
-  host: string;
-  port: number;
-  user: string;
-  pass: string;
+  host?: string;
+  port?: number;
+  user?: string;
+  pass?: string;
   adminEmail?: string;
+  resendApiKey?: string;
+  fromEmail?: string;
 }
 
 export interface CloudinaryConfig {

@@ -1,71 +1,40 @@
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 import config from '@/config';
 import { EmailOptions } from '@/types';
 
 class EmailService {
-  private transporter: nodemailer.Transporter | null = null;
+  private resend: Resend | null = null;
 
   constructor() {
-    // IMPORTANT: Render (and many cloud platforms) block standard SMTP ports (25, 465, 587)
-    // SendGrid SMTP on port 2525 bypasses these restrictions
-
-    if (config.email.user && config.email.pass) {
-      const isSendGrid = config.email.host.includes('sendgrid');
-      const isGmail = config.email.host.includes('gmail');
-
-      const transportConfig: any = {
-        auth: {
-          user: config.email.user,
-          pass: config.email.pass,
-        },
-        // Connection timeout settings
-        connectionTimeout: 30000, // 30 seconds
-        greetingTimeout: 30000,
-        socketTimeout: 30000,
-        // Force IPv4 to avoid IPv6 connectivity issues
-        family: 4,
-      };
-
-      if (isSendGrid) {
-        console.log('📧 Using SendGrid SMTP (Port 2525) - optimized for cloud platforms like Render');
-        transportConfig.host = 'smtp.sendgrid.net';
-        transportConfig.port = 2525; // Alternative port that bypasses firewall restrictions
-        transportConfig.secure = false; // Use STARTTLS
-        transportConfig.requireTLS = true;
-      } else if (isGmail) {
-        console.log('📧 Detected Gmail configuration (Port 587) - may not work on Render due to firewall');
-        transportConfig.host = 'smtp.gmail.com';
-        transportConfig.port = 587;
-        transportConfig.secure = false; // Use STARTTLS
-        transportConfig.requireTLS = true;
-      } else {
-        transportConfig.host = config.email.host;
-        transportConfig.port = config.email.port;
-        transportConfig.secure = config.email.port === 465;
-      }
-
-      this.transporter = nodemailer.createTransport(transportConfig);
+    if (config.email.resendApiKey) {
+      this.resend = new Resend(config.email.resendApiKey);
+      console.log('📧 Resend configured with API Key');
     } else {
-      console.warn('⚠️ SMTP credentials missing. Email service will be disabled.');
+      console.warn('⚠️ Resend API Key missing. Email service will be disabled.');
     }
   }
 
   async sendEmail(options: EmailOptions): Promise<boolean> {
-    if (!this.transporter) {
-      console.warn('Email service not configured (missing credentials). Skipping email:', options.subject);
+    if (!this.resend) {
+      console.warn('Email service not configured (missing API key). Skipping email:', options.subject);
       return true; // Return true to allow flow to continue
     }
 
     try {
-      const info = await this.transporter.sendMail({
-        from: `"GoBazar" <${config.email.user}>`,
+      const { data, error } = await this.resend.emails.send({
+        from: config.email.fromEmail || 'onboarding@resend.dev',
         to: options.to,
         subject: options.subject,
+        text: options.text || '',
         html: options.html || '',
-        text: options.text,
       });
 
-      console.log('Email sent:', info.messageId);
+      if (error) {
+        console.error('Error sending email:', error);
+        return false;
+      }
+
+      console.log('Email sent successfully:', data?.id);
       return true;
     } catch (error) {
       console.error('Error sending email:', error);
@@ -496,18 +465,12 @@ class EmailService {
   }
 
   async testConnection(): Promise<boolean> {
-    if (!this.transporter) {
-      console.error('Email service not configured (missing credentials).');
+    if (!this.resend) {
+      console.error('Email service not configured (missing API key).');
       return false;
     }
-    try {
-      await this.transporter.verify();
-      console.log('Email service (Nodemailer) is configured and ready');
-      return true;
-    } catch (error) {
-      console.error('Email service connection failed:', error);
-      return false;
-    }
+    console.log('Email service (Resend) is configured');
+    return true;
   }
 }
 
