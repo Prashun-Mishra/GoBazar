@@ -13,18 +13,18 @@ const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: {
-    default: "Go Bazar - Grocery Delivery in Pune | Fresh & Fast",
-    template: "%s | Go Bazar Pune"
+    default: "Go Bazaar - Grocery Delivery in Pune | Fresh & Fast",
+    template: "%s | Go Bazaar Pune"
   },
   metadataBase: new URL('https://www.gobazaar.in'),
   alternates: {
     canonical: '/',
   },
   description: "Order fresh groceries online in Pune. Get fruits, vegetables, dairy, and daily essentials delivered to your doorstep in minutes. Best grocery delivery service in Pune.",
-  keywords: ["grocery delivery pune", "online grocery pune", "fresh vegetables pune", "fruits delivery pune", "dairy products pune", "instant grocery delivery", "go bazar pune", "online supermarket pune"],
-  authors: [{ name: "Go Bazar Team" }],
-  creator: "Go Bazar",
-  publisher: "Go Bazar",
+  keywords: ["grocery delivery pune", "online grocery pune", "fresh vegetables pune", "fruits delivery pune", "dairy products pune", "instant grocery delivery", "go bazaar pune", "online supermarket pune"],
+  authors: [{ name: "Go Bazaar Team" }],
+  creator: "Go Bazaar",
+  publisher: "Go Bazaar",
   robots: {
     index: true,
     follow: true,
@@ -33,21 +33,21 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_IN",
     url: "https://www.gobazaar.in",
-    siteName: "Go Bazar",
-    title: "Go Bazar - Grocery Delivery in Pune | Fresh & Fast",
+    siteName: "Go Bazaar",
+    title: "Go Bazaar - Grocery Delivery in Pune | Fresh & Fast",
     description: "Order fresh groceries online in Pune. Get fruits, vegetables, dairy, and daily essentials delivered to your doorstep in minutes.",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Go Bazar - Pune's Favorite Online Grocery",
+        alt: "Go Bazaar - Pune's Favorite Online Grocery",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Go Bazar - Grocery Delivery in Pune | Fresh & Fast",
+    title: "Go Bazaar - Grocery Delivery in Pune | Fresh & Fast",
     description: "Order fresh groceries online in Pune. Get fruits, vegetables, dairy, and daily essentials delivered to your doorstep in minutes.",
     images: ["/og-image.jpg"],
     creator: "@gobazaar",
