@@ -45,5 +45,35 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ProductPage({ params }: Props) {
   const product = await getProduct(params.id)
-  return <ProductClient product={product} />
+
+  const jsonLd = product ? {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: product.name,
+    image: product.images?.[0],
+    description: product.description,
+    brand: {
+      '@type': 'Brand',
+      name: product.brand || 'Go Bazar',
+    },
+    offers: {
+      '@type': 'Offer',
+      url: `https://www.gobazaar.in/product/${product.id}`,
+      priceCurrency: 'INR',
+      price: product.price,
+      availability: product.stock > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
+    },
+  } : null
+
+  return (
+    <>
+      {jsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      )}
+      <ProductClient product={product} />
+    </>
+  )
 }

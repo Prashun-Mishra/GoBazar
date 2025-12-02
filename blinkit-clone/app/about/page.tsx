@@ -1,24 +1,32 @@
-"use client"
-
+import { Metadata } from "next"
+import Link from "next/link"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
-import { 
-  Clock, 
-  Zap, 
-  TrendingUp, 
-  Users, 
-  ShoppingCart, 
-  MapPin, 
-  Mail, 
-  Phone, 
+import {
+  Clock,
+  Zap,
+  TrendingUp,
+  Users,
+  ShoppingCart,
+  MapPin,
+  Mail,
+  Phone,
   Building2,
   Truck,
   Star,
   Globe,
   Heart
 } from "lucide-react"
-import Image from "next/image"
+
+export const metadata: Metadata = {
+  title: "About Us | Go Bazar - Pune's Fastest Grocery Delivery",
+  description: "Learn about Go Bazar's mission to revolutionize grocery delivery in Pune. We deliver fresh produce and essentials in 20 minutes.",
+  openGraph: {
+    title: "About Us | Go Bazar",
+    description: "Learn about Go Bazar's mission to revolutionize grocery delivery in Pune.",
+  }
+}
 
 export default function AboutPage() {
   const cities = [
@@ -68,17 +76,18 @@ export default function AboutPage() {
                 Fresh Groceries Delivered in 20 Minutes Across Pune
               </p>
               <p className="text-lg text-green-50 max-w-3xl mx-auto leading-relaxed">
-                We are revolutionizing grocery delivery in Pune by making fresh vegetables, fruits, 
+                We are revolutionizing grocery delivery in Pune by making fresh vegetables, fruits,
                 and daily essentials available at your doorstep in just 20 minutes.
               </p>
               <div className="mt-8">
-                <Button 
-                  size="lg" 
-                  className="bg-white text-green-600 hover:bg-green-50 font-semibold px-8 py-4 text-lg"
-                  onClick={() => window.location.href = '/'}
-                >
-                  Start Shopping Now
-                </Button>
+                <Link href="/">
+                  <Button
+                    size="lg"
+                    className="bg-white text-green-600 hover:bg-green-50 font-semibold px-8 py-4 text-lg"
+                  >
+                    Start Shopping Now
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
@@ -109,17 +118,17 @@ export default function AboutPage() {
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Story</h2>
                 <div className="w-24 h-1 bg-green-500 mx-auto"></div>
               </div>
-              
+
               <div className="bg-white rounded-2xl p-8 md:p-12 shadow-lg">
                 <div className="prose prose-lg max-w-none text-gray-700 leading-relaxed space-y-6">
                   <p className="text-xl text-gray-800 font-medium">
                     Imagine needing something when you are at home and getting it before you have tied your shoelaces to step out.
                   </p>
-                  
+
                   <p>
                     We are revolutionizing e-commerce by making the stuff most important to you, available to you in 20 minutes of your eye.
                   </p>
-                  
+
                   <p>
                     We want our customers to focus on the more important things for themselves and not need to plan for the little things that life needs on an everyday basis. We are here to get your chores out of your way.
                   </p>
@@ -184,8 +193,8 @@ export default function AboutPage() {
                     <div>
                       <h3 className="text-xl font-semibold text-gray-900 mb-3">Shop on the go</h3>
                       <p className="text-gray-700 leading-relaxed">
-                        Get anything delivered in minutes. Buy everything from groceries to fresh fruits & vegetables, 
-                        cakes and bakery items, to meats & seafood, cosmetics, mobiles & accessories, electronics, 
+                        Get anything delivered in minutes. Buy everything from groceries to fresh fruits & vegetables,
+                        cakes and bakery items, to meats & seafood, cosmetics, mobiles & accessories, electronics,
                         baby care products and much more.
                       </p>
                     </div>
@@ -193,9 +202,9 @@ export default function AboutPage() {
                     <div>
                       <h3 className="text-xl font-semibold text-gray-900 mb-3">Single app for all your daily needs</h3>
                       <p className="text-gray-700 leading-relaxed">
-                        Order thousands of products at just a tap - milk, eggs, bread, cooking oil, ghee, atta, rice, 
-                        fresh fruits & vegetables, spices, chocolates, chips, biscuits, Maggi, cold drinks, shampoos, 
-                        soaps, body wash, pet food, diapers, electronics, other organic and gourmet products from your 
+                        Order thousands of products at just a tap - milk, eggs, bread, cooking oil, ghee, atta, rice,
+                        fresh fruits & vegetables, spices, chocolates, chips, biscuits, Maggi, cold drinks, shampoos,
+                        soaps, body wash, pet food, diapers, electronics, other organic and gourmet products from your
                         neighborhood stores and a lot more.
                       </p>
                     </div>

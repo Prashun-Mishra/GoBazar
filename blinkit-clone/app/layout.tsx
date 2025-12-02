@@ -16,6 +16,10 @@ export const metadata: Metadata = {
     default: "Go Bazar - Grocery Delivery in Pune | Fresh & Fast",
     template: "%s | Go Bazar Pune"
   },
+  metadataBase: new URL('https://www.gobazaar.in'),
+  alternates: {
+    canonical: '/',
+  },
   description: "Order fresh groceries online in Pune. Get fruits, vegetables, dairy, and daily essentials delivered to your doorstep in minutes. Best grocery delivery service in Pune.",
   keywords: ["grocery delivery pune", "online grocery pune", "fresh vegetables pune", "fruits delivery pune", "dairy products pune", "instant grocery delivery", "go bazar pune", "online supermarket pune"],
   authors: [{ name: "Go Bazar Team" }],
@@ -54,6 +58,9 @@ export const metadata: Metadata = {
     "geo.placename": "Pune",
     "geo.position": "18.5204;73.8567",
     "ICBM": "18.5204, 73.8567"
+  },
+  verification: {
+    google: "WyaUGB6oXqF714ahxSAXDgrdUbaiVnDccsjZ1HRNLQo",
   }
 }
 

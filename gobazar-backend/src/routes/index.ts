@@ -10,6 +10,7 @@ import locationRoutes from './location';
 import adminRoutes from './admin';
 import paymentRoutes from './payments';
 import categoryController from '@/controllers/categoryController';
+import productFeedController from '@/controllers/productFeedController';
 
 const router = Router();
 
@@ -38,5 +39,8 @@ router.use('/payments', paymentRoutes);
 // Legacy route for frontend compatibility
 // Direct subcategories endpoint
 router.get('/subcategories', categoryController.getSubcategories);
+
+// Product Feed for Google Merchant Center
+router.get('/feed/google-merchant', productFeedController.getGoogleMerchantFeed);
 
 export default router;
