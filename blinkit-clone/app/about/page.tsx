@@ -321,7 +321,7 @@ export default function AboutPage() {
                   </div>
                   <h3 className="font-semibold mb-3">Company</h3>
                   <p className="text-sm text-gray-300 leading-relaxed">
-                    Kaonain Pursuit Overseas Exporters
+                    Kaonain Pursuit Overseas Exporter Pvt. Ltd.
                   </p>
                 </div>
               </div>
@@ -337,7 +337,7 @@ export default function AboutPage() {
                 © 2025 GoBazaar. All Rights Reserved.
               </p>
               <p className="text-xs">
-                "GoBazaar" is owned & managed by "Kaonain Pursuit" (formerly known as Kaonain Pursuit Overseas Exporter)
+                "GoBazaar" is owned & managed by "Kaonain Pursuit" (formerly known as Kaonain Pursuit Overseas Exporter Pvt. Ltd.)
               </p>
               <p className="text-xs">
                 Website: <a href="https://gobazaar.in" className="text-green-400 hover:text-green-300 transition-colors">gobazaar.in</a>

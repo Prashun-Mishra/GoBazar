@@ -230,7 +230,7 @@ export function Footer() {
           </div>
 
           <p className="text-xs text-gray-500 text-center mt-4 leading-relaxed">
-            "GoBazaar" is owned & managed by "Kaonain Pursuit" (formerly known as Kaonain Pursuit Overseas Exporter). 
+            "GoBazaar" is owned & managed by "Kaonain Pursuit" (formerly known as Kaonain Pursuit Overseas Exporter Pvt. Ltd.).
             We deliver fresh groceries and daily essentials to your doorstep in just 20 minutes across Pune.
           </p>
         </div>

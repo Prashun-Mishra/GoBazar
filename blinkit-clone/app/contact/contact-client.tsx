@@ -308,7 +308,7 @@ export default function ContactClient() {
                                                 <div>
                                                     <h4 className="font-semibold text-gray-900 mb-2">Company</h4>
                                                     <p className="text-gray-600">
-                                                        Kaonain Pursuit Overseas Exporters<br />
+                                                        Kaonain Pursuit Overseas Exporter Pvt. Ltd.<br />
                                                         <span className="text-sm">FSSAI License: 21525082002055</span>
                                                     </p>
                                                 </div>

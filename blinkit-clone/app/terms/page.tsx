@@ -2,10 +2,10 @@
 
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
-import { 
-  FileText, 
-  Shield, 
-  User, 
+import {
+  FileText,
+  Shield,
+  User,
   Globe,
   Eye,
   Lock,
@@ -91,16 +91,16 @@ export default function TermsPage() {
                 </div>
                 <h2 className="text-3xl font-bold text-gray-900">Personal Information</h2>
               </div>
-              
+
               <div className="bg-white rounded-xl p-8 shadow-sm">
                 <div className="prose max-w-none text-gray-700 leading-relaxed space-y-6">
                   <p>
-                    <strong>"Go Bazaar.in"</strong> is a trademark of <strong>"Kaonain Pursuit"</strong> (formerly known as 
-                    Kaonain Pursuit Overseas Exporter), a company incorporated under the Companies Act, 2013 with its registered 
-                    office at Shop No 4, Old Sangvi Bopodi Road, Near Budh Vihar Opposite Kinara Hotel, Dapodi, Pune, 
+                    <strong>"Go Bazaar.in"</strong> is a trademark of <strong>"Kaonain Pursuit"</strong> (formerly known as
+                    Kaonain Pursuit Overseas Exporter Pvt. Ltd.), a company incorporated under the Companies Act, 2013 with its registered
+                    office at Shop No 4, Old Sangvi Bopodi Road, Near Budh Vihar Opposite Kinara Hotel, Dapodi, Pune,
                     Maharashtra, India - 411020 (Company).
                   </p>
-                  
+
                   <div className="grid md:grid-cols-2 gap-6 my-8">
                     <div className="bg-blue-50 rounded-lg p-6">
                       <h4 className="font-semibold text-gray-900 mb-3">Company Details</h4>
@@ -111,19 +111,19 @@ export default function TermsPage() {
                         <li>• Rebranded: April 01, 2022</li>
                       </ul>
                     </div>
-                    
+
                     <div className="bg-yellow-50 rounded-lg p-6">
                       <h4 className="font-semibold text-gray-900 mb-3">Important Notice</h4>
                       <p className="text-sm text-gray-700">
-                        We have undergone re-branding exercise. Our brand name is now 'Go Bazaar'. 
+                        We have undergone re-branding exercise. Our brand name is now 'Go Bazaar'.
                         We are modifying our terms & conditions and policies accordingly.
                       </p>
                     </div>
                   </div>
-                  
+
                   <div className="bg-red-50 border border-red-200 rounded-lg p-4">
                     <p className="text-red-800 text-sm">
-                      <strong>Disclaimer:</strong> "Go Bazaar.in" owned by "Kaonain Pursuit" is not related to any 
+                      <strong>Disclaimer:</strong> "Go Bazaar.in" owned by "Kaonain Pursuit" is not related to any
                       real estate services business operated by "Kaonain Pursuit Overseas Exporter".
                     </p>
                   </div>
@@ -143,15 +143,15 @@ export default function TermsPage() {
                 </div>
                 <h2 className="text-3xl font-bold text-gray-900">Acceptance of Terms</h2>
               </div>
-              
+
               <div className="bg-white border rounded-xl p-8">
                 <div className="prose max-w-none text-gray-700 leading-relaxed space-y-6">
                   <p>
-                    Thank you for using Go Bazaar.in. These Terms of Use (the "Terms") are intended to make you aware 
-                    of your legal rights and responsibilities with respect to your access to and use of the Go Bazaar.in 
+                    Thank you for using Go Bazaar.in. These Terms of Use (the "Terms") are intended to make you aware
+                    of your legal rights and responsibilities with respect to your access to and use of the Go Bazaar.in
                     website www.gobazaar.in (the "Site") and any related mobile or software applications ("Go Bazaar Platform").
                   </p>
-                  
+
                   <div className="bg-green-50 border border-green-200 rounded-lg p-6">
                     <h4 className="font-semibold text-gray-900 mb-3 flex items-center">
                       <Shield className="w-5 h-5 text-green-600 mr-2" />
@@ -164,13 +164,13 @@ export default function TermsPage() {
                       <li>• Terms may be updated without notice</li>
                     </ul>
                   </div>
-                  
+
                   <p>
-                    This document is published in accordance with Rule 3 of the Information Technology 
-                    (Intermediaries Guidelines) Rules, 2011. The terms 'visitor(s)', 'user(s)', 'you' refer to 
+                    This document is published in accordance with Rule 3 of the Information Technology
+                    (Intermediaries Guidelines) Rules, 2011. The terms 'visitor(s)', 'user(s)', 'you' refer to
                     any person visiting, accessing, browsing through and/or using the Marketplace.
                   </p>
-                  
+
                   <div className="bg-blue-50 border-l-4 border-blue-500 p-4">
                     <p className="text-blue-800 font-medium">
                       For clarifications regarding Terms of Use, please write to us at{" "}
@@ -195,18 +195,18 @@ export default function TermsPage() {
                 </div>
                 <h2 className="text-3xl font-bold text-gray-900">Services Overview</h2>
               </div>
-              
+
               <div className="space-y-6">
                 <div className="bg-white rounded-xl p-8 shadow-sm">
                   <h3 className="text-xl font-semibold text-gray-900 mb-4">Platform Nature</h3>
                   <p className="text-gray-700 leading-relaxed mb-4">
-                    The Marketplace is a platform for domestic consumers to transact with third party sellers, 
+                    The Marketplace is a platform for domestic consumers to transact with third party sellers,
                     who have been granted access to display and offer products for sale through the Marketplace.
                   </p>
-                  
+
                   <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
                     <p className="text-yellow-800 text-sm">
-                      <strong>Important:</strong> The Company does not provide services other than providing 
+                      <strong>Important:</strong> The Company does not provide services other than providing
                       the Marketplace as a platform to transact at users' own cost and risk.
                     </p>
                   </div>
@@ -222,7 +222,7 @@ export default function TermsPage() {
                       <li>• Convenience & safety fees may apply</li>
                     </ul>
                   </div>
-                  
+
                   <div className="bg-white rounded-xl p-6 shadow-sm">
                     <h4 className="font-semibold text-gray-900 mb-3">Company Disclaimers</h4>
                     <ul className="space-y-2 text-sm text-gray-700">
@@ -248,7 +248,7 @@ export default function TermsPage() {
                 </div>
                 <h2 className="text-3xl font-bold text-gray-900">Eligibility</h2>
               </div>
-              
+
               <div className="space-y-6">
                 <div className="bg-red-50 border border-red-200 rounded-xl p-8">
                   <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
@@ -256,10 +256,10 @@ export default function TermsPage() {
                     Ineligible Users
                   </h3>
                   <p className="text-gray-700 mb-4">
-                    Persons who are "incompetent to contract" within the meaning of the Indian Contract Act, 1872 
+                    Persons who are "incompetent to contract" within the meaning of the Indian Contract Act, 1872
                     including minors, undischarged insolvents etc. are not eligible to use the Marketplace.
                   </p>
-                  
+
                   <div className="bg-white rounded-lg p-4">
                     <h4 className="font-medium text-gray-900 mb-2">Special Provisions for Minors:</h4>
                     <ul className="text-sm text-gray-700 space-y-1">
@@ -275,7 +275,7 @@ export default function TermsPage() {
                   <p className="text-gray-700 mb-4">
                     The Marketplace is intended for end-consumers purchasing products for domestic self-consumption.
                   </p>
-                  
+
                   <div className="bg-white rounded-lg p-4">
                     <h4 className="font-medium text-gray-900 mb-2">Not Eligible:</h4>
                     <div className="grid md:grid-cols-2 gap-4 text-sm text-gray-700">
@@ -305,14 +305,14 @@ export default function TermsPage() {
                 </div>
                 <h2 className="text-3xl font-bold text-gray-900">License & Access</h2>
               </div>
-              
+
               <div className="bg-white rounded-xl p-8 shadow-sm">
                 <div className="prose max-w-none text-gray-700 leading-relaxed space-y-6">
                   <p>
-                    The Company grants you a limited sub-license to access and make personal use of the Marketplace, 
+                    The Company grants you a limited sub-license to access and make personal use of the Marketplace,
                     but not to download (other than page caching) or modify it, except with express written consent.
                   </p>
-                  
+
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="bg-green-50 rounded-lg p-6">
                       <h4 className="font-semibold text-gray-900 mb-3 text-green-800">Permitted Uses</h4>
@@ -323,7 +323,7 @@ export default function TermsPage() {
                         <li>• Making purchases</li>
                       </ul>
                     </div>
-                    
+
                     <div className="bg-red-50 rounded-lg p-6">
                       <h4 className="font-semibold text-gray-900 mb-3 text-red-800">Prohibited Activities</h4>
                       <ul className="space-y-2 text-sm text-gray-700">
@@ -334,7 +334,7 @@ export default function TermsPage() {
                       </ul>
                     </div>
                   </div>
-                  
+
                   <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
                     <h4 className="font-semibold text-gray-900 mb-3">Content Restrictions</h4>
                     <p className="text-sm text-gray-700 mb-3">
@@ -365,7 +365,7 @@ export default function TermsPage() {
         <section className="py-16 bg-white">
           <div className="container">
             <div className="max-w-4xl mx-auto space-y-12">
-              
+
               {/* Account & Registration */}
               <div id="account" className="bg-gray-50 rounded-xl p-8">
                 <div className="flex items-center mb-6">
@@ -375,8 +375,8 @@ export default function TermsPage() {
                   <h3 className="text-2xl font-bold text-gray-900">Account & Registration Obligations</h3>
                 </div>
                 <p className="text-gray-700 leading-relaxed">
-                  All users must register and log in for placing orders. You must keep account details current and correct. 
-                  Registration may collect personally identifiable information including name, email, address, mobile number, 
+                  All users must register and log in for placing orders. You must keep account details current and correct.
+                  Registration may collect personally identifiable information including name, email, address, mobile number,
                   and demographic profile. Information is subject to our privacy policy.
                 </p>
               </div>
@@ -390,8 +390,8 @@ export default function TermsPage() {
                   <h3 className="text-2xl font-bold text-gray-900">Pricing</h3>
                 </div>
                 <p className="text-gray-700 leading-relaxed">
-                  We aim to ensure accurate pricing, but prices may be incorrect due to technical issues or errors. 
-                  We reserve the right to cancel orders with incorrect pricing. Price at ordering time will be charged 
+                  We aim to ensure accurate pricing, but prices may be incorrect due to technical issues or errors.
+                  We reserve the right to cancel orders with incorrect pricing. Price at ordering time will be charged
                   at delivery, provided no product is sold above MRP.
                 </p>
               </div>
@@ -405,8 +405,8 @@ export default function TermsPage() {
                   <h3 className="text-2xl font-bold text-gray-900">Disclaimers</h3>
                 </div>
                 <p className="text-gray-700 leading-relaxed">
-                  You acknowledge accessing services at your own risk. We make best efforts to display products accurately, 
-                  but variations may occur. We make no warranties about products and accept no liability for errors, 
+                  You acknowledge accessing services at your own risk. We make best efforts to display products accurately,
+                  but variations may occur. We make no warranties about products and accept no liability for errors,
                   inaccuracies, or third-party information.
                 </p>
               </div>
@@ -425,13 +425,13 @@ export default function TermsPage() {
                 </div>
                 <h2 className="text-3xl font-bold text-gray-900">Grievance Policy</h2>
               </div>
-              
+
               <div className="bg-white rounded-xl p-8 shadow-sm">
                 <p className="text-gray-700 leading-relaxed mb-6">
-                  In accordance with Information Technology Act, 2000 and Consumer Protection Act, 2019, 
+                  In accordance with Information Technology Act, 2000 and Consumer Protection Act, 2019,
                   contact details of the Grievance Officer for complaints or concerns:
                 </p>
-                
+
                 <div className="bg-red-50 border border-red-200 rounded-lg p-6">
                   <div className="flex items-start">
                     <Building2 className="w-6 h-6 text-red-600 mr-4 mt-1 flex-shrink-0" />
