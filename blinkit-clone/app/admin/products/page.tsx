@@ -26,40 +26,44 @@ export default function AdminProductsPage() {
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc")
   const [stockFilter, setStockFilter] = useState("all")
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const token = localStorage.getItem('auth-token')
-        const headers = {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-
-        const [productsRes, categoriesRes] = await Promise.all([
-          fetch('/api/admin/products?limit=2000', { headers }),
-          fetch('/api/categories')
-        ])
-
-        if (!productsRes.ok) {
-          throw new Error(`Products API error: ${productsRes.status}`)
-        }
-
-        const productsData = await productsRes.json()
-        const categoriesData = await categoriesRes.json()
-
-        // Handle backend response format
-        setProducts(productsData.data || [])
-        setCategories(categoriesData.data || [])
-      } catch (error) {
-        console.error("Failed to fetch data:", error)
-        setProducts([])
-        setCategories([])
-      } finally {
-        setLoading(false)
+  const fetchData = async () => {
+    try {
+      const token = localStorage.getItem('auth-token')
+      const headers = {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
       }
-    }
 
+      const [productsRes, categoriesRes] = await Promise.all([
+        fetch('/api/admin/products?limit=2000', { headers }),
+        fetch('/api/categories')
+      ])
+
+      if (!productsRes.ok) {
+        throw new Error(`Products API error: ${productsRes.status}`)
+      }
+
+      const productsData = await productsRes.json()
+      const categoriesData = await categoriesRes.json()
+
+      // Handle backend response format
+      setProducts(productsData.data || [])
+      setCategories(categoriesData.data || [])
+    } catch (error) {
+      console.error("Failed to fetch data:", error)
+      // Don't clear data on error to prevent flashing empty state during polling
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
     fetchData()
+
+    // Poll for updates every 3 seconds
+    const intervalId = setInterval(fetchData, 3000)
+
+    return () => clearInterval(intervalId)
   }, [])
 
   const filteredProducts = products
