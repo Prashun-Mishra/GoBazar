@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import BrandClient from './brand-client'
+import BrandClient from './BrandClient'
 
 // Force rebuild
 type Props = {
