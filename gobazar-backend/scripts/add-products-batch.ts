@@ -4,6 +4,10 @@ import path from 'path';
 
 const prisma = new PrismaClient();
 
+function slugify(text: string) {
+    return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+}
+
 async function main() {
     try {
         const productsFilePath = path.join(__dirname, '../products-to-add.json');
@@ -21,8 +25,7 @@ async function main() {
 
             if (!category) {
                 console.log(`  Creating category: ${productData.category}`);
-                // Generate slug from name
-                const slug = productData.category.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+                const slug = slugify(productData.category);
                 category = await prisma.category.create({
                     data: {
                         name: productData.category,
@@ -34,21 +37,30 @@ async function main() {
                 console.log(`  Found category: ${category.name}`);
             }
 
+            // Handle subcategory aliases
+            let subcategoryName = productData.subcategory;
+            if (subcategoryName === 'All Fruits & Vegetables Online') {
+                subcategoryName = 'All Fruits & Vegetables';
+            } else if (subcategoryName === 'Combo& Recipies') {
+                subcategoryName = 'Combo & Recipes';
+            } else if (subcategoryName === 'Apples & Pearls') {
+                subcategoryName = 'Apples & Pears';
+            }
+
             // 2. Find or Create Subcategory
             let subcategory = await prisma.subCategory.findFirst({
                 where: {
-                    name: { equals: productData.subcategory, mode: 'insensitive' },
+                    name: { equals: subcategoryName, mode: 'insensitive' },
                     categoryId: category.id,
                 },
             });
 
             if (!subcategory) {
-                console.log(`  Creating subcategory: ${productData.subcategory}`);
-                // Generate slug from name
-                const slug = productData.subcategory.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+                console.log(`  Creating subcategory: ${subcategoryName}`);
+                const slug = slugify(subcategoryName);
                 subcategory = await prisma.subCategory.create({
                     data: {
-                        name: productData.subcategory,
+                        name: subcategoryName,
                         slug: slug,
                         categoryId: category.id,
                         isActive: true,

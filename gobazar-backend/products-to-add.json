@@ -1,142 +1,148 @@
 [
   {
-    "name": "SPT Frozen Green Peas",
+    "name": "Eggoz Nutrition White Protein Rich Eggs (6 pieces)",
     "description": [
-      "High-quality frozen green peas from SPT, cleaned and packed to retain freshness.",
-      "Perfect for use in pulao, curries, pav bhaji, sabzis, salads, and snacks.",
-      "Frozen at peak freshness to preserve natural sweetness, color, and nutrition.",
-      "Saves preparation time with no peeling or shelling required.",
-      "Each pack contains 500 g of ready-to-cook green peas."
+      "High-quality protein-rich white eggs from Eggoz, known for superior nutrition and freshness.",
+      "These eggs come from well-cared hens and are packed with essential amino acids.",
+      "Perfect for omelettes, boiled eggs, scrambled eggs, baking, and high-protein meals.",
+      "Rich in vitamins and minerals that support energy and overall wellness.",
+      "Each pack contains 6 clean, hygienically packed white eggs."
     ],
     "keyBenefits": [
-      "Ready-to-cook frozen peas",
-      "Retains natural sweetness and color",
-      "Ideal for a variety of Indian dishes",
-      "Saves prep time in the kitchen",
-      "Convenient 500 g family pack"
+      "High protein content",
+      "Farm-fresh white eggs",
+      "Ideal for breakfast and fitness",
+      "Rich in vitamins and minerals",
+      "Premium Eggoz quality"
     ],
-    "sellingPrice": 86,
-    "mrp": 169,
-    "brand": "SPT",
-    "unit": "500 g",
-    "category": "Vegetables & Fruits",
-    "subcategory": "Frozen Veg",
+    "sellingPrice": 80,
+    "mrp": 94,
+    "brand": "Eggoz",
+    "unit": "6 pieces",
+    "category": "Dairy & Breakfast",
+    "subcategory": "Eggs",
     "stockQuantity": 500,
     "imageUrls": [
-      "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=900/da/cms-assets/cms/product/1626d372-8aaa-4466-8c3c-53e03fce2c6e.png",
-      "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=900/da/cms-assets/cms/product/f0bdfa4f-f45d-4b03-9722-4d33e933259f.png"
+      "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=900/da/cms-assets/cms/product/5ecfa534-2789-4e74-9efb-73cefda109c6.png",
+      "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=900/da/cms-assets/cms/product/280b66fb-7967-4097-897e-83c3f2a80f06.png",
+      "https://cdn.grofers.com/cdn-cgi/image=f=auto,fit=scale-down,q=70,metadata=none,w=900/da/cms-assets/cms/product/3383f156-1bb4-4786-adac-6371d44e4350.png",
+      "https://cdn.grofers.com/cdn-cgi/image=f=auto,fit=scale-down,q=70,metadata=none,w=900/da/cms-assets/cms/product/5ca08453-bfa7-418d-ada7-ca16e070fdaa.png",
+      "https://cdn.grofers.com/cdn-cgi/image=f=auto,fit=scale-down,q=70,metadata=none,w=900/da/cms-assets/cms/product/c4edd84b-55d7-46f2-ad6f-f57b089c20df.png"
     ],
     "tags": [
-      "frozen-peas",
-      "green-peas",
-      "spt",
-      "frozen-veg",
-      "ready-to-cook"
+      "eggoz",
+      "protein-rich-eggs",
+      "white-eggs",
+      "high-protein",
+      "dairy-breakfast"
     ]
   },
   {
-    "name": "Safal Sweet Corn (Frozen)",
+    "name": "Yojana Poultry Power White Eggs - 6 pcs",
     "description": [
-      "Tender and juicy frozen sweet corn kernels from Safal.",
-      "Perfect for salads, soups, pasta, pizzas, cutlets, and evening snacks.",
-      "Frozen to lock in natural sweetness, taste, and nutrition.",
-      "Convenient and easy to use—just boil, steam, or sauté as required.",
-      "Each pack contains 500 g of premium sweet corn kernels."
+      "Fresh and clean white eggs from Yojana Poultry Power, packed with essential nutrients.",
+      "Perfect for daily breakfast, baking, and protein-rich meals.",
+      "Rich in high-quality protein that supports muscle health and energy.",
+      "Farm-fresh eggs hygienically packed for safety and convenience.",
+      "Each pack contains 6 premium-quality white eggs."
     ],
     "keyBenefits": [
-      "Naturally sweet and tender kernels",
-      "Ideal for snacks and recipes",
-      "Quick and easy to cook",
-      "Retains taste and nutrition",
-      "Convenient 500 g pack"
+      "Fresh and hygienic eggs",
+      "High in protein",
+      "Perfect for daily use",
+      "Farm-fresh quality",
+      "Affordable 6-piece pack"
     ],
-    "sellingPrice": 90,
-    "mrp": 100,
-    "brand": "Safal",
-    "unit": "500 g",
-    "category": "Vegetables & Fruits",
-    "subcategory": "Frozen Veg",
+    "sellingPrice": 57,
+    "mrp": 58,
+    "brand": "Yojana",
+    "unit": "6 pieces",
+    "category": "Dairy & Breakfast",
+    "subcategory": "Eggs",
     "stockQuantity": 500,
     "imageUrls": [
-      "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=900/da/cms-assets/cms/product/cb36dc7e-1ca2-4f02-88ff-12ac2518a3e7.png",
-      "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=900/da/cms-assets/cms/product/019c00ac-7703-42d9-a3ab-423dbfa18b6d.jpg"
+      "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=900/da/cms-assets/cms/product/e13b3105-58c0-41f1-b6a9-0e4a3344cf6e.png",
+      "https://cdn.grofers.com/cdn-cgi/image=f=auto,fit=scale-down,q=70,metadata=none,w=900/da/cms-assets/cms/product/cd1713f0-dc15-4a75-9ad8-b84b4591890a.png",
+      "https://cdn.grofers.com/cdn-cgi/image=f=auto,fit=scale-down,q=70,metadata=none,w=900/da/cms-assets/cms/product/4abe5d1a-3c64-4108-be6e-e4a26127d371.png"
     ],
     "tags": [
-      "sweet-corn",
-      "frozen-corn",
-      "safal",
-      "frozen-veg",
-      "ready-to-cook"
+      "yojana-eggs",
+      "white-eggs",
+      "poultry-power",
+      "protein-source",
+      "breakfast"
     ]
   },
   {
-    "name": "Safal Frozen Mixed Vegetables",
+    "name": "Yojana Poultry Power White Eggs - 12 pieces",
     "description": [
-      "A convenient mix of frozen vegetables from Safal, ideal for quick and healthy meals.",
-      "Typically includes a blend of peas, carrots, beans, and other seasonal vegetables.",
-      "Perfect for fried rice, pulao, curries, patties, cutlets, and mixed veg dishes.",
-      "Frozen at peak freshness to retain taste, texture, and nutrients.",
-      "Each pack contains 500 g of ready-to-cook mixed vegetables."
+      "A family pack of 12 fresh white eggs from Yojana Poultry Power.",
+      "Rich in essential nutrients, vitamins, and high-quality protein.",
+      "Perfect for cooking, baking, meal prep, and daily nutrition.",
+      "Farm-fresh eggs hygienically packed for safe handling and storage.",
+      "Each pack contains 12 clean and uniform-sized white eggs."
     ],
     "keyBenefits": [
-      "Balanced mix of multiple vegetables",
-      "Saves chopping and prep time",
-      "Ideal for a variety of dishes",
-      "Retains freshness and nutrition",
-      "Convenient 500 g pack"
+      "Family pack of 12",
+      "Fresh and nutritious",
+      "Rich in protein",
+      "Farm quality assurance",
+      "Ideal for cooking and baking"
     ],
-    "sellingPrice": 78,
+    "sellingPrice": 111,
+    "mrp": 116,
+    "brand": "Yojana",
+    "unit": "12 pieces",
+    "category": "Dairy & Breakfast",
+    "subcategory": "Eggs",
+    "stockQuantity": 500,
+    "imageUrls": [
+      "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=900/da/cms-assets/cms/product/9d6c58ed-1391-42cd-a2f8-3c1391c65750.png",
+      "https://cdn.grofers.com/cdn-cgi/image=f=auto,fit=scale-down,q=70,metadata=none,w=900/da/cms-assets/cms/product/4b282add-f2e0-4f0b-8a02-1f3507f28485.png",
+      "https://cdn.grofers.com/cdn-cgi/image=f=auto,fit=scale-down,q=70,metadata=none,w=900/da/cms-assets/cms/product/4257dfca-0e99-4e7a-a33f-cc0e1a1ff81e.png"
+    ],
+    "tags": [
+      "yojana-eggs",
+      "white-eggs",
+      "dozen-eggs",
+      "protein-rich",
+      "family-pack"
+    ]
+  },
+  {
+    "name": "Table White Eggs (6 pcs)",
+    "description": [
+      "Fresh and clean table white eggs from Dr. Hen, ideal for everyday cooking.",
+      "Rich in high-quality protein and essential nutrients needed for daily health.",
+      "Perfect for omelettes, boiled eggs, salads, baking, and nutritious meals.",
+      "Hygienically packed to ensure safety and freshness.",
+      "Each pack contains 6 white eggs."
+    ],
+    "keyBenefits": [
+      "High in protein",
+      "Fresh table white eggs",
+      "Ideal for daily meals",
+      "Safe and hygienic",
+      "Affordable 6-piece pack"
+    ],
+    "sellingPrice": 67,
     "mrp": 85,
-    "brand": "Safal",
-    "unit": "500 g",
-    "category": "Vegetables & Fruits",
-    "subcategory": "Frozen Veg",
+    "brand": "Dr. Hen",
+    "unit": "6 pieces",
+    "category": "Dairy & Breakfast",
+    "subcategory": "Eggs",
     "stockQuantity": 500,
     "imageUrls": [
-      "https://cdn.grofers.com/da/cms-assets/cms/product/f66f8460-e3f3-48a6-bf6f-9c9d0542aead.png",
-      "https://cdn.grofers.com/da/cms-assets/cms/product/baf0ffcb-ab91-4bb1-81b3-f54c4f7a8fea.jpg"
+      "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=900/da/cms-assets/cms/product/85328b8b-c5e3-4573-90a9-70ba6daaec6f.png",
+      "https://cdn.grofers.com/cdn-cgi/image=f=auto,fit=scale-down,q=70,metadata=none,w=900/da/cms-assets/cms/product/7f84f5d6-d0b5-4575-a59f-6f02cbfab19b.png",
+      "https://cdn.grofers.com/cdn-cgi/image=f=auto,fit=scale-down,q=70,metadata=none,w=900/da/cms-assets/cms/product/c442b11e-92c3-4dc0-9c73-c80b92dbe167.png"
     ],
     "tags": [
-      "mixed-vegetables",
-      "frozen-veg",
-      "safal",
-      "ready-to-cook",
-      "mixed-veg-pack"
-    ]
-  },
-  {
-    "name": "Safal Frozen Sweet Corn",
-    "description": [
-      "Large pack of frozen sweet corn kernels from Safal, ideal for families and bulk use.",
-      "Naturally sweet, tender, and juicy kernels suitable for multiple recipes.",
-      "Perfect for soups, salads, snacks, pizzas, pastas, and Indian dishes.",
-      "Frozen to preserve freshness, taste, and nutritional value.",
-      "Each pack contains 1 kg of premium frozen sweet corn."
-    ],
-    "keyBenefits": [
-      "Family-size 1 kg pack",
-      "Naturally sweet and tender",
-      "Ideal for a wide range of recipes",
-      "Easy to cook and serve",
-      "Retains taste and nutrition"
-    ],
-    "sellingPrice": 153,
-    "mrp": 180,
-    "brand": "Safal",
-    "unit": "1 kg",
-    "category": "Vegetables & Fruits",
-    "subcategory": "Frozen Veg",
-    "stockQuantity": 500,
-    "imageUrls": [
-      "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=900/da/cms-assets/cms/product/446fe751-a09f-4cd2-bfab-a40747152a47.png",
-      "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=900/da/cms-assets/cms/product/b93df16e-20a3-432f-adc6-bfca87f8f668.png"
-    ],
-    "tags": [
-      "sweet-corn",
-      "frozen-sweet-corn",
-      "safal",
-      "frozen-veg",
-      "bulk-pack"
+      "dr-hen",
+      "white-eggs",
+      "table-eggs",
+      "protein-source",
+      "breakfast"
     ]
   }
 ]
