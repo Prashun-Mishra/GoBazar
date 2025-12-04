@@ -112,7 +112,8 @@ class AdminProductController {
   // Get all products with pagination (admin view)
   getAllProducts = asyncHandler(async (req: AuthenticatedRequest, res: Response) => {
     const page = parseInt(req.query.page as string) || 1;
-    const limit = parseInt(req.query.limit as string) || 50;
+    const limit = parseInt(req.query.limit as string) || 2000;
+    console.log(`🔍 [AdminProductController] getAllProducts - Page: ${page}, Limit: ${limit}, Query Limit: ${req.query.limit}`);
     const search = req.query.search as string;
     const categoryId = req.query.categoryId as string;
     const skip = (page - 1) * limit;
