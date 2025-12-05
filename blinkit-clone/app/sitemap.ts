@@ -45,7 +45,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 0.7,
         })) : []
 
-        return [...routes, ...categoryRoutes, ...productRoutes]
+        // Extract unique brands
+        const brands = Array.from(new Set(
+            Array.isArray(products)
+                ? products.map((p: any) => p.brand).filter(Boolean)
+                : []
+        ))
+
+        const brandRoutes = brands.map((brand: any) => {
+            const slug = brand.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+            return {
+                url: `${baseUrl}/brand/${slug}`,
+                lastModified: new Date(),
+                changeFrequency: 'weekly' as const,
+                priority: 0.8,
+            }
+        })
+
+        return [...routes, ...categoryRoutes, ...brandRoutes, ...productRoutes]
     } catch (error) {
         console.error('Error generating sitemap:', error)
         return routes
