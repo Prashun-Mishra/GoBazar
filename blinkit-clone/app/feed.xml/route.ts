@@ -5,9 +5,13 @@ export async function GET() {
     try {
         console.log('[FEED] Fetching products from:', backendUrl)
 
-        // Reduced limit to 100 to avoid backend 429 Rate Limit
-        const response = await fetch(`${backendUrl}/api/products?limit=100`, {
-            cache: 'no-store'
+        // Reduced limit to 50 to avoid backend 429 Rate Limit
+        const response = await fetch(`${backendUrl}/api/products?limit=50`, {
+            cache: 'no-store',
+            headers: {
+                'User-Agent': 'GoBazaar-Feed-Generator',
+                'Accept': 'application/json'
+            }
         })
 
         if (!response.ok) {
