@@ -1,26 +1,38 @@
 export async function GET() {
-    <link>${ baseUrl } </link>
-        < description > Fresh groceries and daily essentials delivered to your doorstep.</description>
-    ${
-        Array.isArray(products) ? products.map((product: any) => {
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.gobazaar.in'
+    const backendUrl = 'https://gobazar-backend.onrender.com'
+
+    try {
+        console.log('[FEED] Fetching products from:', backendUrl)
+
+        const response = await fetch(`${backendUrl}/api/products?limit=500`, {
+            cache: 'no-store'
+        })
+
+        if (!response.ok) {
+            console.error('[FEED] Backend error:', response.status)
+            throw new Error(`Backend error: ${response.status}`)
+        }
+
+        const data = await response.json()
+        const products = data.data || data.products || []
+        console.log('[FEED] Product count:', products.length)
+
+        const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
+  <channel>
+    <title>Go Bazaar Product Feed</title>
+    <link>${baseUrl}</link>
+    <description>Fresh groceries and daily essentials delivered to your doorstep.</description>
+    ${Array.isArray(products) ? products.map((product: any) => {
             const productUrl = `${baseUrl}/product/${product.id}`
-            // Ensure image URL is absolute
             let imageUrl = product.images && product.images.length > 0 ? product.images[0] : ''
             if (imageUrl && !imageUrl.startsWith('http')) {
-                // If it's a relative path, prepend backend URL or base URL depending on where images are hosted
-                // Assuming images might be relative to backend or public
-                // For safety, if it looks like a path, try to make it absolute. 
-                // If it's from backend uploads, it might need BACKEND_URL. 
-                // But usually frontend displays them, so let's assume they are accessible via valid URLs or we construct them.
-                // If the current setup uses full URLs in DB, we are good. If not, we might need adjustment.
-                // Based on previous file views, images seem to be handled by frontend or are full URLs.
-                // Let's assume they are valid or relative to site.
                 if (imageUrl.startsWith('/')) {
                     imageUrl = `${baseUrl}${imageUrl}`
                 }
             }
 
-            // Strip HTML from description
             const description = product.description
                 ? product.description.replace(/<[^>]*>?/gm, '').trim()
                 : product.name
@@ -42,19 +54,18 @@ export async function GET() {
         <g:price>0 INR</g:price>
       </g:shipping>
     </item>`
-        }).join('') : ''
-    }
-    </channel>
-        </rss>`
+        }).join('') : ''}
+  </channel>
+</rss>`
 
-    return new Response(xml, {
-        headers: {
-            'Content-Type': 'text/xml; charset=utf-8',
-            'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=1800',
-        },
-    })
-} catch (error) {
-    console.error('Error generating product feed:', error)
-    return new Response('Error generating feed', { status: 500 })
-}
+        return new Response(xml, {
+            headers: {
+                'Content-Type': 'text/xml; charset=utf-8',
+                'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=1800',
+            },
+        })
+    } catch (error) {
+        console.error('Error generating product feed:', error)
+        return new Response('Error generating feed', { status: 500 })
+    }
 }
