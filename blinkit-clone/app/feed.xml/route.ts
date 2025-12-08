@@ -19,6 +19,20 @@ export async function GET() {
         const products = data.data || data.products || []
         console.log('[FEED] Product count:', products.length)
 
+        // Helper to escape XML special characters
+        const escapeXml = (unsafe: string) => {
+            return unsafe.replace(/[<>&'"]/g, (c) => {
+                switch (c) {
+                    case '<': return '&lt;'
+                    case '>': return '&gt;'
+                    case '&': return '&amp;'
+                    case '\'': return '&apos;'
+                    case '"': return '&quot;'
+                    default: return c
+                }
+            })
+        }
+
         const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
   <channel>
@@ -45,7 +59,7 @@ export async function GET() {
       <g:description><![CDATA[${description}]]></g:description>
       <g:link>${productUrl}</g:link>
       <g:image_link>${imageUrl}</g:image_link>
-      <g:brand>${product.brand || 'Go Bazaar'}</g:brand>
+      <g:brand>${escapeXml(product.brand || 'Go Bazaar')}</g:brand>
       <g:condition>new</g:condition>
       <g:availability>${product.stock > 0 ? 'in_stock' : 'out_of_stock'}</g:availability>
       <g:price>${product.price} INR</g:price>
