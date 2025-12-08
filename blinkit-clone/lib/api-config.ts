@@ -5,16 +5,19 @@
 
 export const getBackendUrl = (): string => {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL || process.env.BACKEND_URL
-  
+
   if (apiUrl) {
     return apiUrl
   }
-  
-  // Fallback for development
+
+  // Fallback for development/production if env var is missing
   if (typeof window === 'undefined') {
+    if (process.env.NODE_ENV === 'production') {
+      return 'https://gobazar-backend.onrender.com'
+    }
     return 'http://localhost:5000'
   }
-  
+
   return 'http://localhost:5000'
 }
 
