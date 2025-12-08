@@ -1,33 +1,8 @@
 export async function GET() {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.gobazaar.in'
-    // Hardcode backend URL to ensure it always works in production
-    const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'https://gobazar-backend.onrender.com'
-
-    try {
-        console.log('[FEED] Fetching products from:', backendUrl)
-        // Fetch products from backend
-        // Fetching a larger limit to include as many products as possible for the feed
-        const response = await fetch(`${backendUrl}/api/products?limit=5000`, {
-            next: { revalidate: 3600 } // Cache for 1 hour
-        })
-
-        if (!response.ok) {
-            console.error('[FEED] Backend responded with:', response.status, response.statusText)
-            throw new Error(`Backend error: ${response.status}`)
-        }
-
-        const data = await response.json()
-        console.log('[FEED] Received data keys:', Object.keys(data))
-        const products = data.products || data.data || []
-        console.log('[FEED] Product count:', products.length)
-
-        const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
-  <channel>
-    <title>Go Bazaar Product Feed</title>
-    <link>${baseUrl}</link>
-    <description>Fresh groceries and daily essentials delivered to your doorstep.</description>
-    ${Array.isArray(products) ? products.map((product: any) => {
+    <link>${ baseUrl } </link>
+        < description > Fresh groceries and daily essentials delivered to your doorstep.</description>
+    ${
+        Array.isArray(products) ? products.map((product: any) => {
             const productUrl = `${baseUrl}/product/${product.id}`
             // Ensure image URL is absolute
             let imageUrl = product.images && product.images.length > 0 ? product.images[0] : ''
@@ -67,18 +42,19 @@ export async function GET() {
         <g:price>0 INR</g:price>
       </g:shipping>
     </item>`
-        }).join('') : ''}
-  </channel>
-</rss>`
-
-        return new Response(xml, {
-            headers: {
-                'Content-Type': 'text/xml; charset=utf-8',
-                'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=1800',
-            },
-        })
-    } catch (error) {
-        console.error('Error generating product feed:', error)
-        return new Response('Error generating feed', { status: 500 })
+        }).join('') : ''
     }
+    </channel>
+        </rss>`
+
+    return new Response(xml, {
+        headers: {
+            'Content-Type': 'text/xml; charset=utf-8',
+            'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=1800',
+        },
+    })
+} catch (error) {
+    console.error('Error generating product feed:', error)
+    return new Response('Error generating feed', { status: 500 })
+}
 }
