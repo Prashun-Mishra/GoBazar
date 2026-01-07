@@ -22,6 +22,29 @@ async function getProduct(id: string) {
   }
 }
 
+export async function generateStaticParams() {
+  try {
+    // Fetch products for static generation (limit to 500 to avoid build timeout)
+    const res = await fetch(`${BACKEND_URL}/api/products?limit=500`, {
+      next: { revalidate: 3600 },
+    })
+
+    if (!res.ok) return []
+
+    const data = await res.json()
+    const products = data.products || data.data || []
+
+    return Array.isArray(products)
+      ? products.map((product: any) => ({
+        id: product.id,
+      }))
+      : []
+  } catch (error) {
+    console.error('Error generating static params:', error)
+    return []
+  }
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const product = await getProduct(params.id)
 
@@ -32,13 +55,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     }
   }
 
+  const productUrl = `https://www.gobazaar.in/product/${params.id}`
+
   return {
     title: product.name,
     description: product.description?.slice(0, 160) || `Buy ${product.name} at best prices on Go Bazar.`,
+    alternates: {
+      canonical: productUrl,
+    },
     openGraph: {
       title: product.name,
       description: product.description?.slice(0, 160),
       images: product.images?.[0] ? [product.images[0]] : [],
+      url: productUrl,
     },
   }
 }
