@@ -35,7 +35,7 @@ export default function AdminProductsPage() {
       }
 
       const [productsRes, categoriesRes] = await Promise.all([
-        fetch('/api/admin/products?limit=2000', { headers }),
+        fetch('/api/admin/products?limit=100', { headers }),
         fetch('/api/categories')
       ])
 

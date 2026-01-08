@@ -22,7 +22,7 @@ export async function GET(request: Request) {
     // If admin endpoint fails or returns empty, fallback to public products API
     if (!response.ok) {
       console.log('Admin endpoint failed, falling back to public products API')
-      response = await fetch(`${BACKEND_URL}/api/products?limit=2000`)
+      response = await fetch(`${BACKEND_URL}/api/products?limit=100`)
     }
 
     if (!response.ok) {
