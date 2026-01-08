@@ -6,22 +6,24 @@ export async function GET(request: Request) {
   try {
     // Try to get token from Authorization header or cookies
     const authHeader = request.headers.get('Authorization')
-    const cookieStore = cookies()
+    const cookieStore = await cookies()
     const cookieToken = cookieStore.get('token')?.value
-    
+
     const token = authHeader?.replace('Bearer ', '') || cookieToken
 
-    // For now, skip authentication check to debug the issue
-    // if (!token) {
-    //   return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-    // }
-
-    const response = await fetch(`${BACKEND_URL}/api/admin/products`, {
+    // Try admin endpoint first
+    let response = await fetch(`${BACKEND_URL}/api/admin/products`, {
       headers: {
         ...(token && { 'Authorization': `Bearer ${token}` }),
         'Content-Type': 'application/json',
       },
     })
+
+    // If admin endpoint fails or returns empty, fallback to public products API
+    if (!response.ok) {
+      console.log('Admin endpoint failed, falling back to public products API')
+      response = await fetch(`${BACKEND_URL}/api/products?limit=2000`)
+    }
 
     if (!response.ok) {
       const errorData = await response.json()
@@ -29,7 +31,10 @@ export async function GET(request: Request) {
     }
 
     const data = await response.json()
-    return NextResponse.json(data)
+
+    // Normalize response format - handle both admin and public API formats
+    const products = data.products || data.data || []
+    return NextResponse.json({ data: products })
   } catch (error) {
     console.error('Error fetching admin products:', error)
     return NextResponse.json({ error: 'Failed to fetch products' }, { status: 500 })
@@ -39,12 +44,12 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   try {
     console.log('📝 Admin Products POST - Creating new product')
-    
+
     // Try to get token from Authorization header or cookies
     const authHeader = request.headers.get('Authorization')
-    const cookieStore = cookies()
+    const cookieStore = await cookies()
     const cookieToken = cookieStore.get('token')?.value
-    
+
     const token = authHeader?.replace('Bearer ', '') || cookieToken
     console.log('🔑 Token present:', token ? 'Yes' : 'No')
 
@@ -60,9 +65,9 @@ export async function POST(request: Request) {
     // Validate required fields
     if (!body.name || !body.categoryId || !body.price || !body.mrp) {
       console.error('❌ Missing required fields')
-      return NextResponse.json({ 
+      return NextResponse.json({
         success: false,
-        message: 'Missing required fields: name, categoryId, price, mrp' 
+        message: 'Missing required fields: name, categoryId, price, mrp'
       }, { status: 400 })
     }
 
@@ -96,10 +101,10 @@ export async function POST(request: Request) {
     return NextResponse.json(data)
   } catch (error) {
     console.error('❌ Error creating product:', error)
-    return NextResponse.json({ 
+    return NextResponse.json({
       success: false,
       error: 'Failed to create product',
-      message: (error as Error).message 
+      message: (error as Error).message
     }, { status: 500 })
   }
 }
@@ -108,9 +113,9 @@ export async function PUT(request: Request) {
   try {
     // Try to get token from Authorization header or cookies
     const authHeader = request.headers.get('Authorization')
-    const cookieStore = cookies()
+    const cookieStore = await cookies()
     const cookieToken = cookieStore.get('token')?.value
-    
+
     const token = authHeader?.replace('Bearer ', '') || cookieToken
 
     if (!token) {
@@ -145,9 +150,9 @@ export async function DELETE(request: Request) {
   try {
     // Try to get token from Authorization header or cookies
     const authHeader = request.headers.get('Authorization')
-    const cookieStore = cookies()
+    const cookieStore = await cookies()
     const cookieToken = cookieStore.get('token')?.value
-    
+
     const token = authHeader?.replace('Bearer ', '') || cookieToken
 
     if (!token) {
