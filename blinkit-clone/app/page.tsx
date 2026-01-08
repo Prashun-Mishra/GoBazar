@@ -11,13 +11,14 @@ import { BACKEND_URL } from "@/lib/api-config"
 import type { Product } from "@/types"
 
 // First 3 categories with carousel
+// First 3 categories with carousel
 const categoryConfig = [
-  { slug: 'vegetables-fruits', name: 'Vegetables & Fruits', limit: 12 },
-  { slug: 'dairy-breakfast', name: 'Dairy & Breakfast', limit: 12 },
-  { slug: 'munchies', name: 'Snacks & Munchies', limit: 12 },
-  { slug: 'cold-drinks-juices', name: 'Cold Drinks & Juices', limit: 12 },
-  { slug: 'bakery-biscuits', name: 'Bakery & Biscuits', limit: 12 },
-  { slug: 'chicken-meat-fish', name: 'Chicken, Meat & Fish', limit: 12 },
+  { slug: 'fresh-fruits-vegetables', name: 'Fresh Fruits & Vegetables', limit: 12 },
+  { slug: 'dairy-eggs', name: 'Dairy & Eggs', limit: 12 },
+  { slug: 'snacks-namkeen', name: 'Snacks & Namkeen', limit: 12 },
+  { slug: 'beverages', name: 'Beverages', limit: 12 },
+  { slug: 'bakery-breads', name: 'Bakery & Breads', limit: 12 },
+  { slug: 'staples-rice-atta-grains', name: 'Staples & Grains', limit: 12 },
 ]
 
 async function getHomePageProducts() {
