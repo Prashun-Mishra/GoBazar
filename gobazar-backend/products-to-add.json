@@ -144,5 +144,128 @@
       "protein-source",
       "breakfast"
     ]
+  },
+  {
+    "name": "Kellogg’s Corn Flakes with Immuno Nutrients",
+    "description": [
+      "Classic crunchy corn flakes fortified with essential vitamins and minerals.",
+      "Perfect with milk or yogurt for a wholesome breakfast.",
+      "High in energy and gluten-free for easier digestion."
+    ],
+    "keyBenefits": [
+      "Fortified with Immuno Nutrients",
+      "Crunchy and delicious",
+      "High energy",
+      "Gluten-free"
+    ],
+    "sellingPrice": 111,
+    "mrp": 266,
+    "brand": "Kellogg’s",
+    "unit": "250 g",
+    "category": "Dairy & Breakfast",
+    "subcategory": "Corn Flakes",
+    "stockQuantity": 120,
+    "imageUrls": [
+      "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=900/da/cms-assets/cms/product/19397.jpg"
+    ],
+    "tags": [
+      "Kellogg’s",
+      "Corn Flakes",
+      "Breakfast",
+      "Fortified",
+      "Kids",
+      "Crunchy"
+    ]
+  },
+  {
+    "name": "Nestlé Munch Choco Fills Cereal",
+    "description": [
+      "Delicious chocolate-filled cereal pieces kids love for breakfast.",
+      "Made with wholesome grains and rich chocolate flavour.",
+      "Serve with milk or eat as a quick snack."
+    ],
+    "keyBenefits": [
+      "Chocolate filled",
+      "Wholesome grains",
+      "Kids favorite",
+      "Quick snack"
+    ],
+    "sellingPrice": 57,
+    "mrp": 80,
+    "brand": "Nestlé",
+    "unit": "100 g",
+    "category": "Dairy & Breakfast",
+    "subcategory": "Kids Cereals",
+    "stockQuantity": 150,
+    "imageUrls": [
+      "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=900/da/cms-assets/cms/product/657563.jpg"
+    ],
+    "tags": [
+      "Nestlé",
+      "Munch",
+      "Chocolate",
+      "Kids Cereal",
+      "Quick Breakfast"
+    ]
+  },
+  {
+    "name": "Quaker Rolled Instant Oats",
+    "description": [
+      "Premium rolled oats for hearty breakfast meals.",
+      "Quick cooking and rich in fiber for digestive health.",
+      "Serve with milk, fruits, or add to smoothies and recipes."
+    ],
+    "keyBenefits": [
+      "Rich in fiber",
+      "Quick cooking",
+      "Hearty breakfast",
+      "Digestive health"
+    ],
+    "sellingPrice": 157,
+    "mrp": 210,
+    "brand": "Quaker",
+    "unit": "1 kg",
+    "category": "Dairy & Breakfast",
+    "subcategory": "Oats & Porridge",
+    "stockQuantity": 100,
+    "imageUrls": [
+      "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=900/da/cms-assets/cms/product/37261.jpg"
+    ],
+    "tags": [
+      "Quaker",
+      "Oats",
+      "Rolled Oats",
+      "Healthy Breakfast",
+      "High Fiber"
+    ]
+  },
+  {
+    "name": "Bagrry’s 100% Jumbo Rolled Oats",
+    "description": [
+      "Whole grain jumbo oats packed with fiber and plant-based nutrition.",
+      "Ideal for healthy breakfasts, porridge, muesli, or baking.",
+      "Slow-cooked texture with hearty flavour."
+    ],
+    "keyBenefits": [
+      "Whole grain",
+      "High fiber",
+      "No preservative"
+    ],
+    "sellingPrice": 230,
+    "mrp": 416,
+    "brand": "Bagrry’s",
+    "unit": "500 g",
+    "category": "Dairy & Breakfast",
+    "subcategory": "Oats & Porridge",
+    "stockQuantity": 90,
+    "imageUrls": [
+      "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=900/da/cms-assets/cms/product/500858.jpg"
+    ],
+    "tags": [
+      "Bagrry’s",
+      "Jumbo Oats",
+      "Healthy Oats",
+      "Breakfast Cereal"
+    ]
   }
 ]

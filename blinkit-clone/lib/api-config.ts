@@ -15,10 +15,10 @@ export const getBackendUrl = (): string => {
     if (process.env.NODE_ENV === 'production') {
       return 'https://gobazar-backend.onrender.com'
     }
-    return 'http://localhost:5000'
+    return 'http://localhost:3001'
   }
 
-  return 'http://localhost:5000'
+  return 'http://localhost:3001'
 }
 
 export const BACKEND_URL = getBackendUrl()

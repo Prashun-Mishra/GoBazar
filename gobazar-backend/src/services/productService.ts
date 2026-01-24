@@ -1,4 +1,5 @@
 import prisma from '@/config/database';
+import { withRetry } from '@/utils/retry';
 import { ProductQuery, ProductWithRelations } from '@/types';
 
 class ProductService {
@@ -368,6 +369,8 @@ class ProductService {
     timestamp: number;
   } = { data: null, timestamp: 0 };
 
+  // ... (inside class, existing imports remain)
+
   async getHomePageProducts(): Promise<Record<string, ProductWithRelations[]>> {
     const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
     const now = Date.now();
@@ -381,7 +384,7 @@ class ProductService {
 
     const categories = [
       { slug: 'vegetables-fruits', limit: 12 },
-      { slug: 'dairy-breakfast', limit: 12 },
+      { slug: 'dairy-eggs', limit: 12 },
       { slug: 'munchies', limit: 12 },
       { slug: 'cold-drinks-juices', limit: 12 },
       { slug: 'bakery-biscuits', limit: 12 },
@@ -390,46 +393,50 @@ class ProductService {
 
     const results = [];
     for (const cat of categories) {
-      const products = await prisma.product.findMany({
-        where: {
-          category: { slug: cat.slug },
-          isActive: true,
-        },
-        select: {
-          id: true,
-          name: true,
-          price: true,
-          mrp: true,
-          discountPercent: true,
-          images: true,
-          unit: true,
-          rating: true,
-          reviewCount: true,
-          stock: true,
-          categoryId: true,
-          subcategoryId: true,
-          isActive: true,
-          createdAt: true,
-          updatedAt: true,
-          brand: true,
-          description: true,
-          highlights: true,
-          tags: true,
-          nutritionalInfo: true,
-          ingredients: true,
-          benefits: true,
-          // Relations needed for frontend type compatibility
-          category: true,
-          subcategory: true,
-          variants: {
-            where: { isActive: true },
-            orderBy: { price: 'asc' },
-            take: 1
-          }
-        },
-        orderBy: { rating: 'desc' },
-        take: cat.limit,
-      });
+      // Wrap DB call with retry
+      const products = await withRetry(async () => {
+        return prisma.product.findMany({
+          where: {
+            category: { slug: cat.slug },
+            isActive: true,
+          },
+          select: {
+            id: true,
+            name: true,
+            price: true,
+            mrp: true,
+            discountPercent: true,
+            images: true,
+            unit: true,
+            rating: true,
+            reviewCount: true,
+            stock: true,
+            categoryId: true,
+            subcategoryId: true,
+            isActive: true,
+            createdAt: true,
+            updatedAt: true,
+            brand: true,
+            description: true,
+            highlights: true,
+            tags: true,
+            nutritionalInfo: true,
+            ingredients: true,
+            benefits: true,
+            // Relations needed for frontend type compatibility
+            category: true,
+            subcategory: true,
+            variants: {
+              where: { isActive: true },
+              orderBy: { price: 'asc' },
+              take: 1
+            }
+          },
+          orderBy: { rating: 'desc' },
+          take: cat.limit,
+        });
+      }, 3, 1000); // 3 retries, start with 1000ms delay
+
       results.push({ slug: cat.slug, products });
     }
 
