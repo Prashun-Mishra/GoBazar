@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { BACKEND_URL } from "@/lib/api-config"
+import { fetchWithRetry } from "@/lib/fetch-retry"
 
 // Simulate user behavior data
 const userBehavior = {
@@ -37,7 +38,11 @@ export async function GET(request: NextRequest) {
     if (categoryId) queryParams.append('categoryId', categoryId)
     if (userId) queryParams.append('userId', userId)
 
-    const response = await fetch(`${BACKEND_URL}/api/recommendations?${queryParams.toString()}`, {
+
+
+
+
+    const response = await fetchWithRetry(`${BACKEND_URL}/api/recommendations?${queryParams.toString()}`, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -51,18 +56,18 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(data.data || data)
   } catch (error) {
     console.error('Error fetching recommendations:', error)
-    
+
     // Fallback to simple logic if backend is not available
     try {
       const productsData = require('@/data/seed/products.json')
       const { searchParams } = new URL(request.url)
       const limit = Number.parseInt(searchParams.get("limit") || "6")
-      
+
       // Simple fallback: return highest rated products
       const recommendations = productsData
         .sort((a: any, b: any) => b.rating - a.rating)
         .slice(0, limit)
-      
+
       return NextResponse.json(recommendations)
     } catch (seedError) {
       return NextResponse.json(

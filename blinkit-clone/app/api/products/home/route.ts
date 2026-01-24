@@ -1,12 +1,15 @@
 import { NextResponse } from "next/server"
 import { BACKEND_URL } from "@/lib/api-config"
+import { fetchWithRetry } from "@/lib/fetch-retry"
 
 export async function GET() {
     try {
         const backendUrl = `${BACKEND_URL}/api/products/home`
         console.log(`🔍 [Home API] Fetching from backend: ${backendUrl}`)
 
-        const response = await fetch(backendUrl, {
+
+
+        const response = await fetchWithRetry(backendUrl, {
             headers: {
                 'Content-Type': 'application/json',
             },
