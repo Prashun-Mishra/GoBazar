@@ -243,24 +243,8 @@ class OrderService {
       // Get complete order with relations
       const completeOrder = await this.getOrderById(order.id, userId);
 
-      if (completeOrder) {
-        // Send order confirmation email
-        const user = await prisma.user.findUnique({ where: { id: userId } });
-        if (user) {
-          // Send order confirmation email
-          await emailService.sendOrderConfirmation(user.email, {
-            id: order.id,
-            total: order.total,
-            deliverySlot: order.deliverySlot,
-          });
-
-          // Send invoice to user
-          await emailService.sendInvoice(user.email, completeOrder);
-
-          // Send admin notification
-          await emailService.sendAdminOrderNotification(completeOrder);
-        }
-      }
+      // NOTE: Emails (confirmation + invoice) will be sent after successful payment
+      // See payuService.ts processPaymentCallback for email sending logic
 
       return {
         success: true,

@@ -268,6 +268,50 @@ class PayUService {
 
         console.log('✅ [PayU] Order updated to RECEIVED status');
 
+        // Send emails after successful payment
+        try {
+          // Get complete order details for email
+          const completeOrder = await prisma.order.findUnique({
+            where: { id: payment.orderId },
+            include: {
+              user: true,
+              address: true,
+              items: {
+                include: {
+                  product: true,
+                  variant: true,
+                },
+              },
+              coupon: true,
+            },
+          });
+
+          if (completeOrder && completeOrder.user) {
+            console.log('📧 [PayU] Sending payment confirmation emails');
+
+            // Import emailService dynamically to avoid circular dependency
+            const emailService = (await import('./emailService')).default;
+
+            // Send order confirmation email
+            await emailService.sendOrderConfirmation(completeOrder.user.email, {
+              id: completeOrder.id,
+              total: completeOrder.total,
+              deliverySlot: completeOrder.deliverySlot,
+            });
+
+            // Send invoice with full details (products, GST, delivery fee, total)
+            await emailService.sendInvoice(completeOrder.user.email, completeOrder as any);
+
+            // Send admin notification
+            await emailService.sendAdminOrderNotification(completeOrder as any);
+
+            console.log('✅ [PayU] All emails sent successfully');
+          }
+        } catch (emailError) {
+          console.error('❌ [PayU] Error sending emails:', emailError);
+          // Don't fail the payment callback if emails fail
+        }
+
         return {
           success: true,
           orderId: payment.orderId,
@@ -277,24 +321,55 @@ class PayUService {
       } else if (status === 'failure') {
         console.log('❌ [PayU] Payment failed');
 
-        // Update payment record
-        await prisma.payment.update({
-          where: { id: payment.id },
-          data: {
-            status: 'FAILED',
-            gatewayResponse: callbackData,
-            failureReason: error_Message || 'Payment failed',
-          },
+        // Get order with items to restore stock
+        const orderWithItems = await prisma.order.findUnique({
+          where: { id: payment.orderId },
+          include: { items: true },
         });
 
-        // Update order status
-        await prisma.order.update({
-          where: { id: payment.orderId },
-          data: {
-            paymentStatus: 'FAILED',
-            status: 'CANCELED',
-          },
+        // Update payment record and order status in transaction
+        await prisma.$transaction(async (tx) => {
+          // Update payment record
+          await tx.payment.update({
+            where: { id: payment.id },
+            data: {
+              status: 'FAILED',
+              gatewayResponse: callbackData,
+              failureReason: error_Message || 'Payment failed',
+            },
+          });
+
+          // Update order status to CANCELED
+          await tx.order.update({
+            where: { id: payment.orderId },
+            data: {
+              paymentStatus: 'FAILED',
+              status: 'CANCELED',
+            },
+          });
+
+          // Restore stock for each item
+          if (orderWithItems) {
+            console.log('📦 [PayU] Restoring stock for canceled order');
+            for (const item of orderWithItems.items) {
+              if (item.variantId) {
+                await tx.productVariant.update({
+                  where: { id: item.variantId },
+                  data: { stock: { increment: item.quantity } },
+                });
+                console.log(`✅ [PayU] Restored ${item.quantity} units to variant ${item.variantId}`);
+              } else {
+                await tx.product.update({
+                  where: { id: item.productId },
+                  data: { stock: { increment: item.quantity } },
+                });
+                console.log(`✅ [PayU] Restored ${item.quantity} units to product ${item.productId}`);
+              }
+            }
+          }
         });
+
+        console.log('✅ [PayU] Order canceled and stock restored');
 
         return {
           success: false,
