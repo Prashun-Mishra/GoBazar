@@ -1,0 +1,23 @@
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+    robots: {
+        index: false,
+        follow: false,
+        nocache: true,
+        googleBot: {
+            index: false,
+            follow: false,
+            noimageindex: true,
+        },
+    },
+    title: 'Payment - Go Bazaar',
+}
+
+export default function PaymentLayout({
+    children,
+}: {
+    children: React.ReactNode
+}) {
+    return <>{children}</>
+}

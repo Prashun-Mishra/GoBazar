@@ -9,6 +9,8 @@ import { Header } from "@/components/header"
 // Force dynamic rendering for this page
 export const dynamic = 'force-dynamic'
 
+// Prevent search engines from indexing this transient page
+
 function PaymentFailureContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -27,7 +29,7 @@ function PaymentFailureContent() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-      
+
       <div className="container max-w-2xl mx-auto px-4 py-16">
         <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12 text-center">
           {/* Failure Icon */}
@@ -41,11 +43,11 @@ function PaymentFailureContent() {
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Payment Failed
           </h1>
-          
+
           <p className="text-lg text-gray-600 mb-2">
             We couldn't process your payment.
           </p>
-          
+
           <p className="text-md text-red-600 mb-8">
             {decodeURIComponent(message)}
           </p>
@@ -101,7 +103,7 @@ function PaymentFailureContent() {
               <RefreshCcw className="w-5 h-5 mr-2" />
               Retry Payment
             </Button>
-            
+
             <Button
               onClick={() => router.push('/')}
               variant="outline"

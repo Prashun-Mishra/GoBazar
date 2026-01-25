@@ -9,12 +9,15 @@ import { Header } from "@/components/header"
 // Force dynamic rendering for this page
 export const dynamic = 'force-dynamic'
 
+// Prevent search engines from indexing this transient page
+// Note: For client components, we add meta tag in head directly
+
 function PaymentSuccessContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const orderId = searchParams.get('orderId')
   const txnId = searchParams.get('txnId')
-  
+
   const [countdown, setCountdown] = useState(10)
 
   useEffect(() => {
@@ -38,7 +41,7 @@ function PaymentSuccessContent() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-      
+
       <div className="container max-w-2xl mx-auto px-4 py-16">
         <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12 text-center">
           {/* Success Icon */}
@@ -52,7 +55,7 @@ function PaymentSuccessContent() {
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Payment Successful!
           </h1>
-          
+
           <p className="text-lg text-gray-600 mb-8">
             Thank you for your order. Your payment has been processed successfully.
           </p>
@@ -111,7 +114,7 @@ function PaymentSuccessContent() {
               <Package className="w-5 h-5 mr-2" />
               View Order Details
             </Button>
-            
+
             <Button
               onClick={() => router.push('/')}
               variant="outline"

@@ -58,22 +58,52 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return {
       title: 'Category Not Found',
       description: 'The category you are looking for does not exist.',
+      robots: { index: false, follow: false },
     }
   }
 
   const categoryUrl = `https://www.gobazaar.in/category/${params.slug}`
+  const richDescription = `Shop for ${category.name} online at Go Bazaar Pune. Best prices, fresh products, and fast delivery in Pune. Order ${category.name.toLowerCase()} now!`
 
   return {
-    title: category.name,
-    description: `Shop for ${category.name} online at Go Bazar. Best prices and fast delivery.`,
+    title: `${category.name} - Buy Online in Pune | Go Bazaar`,
+    description: richDescription,
+    keywords: [
+      category.name,
+      `${category.name} online`,
+      `buy ${category.name}`,
+      `${category.name} pune`,
+      `${category.name} delivery`,
+      `fresh ${category.name.toLowerCase()}`,
+    ],
     alternates: {
       canonical: categoryUrl,
     },
+    robots: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
     openGraph: {
-      title: category.name,
-      description: `Shop for ${category.name} online at Go Bazar.`,
-      images: category.image ? [category.image] : [],
+      type: 'website',
+      title: `${category.name} - Go Bazaar Pune`,
+      description: richDescription,
+      images: category.image ? [{
+        url: category.image,
+        width: 800,
+        height: 600,
+        alt: category.name,
+      }] : [],
       url: categoryUrl,
+      siteName: 'Go Bazaar',
+      locale: 'en_IN',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${category.name} - Go Bazaar`,
+      description: richDescription,
+      images: category.image ? [category.image] : [],
     },
   }
 }
