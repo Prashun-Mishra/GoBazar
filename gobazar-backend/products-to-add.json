@@ -1,271 +1,632 @@
 [
   {
-    "name": "Eggoz Nutrition White Protein Rich Eggs (6 pieces)",
-    "description": [
-      "High-quality protein-rich white eggs from Eggoz, known for superior nutrition and freshness.",
-      "These eggs come from well-cared hens and are packed with essential amino acids.",
-      "Perfect for omelettes, boiled eggs, scrambled eggs, baking, and high-protein meals.",
-      "Rich in vitamins and minerals that support energy and overall wellness.",
-      "Each pack contains 6 clean, hygienically packed white eggs."
-    ],
-    "keyBenefits": [
-      "High protein content",
-      "Farm-fresh white eggs",
-      "Ideal for breakfast and fitness",
-      "Rich in vitamins and minerals",
-      "Premium Eggoz quality"
-    ],
-    "sellingPrice": 80,
-    "mrp": 94,
-    "brand": "Eggoz",
-    "unit": "6 pieces",
-    "category": "Dairy & Breakfast",
-    "subcategory": "Eggs",
-    "stockQuantity": 500,
-    "imageUrls": [
-      "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=900/da/cms-assets/cms/product/5ecfa534-2789-4e74-9efb-73cefda109c6.png",
-      "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=900/da/cms-assets/cms/product/280b66fb-7967-4097-897e-83c3f2a80f06.png",
-      "https://cdn.grofers.com/cdn-cgi/image=f=auto,fit=scale-down,q=70,metadata=none,w=900/da/cms-assets/cms/product/3383f156-1bb4-4786-adac-6371d44e4350.png",
-      "https://cdn.grofers.com/cdn-cgi/image=f=auto,fit=scale-down,q=70,metadata=none,w=900/da/cms-assets/cms/product/5ca08453-bfa7-418d-ada7-ca16e070fdaa.png",
-      "https://cdn.grofers.com/cdn-cgi/image=f=auto,fit=scale-down,q=70,metadata=none,w=900/da/cms-assets/cms/product/c4edd84b-55d7-46f2-ad6f-f57b089c20df.png"
-    ],
-    "tags": [
-      "eggoz",
-      "protein-rich-eggs",
-      "white-eggs",
-      "high-protein",
-      "dairy-breakfast"
-    ]
-  },
-  {
-    "name": "Yojana Poultry Power White Eggs - 6 pcs",
-    "description": [
-      "Fresh and clean white eggs from Yojana Poultry Power, packed with essential nutrients.",
-      "Perfect for daily breakfast, baking, and protein-rich meals.",
-      "Rich in high-quality protein that supports muscle health and energy.",
-      "Farm-fresh eggs hygienically packed for safety and convenience.",
-      "Each pack contains 6 premium-quality white eggs."
-    ],
-    "keyBenefits": [
-      "Fresh and hygienic eggs",
-      "High in protein",
-      "Perfect for daily use",
-      "Farm-fresh quality",
-      "Affordable 6-piece pack"
-    ],
-    "sellingPrice": 57,
-    "mrp": 58,
-    "brand": "Yojana",
-    "unit": "6 pieces",
-    "category": "Dairy & Breakfast",
-    "subcategory": "Eggs",
-    "stockQuantity": 500,
-    "imageUrls": [
-      "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=900/da/cms-assets/cms/product/e13b3105-58c0-41f1-b6a9-0e4a3344cf6e.png",
-      "https://cdn.grofers.com/cdn-cgi/image=f=auto,fit=scale-down,q=70,metadata=none,w=900/da/cms-assets/cms/product/cd1713f0-dc15-4a75-9ad8-b84b4591890a.png",
-      "https://cdn.grofers.com/cdn-cgi/image=f=auto,fit=scale-down,q=70,metadata=none,w=900/da/cms-assets/cms/product/4abe5d1a-3c64-4108-be6e-e4a26127d371.png"
-    ],
-    "tags": [
-      "yojana-eggs",
-      "white-eggs",
-      "poultry-power",
-      "protein-source",
-      "breakfast"
-    ]
-  },
-  {
-    "name": "Yojana Poultry Power White Eggs - 12 pieces",
-    "description": [
-      "A family pack of 12 fresh white eggs from Yojana Poultry Power.",
-      "Rich in essential nutrients, vitamins, and high-quality protein.",
-      "Perfect for cooking, baking, meal prep, and daily nutrition.",
-      "Farm-fresh eggs hygienically packed for safe handling and storage.",
-      "Each pack contains 12 clean and uniform-sized white eggs."
-    ],
-    "keyBenefits": [
-      "Family pack of 12",
-      "Fresh and nutritious",
-      "Rich in protein",
-      "Farm quality assurance",
-      "Ideal for cooking and baking"
-    ],
-    "sellingPrice": 111,
-    "mrp": 116,
-    "brand": "Yojana",
-    "unit": "12 pieces",
-    "category": "Dairy & Breakfast",
-    "subcategory": "Eggs",
-    "stockQuantity": 500,
-    "imageUrls": [
-      "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=900/da/cms-assets/cms/product/9d6c58ed-1391-42cd-a2f8-3c1391c65750.png",
-      "https://cdn.grofers.com/cdn-cgi/image=f=auto,fit=scale-down,q=70,metadata=none,w=900/da/cms-assets/cms/product/4b282add-f2e0-4f0b-8a02-1f3507f28485.png",
-      "https://cdn.grofers.com/cdn-cgi/image=f=auto,fit=scale-down,q=70,metadata=none,w=900/da/cms-assets/cms/product/4257dfca-0e99-4e7a-a33f-cc0e1a1ff81e.png"
-    ],
-    "tags": [
-      "yojana-eggs",
-      "white-eggs",
-      "dozen-eggs",
-      "protein-rich",
-      "family-pack"
-    ]
-  },
-  {
-    "name": "Table White Eggs (6 pcs)",
-    "description": [
-      "Fresh and clean table white eggs from Dr. Hen, ideal for everyday cooking.",
-      "Rich in high-quality protein and essential nutrients needed for daily health.",
-      "Perfect for omelettes, boiled eggs, salads, baking, and nutritious meals.",
-      "Hygienically packed to ensure safety and freshness.",
-      "Each pack contains 6 white eggs."
-    ],
-    "keyBenefits": [
-      "High in protein",
-      "Fresh table white eggs",
-      "Ideal for daily meals",
-      "Safe and hygienic",
-      "Affordable 6-piece pack"
-    ],
-    "sellingPrice": 67,
-    "mrp": 85,
-    "brand": "Dr. Hen",
-    "unit": "6 pieces",
-    "category": "Dairy & Breakfast",
-    "subcategory": "Eggs",
-    "stockQuantity": 500,
-    "imageUrls": [
-      "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=900/da/cms-assets/cms/product/85328b8b-c5e3-4573-90a9-70ba6daaec6f.png",
-      "https://cdn.grofers.com/cdn-cgi/image=f=auto,fit=scale-down,q=70,metadata=none,w=900/da/cms-assets/cms/product/7f84f5d6-d0b5-4575-a59f-6f02cbfab19b.png",
-      "https://cdn.grofers.com/cdn-cgi/image=f=auto,fit=scale-down,q=70,metadata=none,w=900/da/cms-assets/cms/product/c442b11e-92c3-4dc0-9c73-c80b92dbe167.png"
-    ],
-    "tags": [
-      "dr-hen",
-      "white-eggs",
-      "table-eggs",
-      "protein-source",
-      "breakfast"
-    ]
-  },
-  {
-    "name": "Kellogg’s Corn Flakes with Immuno Nutrients",
-    "description": [
-      "Classic crunchy corn flakes fortified with essential vitamins and minerals.",
-      "Perfect with milk or yogurt for a wholesome breakfast.",
-      "High in energy and gluten-free for easier digestion."
-    ],
-    "keyBenefits": [
-      "Fortified with Immuno Nutrients",
-      "Crunchy and delicious",
-      "High energy",
-      "Gluten-free"
-    ],
-    "sellingPrice": 111,
-    "mrp": 266,
-    "brand": "Kellogg’s",
-    "unit": "250 g",
-    "category": "Dairy & Breakfast",
-    "subcategory": "Corn Flakes",
-    "stockQuantity": 120,
-    "imageUrls": [
-      "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=900/da/cms-assets/cms/product/19397.jpg"
-    ],
-    "tags": [
-      "Kellogg’s",
-      "Corn Flakes",
-      "Breakfast",
-      "Fortified",
-      "Kids",
-      "Crunchy"
-    ]
-  },
-  {
-    "name": "Nestlé Munch Choco Fills Cereal",
-    "description": [
-      "Delicious chocolate-filled cereal pieces kids love for breakfast.",
-      "Made with wholesome grains and rich chocolate flavour.",
-      "Serve with milk or eat as a quick snack."
-    ],
-    "keyBenefits": [
-      "Chocolate filled",
-      "Wholesome grains",
-      "Kids favorite",
-      "Quick snack"
-    ],
-    "sellingPrice": 57,
-    "mrp": 80,
-    "brand": "Nestlé",
-    "unit": "100 g",
-    "category": "Dairy & Breakfast",
-    "subcategory": "Kids Cereals",
-    "stockQuantity": 150,
-    "imageUrls": [
-      "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=900/da/cms-assets/cms/product/657563.jpg"
-    ],
-    "tags": [
-      "Nestlé",
-      "Munch",
-      "Chocolate",
-      "Kids Cereal",
-      "Quick Breakfast"
-    ]
-  },
-  {
-    "name": "Quaker Rolled Instant Oats",
-    "description": [
-      "Premium rolled oats for hearty breakfast meals.",
-      "Quick cooking and rich in fiber for digestive health.",
-      "Serve with milk, fruits, or add to smoothies and recipes."
-    ],
-    "keyBenefits": [
-      "Rich in fiber",
-      "Quick cooking",
-      "Hearty breakfast",
-      "Digestive health"
-    ],
-    "sellingPrice": 157,
-    "mrp": 210,
-    "brand": "Quaker",
-    "unit": "1 kg",
-    "category": "Dairy & Breakfast",
-    "subcategory": "Oats & Porridge",
-    "stockQuantity": 100,
-    "imageUrls": [
-      "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=900/da/cms-assets/cms/product/37261.jpg"
-    ],
-    "tags": [
-      "Quaker",
-      "Oats",
-      "Rolled Oats",
-      "Healthy Breakfast",
-      "High Fiber"
-    ]
-  },
-  {
-    "name": "Bagrry’s 100% Jumbo Rolled Oats",
-    "description": [
-      "Whole grain jumbo oats packed with fiber and plant-based nutrition.",
-      "Ideal for healthy breakfasts, porridge, muesli, or baking.",
-      "Slow-cooked texture with hearty flavour."
-    ],
-    "keyBenefits": [
-      "Whole grain",
-      "High fiber",
-      "No preservative"
-    ],
-    "sellingPrice": 230,
-    "mrp": 416,
-    "brand": "Bagrry’s",
+    "name": "Patanjali Wheat Daliya",
+    "description": "Patanjali Wheat Daliya is made from high-quality wheat grains that are broken down into smaller fragments. It is highly nutritious and an excellent source of fiber, which aids digestion. This daliya is perfect for making a wholesome breakfast porridge or a savory khichdi with vegetables. It is processed to ensure cleanliness and uniformity. Patanjali Daliya is low in fat and cholesterol, making it heart-healthy. It provides a feeling of fullness, preventing overeating and helping in weight management.",
+    "price": 35,
+    "mrp": 35,
+    "brand": "Patanjali",
     "unit": "500 g",
-    "category": "Dairy & Breakfast",
-    "subcategory": "Oats & Porridge",
-    "stockQuantity": 90,
-    "imageUrls": [
-      "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=900/da/cms-assets/cms/product/500858.jpg"
+    "categoryName": "Dairy & Breakfast",
+    "subcategoryName": "Daliya & Other Grains",
+    "stock": 220,
+    "featured": true,
+    "images": [
+      "https://www.bigbasket.com/media/uploads/p/l/40009462_7-patanjali-dalia-wheat.jpg"
     ],
     "tags": [
-      "Bagrry’s",
-      "Jumbo Oats",
-      "Healthy Oats",
-      "Breakfast Cereal"
+      "wheat daliya",
+      "patanjali",
+      "healthy grain",
+      "porridge"
+    ]
+  },
+  {
+    "name": "Organic Tattva Wheat Daliya",
+    "description": "Organic Tattva Wheat Daliya is certified organic, ensuring it is free from pesticides and synthetic fertilizers. It retains the natural bran and germ of the wheat, providing maximum nutrition. Rich in complex carbohydrates, it releases energy slowly, keeping you active throughout the day. It has a nutty flavor and a chewy texture when cooked. Ideal for health-conscious families who prefer organic produce. Use it to make a sweet lapsi or a nutritious salad.",
+    "price": 60,
+    "mrp": 75,
+    "brand": "Organic Tattva",
+    "unit": "500 g",
+    "categoryName": "Dairy & Breakfast",
+    "subcategoryName": "Daliya & Other Grains",
+    "stock": 130,
+    "featured": false,
+    "images": [
+      "https://m.media-amazon.com/images/I/71u+9yq+gWL._SX679_.jpg"
+    ],
+    "tags": [
+      "organic daliya",
+      "wheat porridge",
+      "organic tattva",
+      "healthy"
+    ]
+  },
+  {
+    "name": "Safe Harvest Pearl Millet (Bajra)",
+    "description": "Safe Harvest Pearl Millet (Bajra) is a gluten-free ancient grain that is packed with iron, magnesium, and protein. Sourced from pesticide-free farms, it is a great alternative to rice or wheat. Bajra is known for its heat-generating properties, making it ideal for consumption in winters. It can be ground into flour for rotis or cooked whole like rice. It helps in controlling blood sugar levels and is beneficial for heart health. A traditional superfood for the modern diet.",
+    "price": 55,
+    "mrp": 65,
+    "brand": "Safe Harvest",
+    "unit": "500 g",
+    "categoryName": "Dairy & Breakfast",
+    "subcategoryName": "Daliya & Other Grains",
+    "stock": 100,
+    "featured": true,
+    "images": [
+      "https://www.bigbasket.com/media/uploads/p/l/40072489_6-safe-harvest-bajra-pearl-millet-pesticide-free.jpg"
+    ],
+    "tags": [
+      "bajra",
+      "pearl millet",
+      "gluten free",
+      "ancient grain"
+    ]
+  },
+  {
+    "name": "Manna Ragi Malt",
+    "description": "Manna Ragi Malt is a sprouted finger millet flour that serves as a complete health drink for the whole family. Sprouting ragi increases its calcium and iron bioavailability, making it easier to absorb. It is a natural source of Vitamin D and protein. This malt can be cooked with milk or water to make a nutritious porridge. It is excellent for growing children and elderly people for bone health. No artificial colors or preservatives are added.",
+    "price": 185,
+    "mrp": 210,
+    "brand": "Manna",
+    "unit": "500 g",
+    "categoryName": "Dairy & Breakfast",
+    "subcategoryName": "Daliya & Other Grains",
+    "stock": 150,
+    "featured": false,
+    "images": [
+      "https://m.media-amazon.com/images/I/71JgPjM8yWL._SX679_.jpg"
+    ],
+    "tags": [
+      "ragi malt",
+      "sprouted ragi",
+      "baby food",
+      "healthy drink"
+    ]
+  },
+  {
+    "name": "India Gate Quinoa",
+    "description": "India Gate Quinoa is a premium quality superfood that is a complete protein source, containing all nine essential amino acids. It is gluten-free, high in fiber, and has a low glycemic index. This quinoa is pre-washed to remove the bitter saponin coating, making it ready to cook. It cooks up fluffy and light with a delicate crunch. Use it as a rice replacement, in salads, or for making healthy burger patties. It is an excellent choice for vegans and weight watchers.",
+    "price": 250,
+    "mrp": 350,
+    "brand": "India Gate",
+    "unit": "500 g",
+    "categoryName": "Dairy & Breakfast",
+    "subcategoryName": "Daliya & Other Grains",
+    "stock": 80,
+    "featured": true,
+    "images": [
+      "https://m.media-amazon.com/images/I/71+m-Qv+lL._SX679_.jpg"
+    ],
+    "tags": [
+      "quinoa",
+      "superfood",
+      "protein rich",
+      "gluten free"
+    ]
+  },
+  {
+    "name": "Yoga Bar 20g Protein Bar (Chocolate Brownie)",
+    "description": "Yoga Bar 20g Protein Bar in Chocolate Brownie flavor is the ultimate post-workout snack. Packed with 20g of high-quality whey and almond protein, it helps in muscle recovery and growth. It contains no soy, no gluten, and no added preservatives. The rich chocolate taste comes from real cocoa, making it feel like a cheat meal while being healthy. It is also loaded with fiber and essential vitamins. Perfect for athletes and fitness enthusiasts on the go.",
+    "price": 99,
+    "mrp": 120,
+    "brand": "Yoga Bar",
+    "unit": "60 g",
+    "categoryName": "Dairy & Breakfast",
+    "subcategoryName": "Energy Bars",
+    "stock": 150,
+    "featured": true,
+    "images": [
+      "https://m.media-amazon.com/images/I/71+m-Qv+lL._SX679_.jpg"
+    ],
+    "tags": [
+      "protein bar",
+      "yoga bar",
+      "workout snack",
+      "chocolate"
+    ]
+  },
+  {
+    "name": "RiteBite Max Protein Active (Choco Slim)",
+    "description": "RiteBite Max Protein Active bar offers 20g of protein and is designed to fuel your active lifestyle. The Choco Slim flavor is sugar-free and 100% vegetarian. It contains a blend of whey, soy, and casein protein for sustained energy release. Enriched with 21 vitamins and minerals, electrolytes, and omega-3, it is more than just a protein bar—it's a complete meal replacement. It satisfies hunger cravings for up to 4 hours. Great for busy professionals and trekkers.",
+    "price": 105,
+    "mrp": 125,
+    "brand": "RiteBite",
+    "unit": "67 g",
+    "categoryName": "Dairy & Breakfast",
+    "subcategoryName": "Energy Bars",
+    "stock": 140,
+    "featured": false,
+    "images": [
+      "https://m.media-amazon.com/images/I/61K-uPz+pWL._SX679_.jpg"
+    ],
+    "tags": [
+      "max protein",
+      "ritebite",
+      "meal replacement",
+      "sugar free"
+    ]
+  },
+  {
+    "name": "The Whole Truth - Peanut Butter Protein Bar",
+    "description": "The Whole Truth Protein Bars are famous for their clean label—ingredients you can read and understand. The Peanut Butter bar is made with just peanuts, dates, and whey protein. No added sugar, no artificial sweeteners, no gluten, and no soy. It offers a dense, chewy texture with the authentic taste of roasted peanuts. Each bar provides 15g of protein. It represents honest food marketing and delivers pure nutrition without the junk.",
+    "price": 85,
+    "mrp": 100,
+    "brand": "The Whole Truth",
+    "unit": "52 g",
+    "categoryName": "Dairy & Breakfast",
+    "subcategoryName": "Energy Bars",
+    "stock": 120,
+    "featured": false,
+    "images": [
+      "https://m.media-amazon.com/images/I/71JgPjM8yWL._SX679_.jpg"
+    ],
+    "tags": [
+      "clean label",
+      "peanut butter bar",
+      "whole truth",
+      "no sugar"
+    ]
+  },
+  {
+    "name": "Monkey Bar Vegan Energy Bar (Dark Cocoa & Hazelnut)",
+    "description": "Monkey Bar offers a delicious vegan energy bar made with dark cocoa and premium hazelnuts. It is a natural energy booster made from fruits, nuts, and seeds. Free from added sugar and processed additives, it relies on dates for sweetness. The crunchy hazelnuts paired with intense dark chocolate make it a delightful treat. Ideal for a mid-day slump or a pre-run snack. It is gluten-free and dairy-free, catering to specific dietary requirements.",
+    "price": 45,
+    "mrp": 50,
+    "brand": "Monkey Bar",
+    "unit": "40 g",
+    "categoryName": "Dairy & Breakfast",
+    "subcategoryName": "Energy Bars",
+    "stock": 180,
+    "featured": false,
+    "images": [
+      "https://www.bigbasket.com/media/uploads/p/l/40199732_3-monkey-bar-vegan-energy-bar-dark-cocoa-hazelnut.jpg"
+    ],
+    "tags": [
+      "vegan bar",
+      "energy bar",
+      "hazelnut",
+      "monkey bar"
+    ]
+  },
+  {
+    "name": "Kellogg's K-Energy Bar (Choco & Nut)",
+    "description": "Kellogg's K-Energy Bar is a tasty blend of cereal grains, chocolates, and nuts. It provides a quick burst of energy and is perfect for beating hunger pangs between meals. The bar has a crispy texture thanks to the rice crispies and rolled oats. The chocolate coating makes it appealing to children. It is fortified with essential B-group vitamins. A convenient pocket-sized snack that you can carry to school, college, or work.",
+    "price": 30,
+    "mrp": 35,
+    "brand": "Kellogg's",
+    "unit": "30 g",
+    "categoryName": "Dairy & Breakfast",
+    "subcategoryName": "Energy Bars",
+    "stock": 250,
+    "featured": false,
+    "images": [
+      "https://m.media-amazon.com/images/I/61y8yFjK8IL._SX679_.jpg"
+    ],
+    "tags": [
+      "kelloggs",
+      "cereal bar",
+      "choco nut",
+      "snack"
+    ]
+  },
+  {
+    "name": "Amul Kool Cafe",
+    "description": "Amul Kool Cafe is a refreshing milk and coffee blend that energizes you instantly. Made from fresh Amul milk and premium coffee, it offers a smooth and creamy taste. It is best enjoyed chilled and is a perfect companion for hot summer days. The can packaging makes it easy to carry and consume on the go. It provides calcium and protein from milk along with the kick of caffeine. A favorite among youth and coffee lovers across India.",
+    "price": 25,
+    "mrp": 25,
+    "brand": "Amul",
+    "unit": "200 ml",
+    "categoryName": "Dairy & Breakfast",
+    "subcategoryName": "Lassi, Shakes & More",
+    "stock": 300,
+    "featured": true,
+    "images": [
+      "https://m.media-amazon.com/images/I/71+m-Qv+lL._SX679_.jpg"
+    ],
+    "tags": [
+      "cold coffee",
+      "amul kool",
+      "milk shake",
+      "beverage"
+    ]
+  },
+  {
+    "name": "Cavin's Strawberry Milkshake",
+    "description": "Cavin's Strawberry Milkshake is a thick and creamy delight loved by kids. It combines the goodness of double-toned milk with the sweet and tangy flavor of strawberries. Enriched with Zinc, Vitamin A, and Vitamin D, it supports immunity and bone health. The UHT treatment ensures a long shelf life without preservatives. It is a great lunchbox addition or an after-school treat. The convenient tetra pack with a straw makes it mess-free and easy to drink.",
+    "price": 35,
+    "mrp": 40,
+    "brand": "Cavin's",
+    "unit": "180 ml",
+    "categoryName": "Dairy & Breakfast",
+    "subcategoryName": "Lassi, Shakes & More",
+    "stock": 200,
+    "featured": false,
+    "images": [
+      "https://m.media-amazon.com/images/I/61K-uPz+pWL._SX679_.jpg"
+    ],
+    "tags": [
+      "strawberry shake",
+      "cavins",
+      "milkshake",
+      "kids drink"
+    ]
+  },
+  {
+    "name": "Amul Rose Lassi",
+    "description": "Amul Rose Lassi is a traditional refreshing drink made from pasteurized toned milk dahi. It is flavored with rose syrup, giving it a fragrant and cooling effect. The lassi is rich in calcium and probiotics, aiding digestion and gut health. It has a perfect balance of sweetness and tanginess. The tetra pack ensures freshness and hygiene. Ideal for consuming after a spicy meal or as a hydrating summer drink. It brings the taste of authentic Indian lassi to your home.",
+    "price": 23,
+    "mrp": 25,
+    "brand": "Amul",
+    "unit": "200 ml",
+    "categoryName": "Dairy & Breakfast",
+    "subcategoryName": "Lassi, Shakes & More",
+    "stock": 280,
+    "featured": false,
+    "images": [
+      "https://m.media-amazon.com/images/I/71JgPjM8yWL._SX679_.jpg"
+    ],
+    "tags": [
+      "rose lassi",
+      "amul",
+      "probiotic",
+      "indian drink"
+    ]
+  },
+  {
+    "name": "Hershey's Milkshake - Chocolate",
+    "description": "Hershey's Milkshake brings the classic taste of Hershey's chocolate in a liquid form. It contains 30% more calcium than regular cow's milk and is fortified with essential vitamins and minerals. The rich, velvety chocolate flavor creates a premium drinking experience. It serves as a great breakfast accompaniment or a midnight snack. Both hot and cold consumption is possible, though it tastes best when chilled. A treat for chocolate connoisseurs of all ages.",
+    "price": 38,
+    "mrp": 40,
+    "brand": "Hershey's",
+    "unit": "180 ml",
+    "categoryName": "Dairy & Breakfast",
+    "subcategoryName": "Lassi, Shakes & More",
+    "stock": 160,
+    "featured": true,
+    "images": [
+      "https://m.media-amazon.com/images/I/61V+yq+gWL._SX679_.jpg"
+    ],
+    "tags": [
+      "chocolate milkshake",
+      "hersheys",
+      "calcium rich",
+      "beverage"
+    ]
+  },
+  {
+    "name": "Paper Boat Thandai",
+    "description": "Paper Boat Thandai is a nostalgic drink that captures the essence of Indian festivals like Holi. It is a milk-based drink infused with a rich paste of almonds, fennel seeds, melon seeds, pepper, and cardamom. It contains no preservatives or added colors. The flavor is intense, creamy, and cooling. It serves as a great energy booster and aids in digestion due to the spices. Packaged in Paper Boat's signature pouches, it is easy to sip and savour memories.",
+    "price": 50,
+    "mrp": 55,
+    "brand": "Paper Boat",
+    "unit": "180 ml",
+    "categoryName": "Dairy & Breakfast",
+    "subcategoryName": "Lassi, Shakes & More",
+    "stock": 120,
+    "featured": false,
+    "images": [
+      "https://m.media-amazon.com/images/I/71u+9yq+gWL._SX679_.jpg"
+    ],
+    "tags": [
+      "thandai",
+      "paper boat",
+      "traditional drink",
+      "almond milk"
+    ]
+  },
+  {
+    "name": "MTR Rava Idli Mix",
+    "description": "MTR Rava Idli Mix is the easiest way to make fluffy, soft, and delicious Rava Idlis at home. A signature product from MTR, it contains semolina, cashew nuts, and aromatic spices tempered in ghee. You just need to add curd, mix, and steam. It saves the hassle of soaking and grinding batter. Perfect for a quick, healthy, and filling breakfast. Serve it with coconut chutney and sambar for a complete South Indian meal experience.",
+    "price": 130,
+    "mrp": 145,
+    "brand": "MTR",
+    "unit": "500 g",
+    "categoryName": "Dairy & Breakfast",
+    "subcategoryName": "Breakfast Mixes",
+    "stock": 150,
+    "featured": true,
+    "images": [
+      "https://m.media-amazon.com/images/I/71lFmnWkZmL._SX679_.jpg"
+    ],
+    "tags": [
+      "rava idli",
+      "instant mix",
+      "mtr",
+      "south indian breakfast"
+    ]
+  },
+  {
+    "name": "Gits Dosai Mix",
+    "description": "Gits Dosai Mix allows you to prepare crispy and golden dosas instantly. Made from high-quality rice and lentil flour, it undergoes a natural fermentation process before being dehydrated, ensuring the authentic sour taste of dosa batter. It is 100% vegetarian and free from artificial flavors and colors. Simply add water to the mix and your batter is ready. Ideal for making plain dosas, masala dosas, or uttapams. A consistent and convenient solution for dosa lovers.",
+    "price": 75,
+    "mrp": 80,
+    "brand": "Gits",
+    "unit": "200 g",
+    "categoryName": "Dairy & Breakfast",
+    "subcategoryName": "Breakfast Mixes",
+    "stock": 130,
+    "featured": false,
+    "images": [
+      "https://m.media-amazon.com/images/I/61H+yq+gWL._SX679_.jpg"
+    ],
+    "tags": [
+      "dosa mix",
+      "gits",
+      "instant breakfast",
+      "crispy dosa"
+    ]
+  },
+  {
+    "name": "Tata Sampann Multigrain Chilla Mix",
+    "description": "Tata Sampann Multigrain Chilla Mix is a nutritious breakfast option packed with the goodness of pulses and grains. It contains moong dal, oats, brown rice, and spices. Developed with Chef Sanjeev Kapoor, it ensures a perfect balance of taste and health. It is high in protein and fiber, making it great for weight management. The mix is ready to cook in 15 minutes. You can add chopped vegetables to the batter to make it even more wholesome.",
+    "price": 90,
+    "mrp": 100,
+    "brand": "Tata Sampann",
+    "unit": "180 g",
+    "categoryName": "Dairy & Breakfast",
+    "subcategoryName": "Breakfast Mixes",
+    "stock": 100,
+    "featured": false,
+    "images": [
+      "https://m.media-amazon.com/images/I/61V+yq+gWL._SX679_.jpg"
+    ],
+    "tags": [
+      "chilla mix",
+      "multigrain",
+      "high protein",
+      "tata sampann"
+    ]
+  },
+  {
+    "name": "Betty Crocker Pancake Mix (Classic)",
+    "description": "Betty Crocker Pancake Mix brings the fluffy American-style pancakes to your kitchen. It is incredibly easy to use—just add water or milk to the mix, whisk, and cook. The result is light, airy, and golden pancakes. It serves as a blank canvas for toppings like maple syrup, honey, fresh fruits, or whipped cream. Kids love it for breakfast or as an evening snack. It delivers a consistent taste and texture that Betty Crocker is globally known for.",
+    "price": 150,
+    "mrp": 175,
+    "brand": "Betty Crocker",
+    "unit": "500 g",
+    "categoryName": "Dairy & Breakfast",
+    "subcategoryName": "Breakfast Mixes",
+    "stock": 90,
+    "featured": false,
+    "images": [
+      "https://m.media-amazon.com/images/I/61K-uPz+pWL._SX679_.jpg"
+    ],
+    "tags": [
+      "pancake mix",
+      "betty crocker",
+      "american breakfast",
+      "eggless"
+    ]
+  },
+  {
+    "name": "Aashirvaad Instant Veggie Upma Mix",
+    "description": "Aashirvaad Instant Veggie Upma Mix is a comfort food that is ready in minutes. It is loaded with dehydrated vegetables like carrots, peas, and onions, along with roasted semolina and authentic spices. You just need to add boiling water and let it sit. It tastes like homemade upma with the aroma of curry leaves and mustard seeds. No cooking is required, making it perfect for travel or hostel students. It is wholesome, tasty, and convenient.",
+    "price": 45,
+    "mrp": 50,
+    "brand": "Aashirvaad",
+    "unit": "80 g (Cup)",
+    "categoryName": "Dairy & Breakfast",
+    "subcategoryName": "Breakfast Mixes",
+    "stock": 200,
+    "featured": false,
+    "images": [
+      "https://m.media-amazon.com/images/I/71JgPjM8yWL._SX679_.jpg"
+    ],
+    "tags": [
+      "upma mix",
+      "instant cup",
+      "veggie upma",
+      "aashirvaad"
+    ]
+  },
+  {
+    "name": "Dabur Honey",
+    "description": "Dabur Honey is India's most trusted honey brand, sourced from the finest hives in the Himalayas and Sunderbans. It is 100% pure and passes stringent NMR testing to ensure no added sugar. Known for its rich taste and distinct aroma, it is a great natural sweetener. It helps in weight management when consumed with warm water and lemon. It is also a natural cough suppressant and boosts immunity. Use it in tea, on toast, or as a topping for desserts.",
+    "price": 199,
+    "mrp": 220,
+    "brand": "Dabur",
+    "unit": "500 g",
+    "categoryName": "Dairy & Breakfast",
+    "subcategoryName": "Honey & Chyawanprash",
+    "stock": 250,
+    "featured": true,
+    "images": [
+      "https://m.media-amazon.com/images/I/71+m-Qv+lL._SX679_.jpg"
+    ],
+    "tags": [
+      "pure honey",
+      "dabur",
+      "weight loss",
+      "immunity"
+    ]
+  },
+  {
+    "name": "Dabur Chyawanprash",
+    "description": "Dabur Chyawanprash is a time-tested Ayurvedic formulation made from over 40 potent herbs, with Amla as the main ingredient. It is scientifically proven to double immunity and protect against common illnesses like cold and cough. It boosts energy and strength, suitable for all age groups. The sweet and spicy taste is loved by many. Consuming a spoonful daily helps build resistance against infections and improves respiratory health. It is a daily health supplement for the entire family.",
+    "price": 345,
+    "mrp": 395,
+    "brand": "Dabur",
+    "unit": "950 g",
+    "categoryName": "Dairy & Breakfast",
+    "subcategoryName": "Honey & Chyawanprash",
+    "stock": 180,
+    "featured": true,
+    "images": [
+      "https://m.media-amazon.com/images/I/61y8yFjK8IL._SX679_.jpg"
+    ],
+    "tags": [
+      "chyawanprash",
+      "immunity booster",
+      "ayurvedic",
+      "dabur"
+    ]
+  },
+  {
+    "name": "Saffola Honey",
+    "description": "Saffola Honey is 100% pure and NMR tested, guaranteeing no sugar adulteration. It is sourced from antibiotic-free beehives. Saffola Honey is rich in antioxidants and helps boost metabolism. It has a smooth texture and a delightful golden color. It is a healthier alternative to refined sugar for your beverages and desserts. The squeezy bottle packaging ensures zero mess and easy usage. A pure and natural product for health-conscious consumers.",
+    "price": 185,
+    "mrp": 210,
+    "brand": "Saffola",
+    "unit": "500 g",
+    "categoryName": "Dairy & Breakfast",
+    "subcategoryName": "Honey & Chyawanprash",
+    "stock": 160,
+    "featured": false,
+    "images": [
+      "https://m.media-amazon.com/images/I/61K-uPz+pWL._SX679_.jpg"
+    ],
+    "tags": [
+      "saffola honey",
+      "pure honey",
+      "nmr tested",
+      "squeezy bottle"
+    ]
+  },
+  {
+    "name": "Baidyanath Chyawanprash Special",
+    "description": "Baidyanath Chyawanprash Special is prepared according to the traditional Ayurvedic recipe. It is rich in Vitamin C from fresh Amlas and contains 52 essential herbs. It helps strengthen the body's internal defense mechanism and revitalizes the system. It is excellent for improving digestion and respiratory function. The inclusion of real silver foil (varak) and saffron adds to its rejuvenating properties. It is an excellent anti-aging supplement that promotes youthful vigor.",
+    "price": 330,
+    "mrp": 360,
+    "brand": "Baidyanath",
+    "unit": "1 kg",
+    "categoryName": "Dairy & Breakfast",
+    "subcategoryName": "Honey & Chyawanprash",
+    "stock": 140,
+    "featured": false,
+    "images": [
+      "https://m.media-amazon.com/images/I/71JgPjM8yWL._SX679_.jpg"
+    ],
+    "tags": [
+      "baidyanath",
+      "chyawanprash",
+      "ayurveda",
+      "health supplement"
+    ]
+  },
+  {
+    "name": "Organic India Honey",
+    "description": "Organic India Honey is certified organic wild forest honey. It is collected from the Himalayan forests where the bees feed on organic flora. It is unfiltered and unpasteurized, retaining natural enzymes, pollen, and nutrients. It has a robust, distinct flavor that is different from commercial farm honey. It is a rich source of energy and heals wounds and burns due to its antibacterial properties. Perfect for those who seek honey in its most natural and raw form.",
+    "price": 270,
+    "mrp": 295,
+    "brand": "Organic India",
+    "unit": "500 g",
+    "categoryName": "Dairy & Breakfast",
+    "subcategoryName": "Honey & Chyawanprash",
+    "stock": 100,
+    "featured": false,
+    "images": [
+      "https://m.media-amazon.com/images/I/71u+9yq+gWL._SX679_.jpg"
+    ],
+    "tags": [
+      "organic honey",
+      "wild forest honey",
+      "organic india",
+      "raw honey"
+    ]
+  },
+  {
+    "name": "Prasuma Chicken Salami (Plain)",
+    "description": "Prasuma Chicken Salami is a premium deli meat made from high-quality chicken breast meat. It is lightly seasoned to bring out the natural flavors of the meat. Pre-sliced for convenience, it is ready to eat right out of the pack or can be lightly pan-fried. Perfect for sandwiches, pizzas, and salads. It is free from antibiotics and hormones. The texture is tender and succulent, making it a favorite for breakfast platters or cold cuts.",
+    "price": 175,
+    "mrp": 195,
+    "brand": "Prasuma",
+    "unit": "150 g",
+    "categoryName": "Dairy & Breakfast",
+    "subcategoryName": "Sausage, Salami & Ham",
+    "stock": 80,
+    "featured": false,
+    "images": [
+      "https://m.media-amazon.com/images/I/71lFmnWkZmL._SX679_.jpg"
+    ],
+    "tags": [
+      "chicken salami",
+      "cold cut",
+      "prasuma",
+      "sandwich meat"
+    ]
+  },
+  {
+    "name": "Zorabian Chicken Sausages (Spicy)",
+    "description": "Zorabian Chicken Sausages are made from farm-fresh chicken and a special blend of spicy herbs. They are juicy, flavorful, and free from MSG and added colors. These sausages are pre-cooked and only need to be grilled or shallow fried for a few minutes. They add a spicy kick to your breakfast or hot dogs. Zorabian ensures high hygiene standards and antibiotic-free meat. A great source of lean protein for meat lovers.",
+    "price": 190,
+    "mrp": 210,
+    "brand": "Zorabian",
+    "unit": "250 g",
+    "categoryName": "Dairy & Breakfast",
+    "subcategoryName": "Sausage, Salami & Ham",
+    "stock": 90,
+    "featured": false,
+    "images": [
+      "https://m.media-amazon.com/images/I/61H+yq+gWL._SX679_.jpg"
+    ],
+    "tags": [
+      "spicy sausage",
+      "chicken sausage",
+      "zorabian",
+      "frozen meat"
+    ]
+  },
+  {
+    "name": "Licious Chicken Lyoner (Classic)",
+    "description": "Licious Chicken Lyoner is a classic breakfast cold cut. It is finely minced chicken meat mixed with subtle spices, steam-cooked to perfection. It has a smooth texture and cuts easily. Ideal for making club sandwiches or serving with cheese and crackers. Licious ensures the meat is fresh and never frozen, vacuum packed to retain freshness. It contains no artificial preservatives. A versatile ingredient for quick and protein-rich snacks.",
+    "price": 149,
+    "mrp": 169,
+    "brand": "Licious",
+    "unit": "150 g",
+    "categoryName": "Dairy & Breakfast",
+    "subcategoryName": "Sausage, Salami & Ham",
+    "stock": 70,
+    "featured": false,
+    "images": [
+      "https://m.media-amazon.com/images/I/61V+yq+gWL._SX679_.jpg"
+    ],
+    "tags": [
+      "chicken lyoner",
+      "licious",
+      "breakfast meat",
+      "cold cut"
+    ]
+  },
+  {
+    "name": "Venky's Chicken Frankfurters",
+    "description": "Venky's Chicken Frankfurters are classic hot dog sausages made from tender chicken meat. They are smoked to give a distinct aroma and flavor. Soft and juicy, they are a hit with children. Boil, grill, or fry them and serve in a bun with mustard and ketchup. Venky's is a pioneer in the Indian poultry industry, ensuring safe and quality products. These franks are a convenient option for quick meals and parties.",
+    "price": 160,
+    "mrp": 175,
+    "brand": "Venky's",
+    "unit": "300 g",
+    "categoryName": "Dairy & Breakfast",
+    "subcategoryName": "Sausage, Salami & Ham",
+    "stock": 110,
+    "featured": false,
+    "images": [
+      "https://m.media-amazon.com/images/I/61K-uPz+pWL._SX679_.jpg"
+    ],
+    "tags": [
+      "chicken franks",
+      "hot dog",
+      "venkys",
+      "sausages"
+    ]
+  },
+  {
+    "name": "Meatzaa Chicken Ham Slices",
+    "description": "Meatzaa Chicken Ham Slices offer the taste of traditional ham with the lean benefits of chicken. The slices are cured and cooked, offering a salty and savory flavor profile. They are low in fat compared to pork ham. Use them in sandwiches, wraps, or chop them up for salads and omelets. Meatzaa products are processed in state-of-the-art facilities. A delicious way to add protein to your diet without the hassle of cooking meat from scratch.",
+    "price": 180,
+    "mrp": 195,
+    "brand": "Meatzaa",
+    "unit": "200 g",
+    "categoryName": "Dairy & Breakfast",
+    "subcategoryName": "Sausage, Salami & Ham",
+    "stock": 60,
+    "featured": false,
+    "images": [
+      "https://m.media-amazon.com/images/I/71JgPjM8yWL._SX679_.jpg"
+    ],
+    "tags": [
+      "chicken ham",
+      "meatzaa",
+      "deli meat",
+      "sliced ham"
     ]
   }
 ]
