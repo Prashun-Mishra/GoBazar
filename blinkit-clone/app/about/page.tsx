@@ -22,9 +22,56 @@ import {
 export const metadata: Metadata = {
   title: "About Us | Go Bazar - Pune's Fastest Grocery Delivery",
   description: "Learn about Go Bazar's mission to revolutionize grocery delivery in Pune. We deliver fresh produce and essentials in 20 minutes.",
+  robots: {
+    index: true,
+    follow: true,
+    'max-image-preview': 'large',
+    'max-snippet': -1,
+  },
   openGraph: {
     title: "About Us | Go Bazar",
     description: "Learn about Go Bazar's mission to revolutionize grocery delivery in Pune.",
+    url: 'https://www.gobazaar.in/about',
+    siteName: 'Go Bazaar',
+    locale: 'en_IN',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "About Us | Go Bazar",
+    description: "Learn about Go Bazar's mission to revolutionize grocery delivery in Pune.",
+  }
+}
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: 'About Go Bazaar',
+  description: "Learn about Go Bazar's mission to revolutionize grocery delivery in Pune.",
+  mainEntity: {
+    '@type': 'Organization',
+    name: 'Go Bazaar',
+    url: 'https://www.gobazaar.in',
+    logo: 'https://www.gobazaar.in/logo.png',
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: '+91-7558658539',
+      contactType: 'customer service',
+      areaServed: 'IN',
+      availableLanguage: 'en'
+    },
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: '80/4, Shop No 4, Old Sangvi Bopodi Road, Opposite Kinara Hotel, Dapodi',
+      addressLocality: 'Pune',
+      addressRegion: 'Maharashtra',
+      postalCode: '411012',
+      addressCountry: 'IN'
+    },
+    sameAs: [
+      'https://www.instagram.com/gobazaar_in',
+      'https://www.facebook.com/gobazaarin'
+    ]
   }
 }
 
@@ -62,6 +109,10 @@ export default function AboutPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Header />
 
       <main>

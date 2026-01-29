@@ -110,5 +110,47 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function CategoryPage({ params }: Props) {
   const category = await getCategory(params.slug)
-  return <CategoryClient category={category} />
+
+  const jsonLd = category ? {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: category.name,
+    description: `Shop for ${category.name} online at Go Bazaar Pune. Best prices and fast delivery.`,
+    url: `https://www.gobazaar.in/category/${category.slug}`,
+    image: category.image ? {
+      '@type': 'ImageObject',
+      url: category.image,
+      width: 800,
+      height: 600
+    } : undefined,
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: 'https://www.gobazaar.in'
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: category.name,
+          item: `https://www.gobazaar.in/category/${category.slug}`
+        }
+      ]
+    }
+  } : null
+
+  return (
+    <>
+      {jsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      )}
+      <CategoryClient category={category} />
+    </>
+  )
 }
