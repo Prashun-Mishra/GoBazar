@@ -1,5 +1,9 @@
 import { MetadataRoute } from 'next'
 
+// Force dynamic generation - don't cache sitemap at build time
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 // Hardcode backend URL for sitemap to avoid any env var issues during build
 const SITEMAP_BACKEND_URL = 'https://gobazar-backend.onrender.com'
 
